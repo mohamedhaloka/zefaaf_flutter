@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zeffaf/pages/chat.list/view.dart';
 import 'package:zeffaf/pages/search_filter/serachFilter.view.dart';
-import 'package:zeffaf/utils/input_data.dart';
 import 'package:zeffaf/utils/theme.dart';
 import 'package:zeffaf/widgets/cards/mutual_card.dart';
 
@@ -17,21 +16,12 @@ class Home extends StatefulWidget {
   HomeState createState() => HomeState();
 }
 
-class HomeState extends State<Home> with SingleTickerProviderStateMixin {
+class HomeState extends State<Home> {
   final controller = Get.find<HomeController>();
-  late AnimationController animationController;
   @override
   void initState() {
-    animationController =
-        AnimationController(duration: InputData.animationTime, vsync: this);
     controller.updateByToken(false);
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
   }
 
   @override
@@ -61,9 +51,7 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
               )
             ],
             leading: message(controller),
-            refresh: () {
-              controller.updateByToken(false);
-            },
+            refresh: () => controller.updateByToken(false),
             body: const HomeHeader(),
             children: [
               SliverList(

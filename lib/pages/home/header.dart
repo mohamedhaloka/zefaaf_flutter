@@ -53,46 +53,47 @@ class HomeHeader extends GetView<AppController> {
                         fontWeight: FontWeight.normal,
                         fontSize: 10),
                   ),
-            controller.userData.value.premium == 0
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "أنت حالياً على الباقة المجانية ",
+            if (controller.userData.value.premium == 0) ...[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "أنت حالياً على الباقة المجانية ",
+                    style: Get.textTheme.caption!.copyWith(
+                      color: AppTheme.WHITE,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 10,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed("/packages");
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(4.0),
+                      decoration: BoxDecoration(
+                        color: controller.isMan.value == 0
+                            ? Get.theme.colorScheme.secondary
+                            : Get.theme.primaryColor,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        "upgrade".tr,
                         style: Get.textTheme.caption!.copyWith(
                           color: AppTheme.WHITE,
                           fontWeight: FontWeight.normal,
-                          fontSize: 10,
                         ),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Get.toNamed("/packages");
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(4.0),
-                          decoration: BoxDecoration(
-                            color: controller.isMan.value == 0
-                                ? Get.theme.colorScheme.secondary
-                                : Get.theme.primaryColor,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: Text(
-                            "upgrade".tr,
-                            style: Get.textTheme.caption!.copyWith(
-                              color: AppTheme.WHITE,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                    ],
-                  )
-                : const SizedBox(height: 22),
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                ],
+              )
+            ] else
+              const SizedBox(height: 22),
             const AccountActions(),
           ],
         ),
