@@ -1,0 +1,94 @@
+{
+  "project_info": {
+    "project_number": "483285088195",
+    "project_id": "zefaaf-16c8a",
+    "storage_bucket": "zefaaf-16c8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483285088195:android:f6b5ee8766ac11a0106f76",
+        "android_client_info": {
+          "package_name": "com.dreamsoft.zefaaf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483285088195-1p0v4f6n7qh9alafacjenbrchrhee9jn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dreamsoft.zefaaf",
+            "certificate_hash": "e29a816333b255b299257e782cc1d13bb9f502e9"
+          }
+        },
+        {
+          "client_id": "483285088195-i2357nm0pmehkk35li80dt1buv11r8mr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dreamsoft.zefaaf",
+            "certificate_hash": "229f55ddf2edca1935760d4967503d7708e6c683"
+          }
+        },
+        {
+          "client_id": "483285088195-msmuokmn3ldl9a32b4r455983sdcv1cb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dreamsoft.zefaaf",
+            "certificate_hash": "0b09ee4130e4009771f91e9d2256be94dba7c45d"
+          }
+        },
+        {
+          "client_id": "483285088195-oh48hg8aqj4g2en4vgp60b7vl05dc7ip.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dreamsoft.zefaaf",
+            "certificate_hash": "de04ebc2621b53057b4c9a6ecbeca296bbe1bf28"
+          }
+        },
+        {
+          "client_id": "483285088195-pjj1gceues393gb8a6579md2q0dfht0k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dreamsoft.zefaaf",
+            "certificate_hash": "fd72fdb226de6205151175ffe54cf5a447851895"
+          }
+        },
+        {
+          "client_id": "483285088195-r7jgmq564nh5q2qo0rvdnehtosdpm48b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dreamsoft.zefaaf",
+            "certificate_hash": "083f678ee25791f0f6ccb6007708d01f75ce8e12"
+          }
+        },
+        {
+          "client_id": "483285088195-ohct96ahl80tnfe4haig8feof76gbh6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzZmbXXjNrk8NuwhZbrArYvlnBuQRarqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483285088195-ohct96ahl80tnfe4haig8feof76gbh6k.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "483285088195-hoi28spgrc8al4oq460uhtrpcud7okr9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Zefaaf.dreamsoft.com"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

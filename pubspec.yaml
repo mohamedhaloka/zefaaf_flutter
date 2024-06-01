@@ -1,0 +1,107 @@
+# fix int_phone_number .
+#flutter 3.7
+name: zeffaf
+description: A new Dreamsoft Project.
+
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 10.0.8+87
+
+environment:
+  sdk: '>=2.18.4 <3.0.0'
+
+dependencies:
+  audioplayers: ^5.2.1
+  cached_network_image: ^3.2.3
+  change_app_package_name: ^1.1.0
+  clipboard: ^0.1.3
+  connectivity_plus: 4.0.2
+  country_codes: ^2.2.0
+  cupertino_icons: ^1.0.5
+  dynamic_themes: ^1.1.0
+  facebook_app_events: ^0.18.3
+  firebase_auth: ^4.2.4
+  firebase_core: ^2.4.1
+  firebase_messaging: ^14.2.1
+  flutter:
+    sdk: flutter
+  flutter_inapp_purchase: 5.4.0
+  flutter_inappwebview: ^5.7.2+3
+  flutter_local_notifications: ^9.0.0
+  flutter_sim_country_code: 0.1.0
+  flutter_svg: ^1.1.6
+  flutter_tts: ^3.6.3
+  flutter_widget_from_html: ^0.9.0+2
+  flutter_windowmanager: ^0.2.0
+  fluttertoast: ^8.1.2
+  geocoding: ^2.1.1
+  geolocator: ^10.1.0
+  get: 4.5.0
+  get_storage: 2.0.3
+  http: ^0.13.0
+  http_auth: ^1.0.1
+  icons_plus: ^3.0.0
+  image_picker: ^0.8.6
+  in_app_purchase: ^3.1.5
+  in_app_review: ^2.0.6
+  intl: ^0.17.0
+  intl_phone_number_input: ^0.7.3+1
+  local_auth: ^2.1.3
+  modal_progress_hud_nsn: ^0.3.0
+  path_provider: ^2.0.11
+  permission_handler: ^10.2.0
+  pin_code_fields: 7.4.0
+  provider: ^6.0.5
+  record: ^2.0.0
+  scroll_to_index: ^3.0.1
+  share_plus: ^6.3.0
+  shimmer: ^2.0.0
+  smooth_page_indicator: ^1.0.0+2
+  socket_io_client: 2.0.0-beta.4-nullsafety.0
+  stop_watch_timer: ^2.0.0
+  swipe_to: ^1.0.2
+  url_launcher: ^6.1.7
+  video_player: ^2.4.10
+  whatsapp_unilink: ^2.1.0
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+  print_remover: ^1.0.1
+  simple_animations: ^5.0.0+3
+  step_progress_indicator: ^1.0.2
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/onboarding/
+    - assets/images/log_in/
+    - assets/images/sms_verification/
+    - assets/images/confirm_new_password/
+    - assets/images/register_landing/
+    - assets/images/about_us/
+    - assets/images/agents/
+    - assets/images/purchase_success/
+    - assets/images/
+    - assets/images/flags/
+    - assets/images/more-menu/
+    - assets/images/home/
+    - assets/images/home/tabs/
+    - assets/images/success_stories/
+    - assets/images/payment_type/
+    - assets/images/splash/
+    - assets/images/auto_search_setting/
+    - assets/sound/record_tone.mp3
+    - assets/sound/text_tone.mp3
+
+  fonts:
+    - family: Cairo
+      fonts:
+        - asset: assets/font/Cairo/Cairo-Black.ttf
+        - asset: assets/font/Cairo/Cairo-Bold.ttf
+        - asset: assets/font/Cairo/Cairo-Light.ttf
+        - asset: assets/font/Cairo/Cairo-ExtraLight.ttf
+        - asset: assets/font/Cairo/Cairo-Regular.ttf
+        - asset: assets/font/Cairo/Cairo-SemiBold.ttf
