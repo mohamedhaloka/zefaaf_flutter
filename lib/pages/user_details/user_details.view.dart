@@ -135,36 +135,110 @@ class UserDetails extends GetView<UserDetailsController> {
                                     ? null
                                     : controller.user.value.allowMobile == "1"
                                         ? () async {
-                                            if (controller
-                                                    .appController
-                                                    .userData
-                                                    .value
-                                                    .packageLevel! <=
-                                                3) {
+                                            if (controller.appController.isMan
+                                                        .value ==
+                                                    0 &&
+                                                controller
+                                                        .appController
+                                                        .userData
+                                                        .value
+                                                        .premium ==
+                                                    0) {
                                               showUpgradePackageDialog(
                                                   shouldUpgradeToPlatinumPackage);
                                               return;
                                             }
+
+                                            if (controller.appController.isMan
+                                                        .value ==
+                                                    1 &&
+                                                controller
+                                                        .appController
+                                                        .userData
+                                                        .value
+                                                        .premium ==
+                                                    11) {
+                                              showUpgradePackageDialog(
+                                                  shouldUpgradeToFlowerPackage);
+                                              return;
+                                            }
+
                                             await controller
                                                 .cancelRequestMobile(
                                                     userId, context);
+                                            if (!context.mounted) return;
                                             await controller.getUserDetails(
                                                 userId, context);
                                             controller.loading(false);
                                           }
                                         : () async {
-                                            if (controller
+                                            final bool isMan = controller
                                                     .appController
-                                                    .userData
-                                                    .value
-                                                    .packageLevel! <=
-                                                3) {
+                                                    .isMan
+                                                    .value ==
+                                                0;
+                                            final int currentUserPackageId =
+                                                controller
+                                                        .appController
+                                                        .userData
+                                                        .value
+                                                        .premium ??
+                                                    0;
+                                            final int currentUserPackageLevel =
+                                                controller
+                                                        .appController
+                                                        .userData
+                                                        .value
+                                                        .packageLevel ??
+                                                    0;
+                                            if (isMan &&
+                                                currentUserPackageId == 0) {
                                               showUpgradePackageDialog(
                                                   shouldUpgradeToPlatinumPackage);
                                               return;
                                             }
+
+                                            if (!isMan &&
+                                                currentUserPackageId == 11) {
+                                              showUpgradePackageDialog(
+                                                  shouldUpgradeToFlowerPackage);
+                                              return;
+                                            }
+
+                                            switch (currentUserPackageLevel) {
+                                              case 1:
+                                              case 2:
+                                                if (controller.user.value
+                                                        .mariageKind !=
+                                                    5) {
+                                                  thisFeatureAvailableFor(
+                                                      'زوجة أولي فقط');
+                                                  return;
+                                                }
+                                                break;
+                                              case 3:
+                                                if (controller.user.value
+                                                        .mariageKind !=
+                                                    6) {
+                                                  showToast('زوجة ثانية فقط');
+                                                  return;
+                                                }
+                                                break;
+                                              case 4:
+                                                if (controller.user.value
+                                                        .mariageKind !=
+                                                    184) {
+                                                  showToast('زواج تعدد فقط');
+                                                  return;
+                                                }
+                                                break;
+                                              default:
+                                                break;
+                                            }
+
                                             await controller.requestMobile(
                                                 userId, context);
+                                            if (!context.mounted) return;
                                             await controller.getUserDetails(
                                                 userId, context);
                                             controller.loading(false);

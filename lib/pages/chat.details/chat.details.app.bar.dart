@@ -115,13 +115,25 @@ chatDetailsAppBar(User user, ChatDetailsController controller,
                                 ),
                                 const SizedBox(width: 4),
                                 Text(
-                                    Get.find<AppController>()
-                                                .userData
-                                                .value
-                                                .packageLevel! <=
-                                            2
+                                    Get.find<AppController>().isMan.value ==
+                                                0 &&
+                                            Get.find<AppController>()
+                                                    .userData
+                                                    .value
+                                                    .packageLevel! <=
+                                                2
                                         ? "ميزة تحديد الموقع للعضويات الذهبية"
-                                        : "${user.detectedCountry}",
+                                        : Get.find<AppController>()
+                                                        .isMan
+                                                        .value ==
+                                                    1 &&
+                                                Get.find<AppController>()
+                                                        .userData
+                                                        .value
+                                                        .premium ==
+                                                    11
+                                            ? 'ميزة تحديد الموقع للعضويات الوردية'
+                                            : "${user.detectedCountry}",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: controller.appController.isMan

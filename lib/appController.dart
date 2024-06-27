@@ -1,13 +1,19 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:facebook_app_events/facebook_app_events.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:zeffaf/models/app.settings.modal.dart';
 import 'package:zeffaf/models/static.data.dart';
+import 'package:zeffaf/pages/more/more.view.dart';
 import 'package:zeffaf/services/http.service.dart';
+import 'package:zeffaf/widgets/system_dialog.dart';
 
 import 'models/country.code.dart';
 import 'models/newMessage.modal.dart';
@@ -42,6 +48,7 @@ class AppController extends GetxController {
   RxString contactResident = RxString("");
   RxList<String> contactResidentList = RxList([]);
   RxString countryCount = RxString("0");
+  PackageInfo? packageInfo;
 
   //Log In - notificationOpenDate
   RxString notificationOpenDate = RxString("");
@@ -59,7 +66,8 @@ class AppController extends GetxController {
   RxBool fingerprintStatue = RxBool(true);
 
   @override
-  void onInit() {
+  void onInit() async {
+    packageInfo = await PackageInfo.fromPlatform();
     facebookAppEvents.setAdvertiserTracking(enabled: true);
     storage.writeIfNull('darkmode', false);
     storage.writeIfNull('notificationStatue', false);
@@ -69,7 +77,7 @@ class AppController extends GetxController {
     getAppSettings().then((value) {
       appSetting.value = AppSettingsModal.fromJson(value['data'][0]);
       registerLicense.value = appSetting.value.registerLicense ?? '';
-
+      checkHasANewVersion();
       for (var data in value['fixedData']) {
         fixedData.add(StaticData.fromJson(data));
       }
@@ -110,6 +118,46 @@ class AppController extends GetxController {
     super.onInit();
   }
 
+  void checkHasANewVersion() {
+    String appVersion = packageInfo?.version ?? '';
+    String storeVersion = appSettings.value.mobileVersion ?? '';
+    log('appVersion $appVersion');
+    log('storeVersion $storeVersion');
+    final convertAppVersionToNumber =
+        num.tryParse(appVersion.replaceAll(".", "")) ?? 0.0;
+    final convertStoreVersionToNumber =
+        num.tryParse(storeVersion.replaceAll(".", "")) ?? 0.0;
+
+    if (convertAppVersionToNumber < convertStoreVersionToNumber) {
+      Get.dialog(
+        AlertDialog(
+          content: SystemDialog(
+            title: "يتوافر تحديث جديد للتطبيق يشمل العديد من المزايا",
+            iconPath: 'assets/images/new_upgrade.svg',
+            description: appSettings.value.mobileVersionDescription,
+            buttonText: 'تحديث',
+            onPress: _launchUrl,
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<void> _launchUrl() async {
+    String link;
+    if (Platform.isAndroid) {
+      link =
+          'https://play.google.com/store/apps/details?id=com.dreamsoft.zefaaf&hl=en_US';
+    } else {
+      link =
+          'https://apps.apple.com/eg/app/%D9%85%D9%86%D8%B5%D8%A9-%D8%B2%D9%81%D8%A7%D9%81/id1550582488';
+    }
+    Uri url = Uri.parse(link);
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   Future getAppSettings() async {
     String url = "${Request.urlBase}getAppSettings";
     http.Response response = await http.get(Uri.parse(url));
@@ -125,11 +173,15 @@ class AppController extends GetxController {
   }
 
   checkIfHasPreviousRequest({bool? girRatedTheApp}) async {
-    if (isMan.value == 1 && girRatedTheApp == null) {
-      showRatingDialog();
-      return;
-    } else if (userData.value.packageLevel! <= 4) {
+    // if (isMan.value == 1 && girRatedTheApp == null) {
+    //   showRatingDialog();
+    //   return;
+    // } else
+    if (isMan.value == 0 && userData.value.packageLevel! <= 4) {
       showUpgradePackageDialog(shouldUpgradeToDiamondPackage);
+      return;
+    } else if (isMan.value == 1 && userData.value.premium == 11) {
+      showUpgradePackageDialog(shouldUpgradeToFlowerPackage);
       return;
     } else {
       checkingForPreviousRequest(true);

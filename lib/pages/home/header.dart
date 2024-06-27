@@ -32,17 +32,15 @@ class HomeHeader extends GetView<AppController> {
               height: 4,
             ),
             Text(
-              controller.userData.value.userName.toString(),
+              (controller.userData.value.userName ?? '').toString(),
               style: Get.textTheme.titleMedium!.copyWith(
                 color:
                     controller.isMan.value == 0 ? AppTheme.WHITE : Colors.black,
                 fontWeight: FontWeight.normal,
               ),
             ),
-            const SizedBox(
-              height: 4,
-            ),
-            controller.userData.value.premium == 0
+            const SizedBox(height: 4),
+            controller.userData.value.isFreePlan
                 ? const SizedBox(height: 10)
                 : Text(
                     " صلاحية الباقة حتى ${DateFormat.yMMMd().format(controller.userData.value.packageRenewDate!)} ",
@@ -53,7 +51,7 @@ class HomeHeader extends GetView<AppController> {
                         fontWeight: FontWeight.normal,
                         fontSize: 10),
                   ),
-            if (controller.userData.value.premium == 0) ...[
+            if (controller.userData.value.isFreePlan) ...[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -69,9 +67,7 @@ class HomeHeader extends GetView<AppController> {
                     width: 5,
                   ),
                   InkWell(
-                    onTap: () {
-                      Get.toNamed("/packages");
-                    },
+                    onTap: () => Get.toNamed("/packages"),
                     child: Container(
                       padding: const EdgeInsets.all(4.0),
                       decoration: BoxDecoration(

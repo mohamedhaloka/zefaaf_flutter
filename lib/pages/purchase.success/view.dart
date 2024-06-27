@@ -15,7 +15,7 @@ class PurchaseSuccessBinding extends Bindings {
 class PurchaseSuccessController extends GetxController {
   final appController = Get.find<AppController>();
 
-  String packageName = Get.arguments;
+  String? packageName = Get.arguments;
   @override
   void onInit() {
     Timer(
@@ -61,7 +61,7 @@ class PurchaseSuccess extends GetView<PurchaseSuccessController> {
                   left: 20,
                   right: 20,
                   child: Text(
-                    'مُبارك عليك العضوية ${controller.packageName}',
+                    'مُبارك عليك العضوية ${controller.packageName ?? ''}',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                         fontWeight: FontWeight.bold,

@@ -32,7 +32,7 @@ class UserDetailsController extends GetxController {
     var data = json.decode(response.body);
     if (data['status'] == "success") {
       user.value = User.fromJson(data['data'][0]);
-      print(user.value.allowMobile);
+      print(user.value.toJson());
       loading(false);
     } else {
       loading(false);
@@ -152,12 +152,13 @@ class UserDetailsController extends GetxController {
           body: {'otherId': "$userId"});
 
       var data = json.decode(response.body);
-      print(data);
 
       if (data['status'] == 'success') {
         return data['rowsCount'];
       } else if (data['errorCode'] == 'ignore list') {
         userIsBlockYou(user.value.userName);
+      } else if (data['errorCode'] == 'reach out requests limit') {
+        showToast('لقد تخطيت الحد الاقصي لطلبات الارقام');
       } else {
         return data['rowsCount'];
       }

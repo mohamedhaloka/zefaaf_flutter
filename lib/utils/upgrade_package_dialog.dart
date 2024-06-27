@@ -3,15 +3,12 @@ import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:in_app_review/in_app_review.dart';
 import 'package:zeffaf/appController.dart';
-import 'package:zeffaf/utils/toast.dart';
 
 import '../models/newMessage.modal.dart';
-import '../pages/app_messages/AppMessage.controller.dart';
-import '../pages/new.message/newMessage.view.dart';
 import '../services/http.service.dart';
-import 'package:http/http.dart' as http;
 
 const shouldUpgradeYourPackage = 'يجب ترقية باقتك للإستفاده من الخدمة';
 
@@ -19,6 +16,7 @@ const shouldUpgradeToSilverPackage = 'هذه الخدمة لأصحاب البا�
 const shouldUpgradeToGoldenPackage = 'هذه الخدمة لأصحاب الباقة الذهبية';
 const shouldUpgradeToPlatinumPackage = 'هذه الخدمة لأصحاب الباقة البلاتينية';
 const shouldUpgradeToDiamondPackage = 'هذه الخدمة لأصحاب الباقة الماسية';
+const shouldUpgradeToFlowerPackage = 'هذه الخدمة للمشتركات بالباقة الردية';
 
 void showUpgradePackageDialog([String content = shouldUpgradeYourPackage]) =>
     Get.dialog(AlertDialog(
@@ -53,6 +51,31 @@ void showUpgradePackageDialog([String content = shouldUpgradeYourPackage]) =>
           ),
           child: const Text(
             "شكراً لا أريد",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ],
+    ));
+
+void thisFeatureAvailableFor(String content) => Get.dialog(AlertDialog(
+      // actionsOverflowAlignment: OverflowBarAlignment.center,
+      actionsAlignment: MainAxisAlignment.spaceEvenly,
+      title: Text(
+        "ميزة طلب رقم الهاتف لحسابك متاجة فقط للفتيات الباحثات عن",
+        style: Get.theme.textTheme.bodyText1!.copyWith(
+            color: Colors.red, fontWeight: FontWeight.bold, fontSize: 20),
+      ),
+      content: Text(content),
+      actions: [
+        ElevatedButton(
+          onPressed: () {
+            Get.back();
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Get.theme.primaryColor,
+          ),
+          child: const Text(
+            "حسناً",
             style: TextStyle(color: Colors.white),
           ),
         ),

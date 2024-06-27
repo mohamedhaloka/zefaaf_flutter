@@ -19,7 +19,7 @@ class PaypalPayment extends GetView<PaypalController> {
         ),
       ),
       body: Obx(() => controller.checkoutUrl.value == ''
-          ? const Center(child: Text('loading'))
+          ? const Center(child: Text('انتظر قليلاً'))
           : InAppWebView(
               initialUrlRequest:
                   URLRequest(url: Uri.parse(controller.checkoutUrl.value)),
@@ -36,13 +36,17 @@ class PaypalPayment extends GetView<PaypalController> {
                       payerID,
                       controller.accessToken,
                     )
-                        .then((id) {
-                      Get.back();
-                      Get.back();
-                      Get.offAllNamed(
-                        '/PurchaseSuccess',
-                        arguments: controller.zefaafPackageTittle,
-                      );
+                        .then((_) async {
+                      final paypalConfirmed = await controller.confirmPaypal();
+
+                      if (paypalConfirmed) {
+                        Get.back();
+                        Get.back();
+                        Get.offAllNamed(
+                          '/PurchaseSuccess',
+                          arguments: controller.zefaafPackageTittle,
+                        );
+                      }
                     });
                   } else {
                     Get.back();

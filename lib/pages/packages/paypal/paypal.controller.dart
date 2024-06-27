@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:zeffaf/models/owner.dart';
+import 'package:zeffaf/services/http.service.dart';
 
 import 'paypal.services.dart';
 
@@ -115,5 +119,35 @@ class PaypalController extends GetxController {
       "redirect_urls": {"return_url": returnURL, "cancel_url": cancelURL}
     };
     return temp;
+  }
+
+  Future<bool> confirmPaypal() async {
+    try {
+      var response = await http.post(
+        Uri.parse('${Request.urlBase}purchasePackage'),
+        body: {
+          "event_type": "PAYMENT.SALE.COMPLETED",
+          "resource": {
+            "custom": "${owner.id}:$zefaafPackageId",
+            "amount": {
+              "total": "$zefaafPackageCost",
+            },
+          },
+        },
+        headers: {
+          "content-type": "application/json",
+          'Authorization': 'Bearer $accessToken'
+        },
+      );
+
+      var data = json.decode(response.body);
+
+      if (response.statusCode == 200 && data['status'] == 'success') {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
   }
 }

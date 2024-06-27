@@ -106,11 +106,12 @@ class MutualCard extends GetView<HomeController> {
                         ? Get.theme.colorScheme.secondary
                         : Get.theme.primaryColor,
                     height: 28,
-                    onPress: () {
-                      Get.to(() => UserDetails(
+                    onPress: () async {
+                      await Get.to(() => UserDetails(
                             userId: user.id!,
                             isFavourite: false,
                           ));
+                      controller.updateByToken(false);
                     },
                   ),
                 ),
@@ -122,7 +123,7 @@ class MutualCard extends GetView<HomeController> {
     );
   }
 
-  const MutualCard(this.user);
+  const MutualCard(this.user, {super.key});
 
   getUserData(List list, int dataSource, List listId) {
     try {

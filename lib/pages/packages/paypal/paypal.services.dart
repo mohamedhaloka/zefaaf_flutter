@@ -96,7 +96,6 @@ class PaypalServices {
   // for executing the payment transaction
   Future<String?> executePayment(url, payerId, accessToken) async {
     try {
-      print("Paypal executePayment");
       var response = await http.post(
         Uri.parse(url),
         body: convert.jsonEncode({"payer_id": payerId}),

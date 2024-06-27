@@ -12,6 +12,8 @@ class AppSettingsModal {
       privacy,
       shareText,
       packageDesc,
+      mobileVersion,
+      mobileVersionDescription,
       registerConditions,
       liveChatCode;
   int? id, version, displayPackages, displayExternalPayments;
@@ -30,6 +32,7 @@ class AppSettingsModal {
       this.displayPackages,
       this.registerConditions,
       this.iphoneLink,
+      this.mobileVersionDescription,
       this.displayExternalPayments,
       this.androidLink,
       this.shareText,
@@ -37,6 +40,7 @@ class AppSettingsModal {
       this.privacy,
       this.liveChatCode,
       this.packageDesc,
+      this.mobileVersion,
       this.version});
 
   AppSettingsModal.fromJson(Map<String, dynamic> map) {
@@ -47,6 +51,7 @@ class AppSettingsModal {
     whatsapp = map["Whatsapp"];
     fixedData = map["fixedData"];
     facebook = map["Facebook"];
+    mobileVersionDescription = map["mobileVersionDescription"] ?? '';
     instagram = map["Instagram"];
     displayPackages = map["displayPackages"];
     registerLicense = map["registerLicense"] ?? "";
@@ -55,6 +60,7 @@ class AppSettingsModal {
     iphoneLink = map["IphoneLink"] ?? "";
     androidLink = map["AndroidLink"] ?? "";
     aboutUs = map["aboutUs"] ?? "";
+    mobileVersion = map["mobileVersion"] ?? "";
     privacy = map["privacy"] ?? "";
     liveChatCode = map["liveChatCode"];
     version = map["version"];

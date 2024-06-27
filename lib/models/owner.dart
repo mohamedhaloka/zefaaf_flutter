@@ -41,6 +41,7 @@ class Owner {
   int? packageLevel;
   int? income;
   int? helath;
+  int? packageMobileRequestLimit;
   String? job;
   String? aboutMe;
   String? aboutOther;
@@ -69,6 +70,7 @@ class Owner {
     tempProfileImage = (json['tempProfileImage'] ?? "").toString().obs;
     photoUsers = json['photoUsers'];
     packageId = json['packageId'] ?? 0;
+    packageMobileRequestLimit = json['packageMobileRequestLimit'] ?? 0;
     receiveNotification = json['receiveNotification'] ?? 0;
     contactsNationality = json['contactsNationality'] ?? "0";
     contactAgesTo = json['contactAgesTo'] ?? 0;
@@ -118,6 +120,8 @@ class Owner {
     deviceToken = json['deviceToken'] ?? "";
   }
 
+  bool get isFreePlan => premium == 0 || premium == 11;
+
   Owner({
     this.id,
     this.userCode,
@@ -129,6 +133,7 @@ class Owner {
     this.packageLevel,
     this.nationalityCountryName,
     this.cityName,
+    this.packageMobileRequestLimit,
     this.email,
     this.profileImage,
     this.gender,
