@@ -11,15 +11,15 @@ class SystemDialog extends StatelessWidget {
     this.description,
     required this.buttonText,
     required this.onPress,
-    this.enableBack = true,
+    required this.isMan,
   });
 
   final String iconPath;
   final String title;
   final String? description;
   final String buttonText;
+  final bool isMan;
   final void Function() onPress;
-  final bool enableBack;
 
   @override
   Widget build(BuildContext context) {
@@ -53,19 +53,22 @@ class SystemDialog extends StatelessWidget {
           CustomRaisedButton(
             tittle: buttonText,
             onPress: onPress,
+            color: isMan
+                ? Get.theme.primaryColor
+                : Get.theme.colorScheme.secondary,
           ),
-          if (enableBack)
-            TextButton(
-              onPressed: () {
-                Get.back();
-              },
-              child: Text(
-                'Cancel',
-                style: const TextStyle(
-                  fontSize: 14,
-                ),
+          TextButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: const Text(
+              'إلغاء',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.black,
               ),
-            )
+            ),
+          )
         ],
       ),
     );

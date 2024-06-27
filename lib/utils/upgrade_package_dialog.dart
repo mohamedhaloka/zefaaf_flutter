@@ -16,7 +16,7 @@ const shouldUpgradeToSilverPackage = 'هذه الخدمة لأصحاب البا�
 const shouldUpgradeToGoldenPackage = 'هذه الخدمة لأصحاب الباقة الذهبية';
 const shouldUpgradeToPlatinumPackage = 'هذه الخدمة لأصحاب الباقة البلاتينية';
 const shouldUpgradeToDiamondPackage = 'هذه الخدمة لأصحاب الباقة الماسية';
-const shouldUpgradeToFlowerPackage = 'هذه الخدمة للمشتركات بالباقة الردية';
+const shouldUpgradeToFlowerPackage = 'هذه الخدمة للمشتركات بالباقة الوردية';
 
 void showUpgradePackageDialog([String content = shouldUpgradeYourPackage]) =>
     Get.dialog(AlertDialog(
@@ -58,12 +58,13 @@ void showUpgradePackageDialog([String content = shouldUpgradeYourPackage]) =>
     ));
 
 void thisFeatureAvailableFor(String content) => Get.dialog(AlertDialog(
-      // actionsOverflowAlignment: OverflowBarAlignment.center,
       actionsAlignment: MainAxisAlignment.spaceEvenly,
       title: Text(
-        "ميزة طلب رقم الهاتف لحسابك متاجة فقط للفتيات الباحثات عن",
+        "ميزة طلب رقم الهاتف لحسابك متاحة فقط للفتيات الباحثات عن",
         style: Get.theme.textTheme.bodyText1!.copyWith(
-            color: Colors.red, fontWeight: FontWeight.bold, fontSize: 20),
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+        ),
       ),
       content: Text(content),
       actions: [

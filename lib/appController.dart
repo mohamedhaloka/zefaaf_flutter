@@ -137,6 +137,7 @@ class AppController extends GetxController {
             description: appSettings.value.mobileVersionDescription,
             buttonText: 'تحديث',
             onPress: _launchUrl,
+            isMan: isMan.value == 0,
           ),
         ),
       );

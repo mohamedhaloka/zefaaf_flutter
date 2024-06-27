@@ -170,17 +170,59 @@ class AccountHeader extends GetView<AppController> {
                     ? Get.theme.colorScheme.secondary
                     : Get.theme.primaryColor,
               )),
-              const SizedBox(
-                width: 20,
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: SizedBox(
+                    height: 90,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CustomRaisedButton(
+                          height: 35,
+                          tittle: "تعديل الحساب",
+                          onPress: () {
+                            final bool isMan = controller.isMan.value == 0;
+                            final int premium =
+                                controller.userData.value.premium ?? 0;
+
+                            if (isMan && premium == 0) {
+                              showUpgradePackageDialog(
+                                  shouldUpgradeToDiamondPackage);
+                              return;
+                            }
+
+                            if (!isMan && premium == 11) {
+                              showUpgradePackageDialog(
+                                  shouldUpgradeToFlowerPackage);
+                              return;
+                            }
+                          },
+                          color: Colors.green,
+                        ),
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          child: SvgPicture.asset(
+                            'assets/images/new.svg',
+                            width: 18,
+                            height: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
               Expanded(
-                  child: CustomRaisedButton(
-                      height: 35,
-                      tittle: "حذف حسابي",
-                      onPress: () {
-                        Get.dialog(dialogTerminateMyAccount(context));
-                      },
-                      color: Colors.red)),
+                child: CustomRaisedButton(
+                    height: 35,
+                    tittle: "حذف حسابي",
+                    onPress: () {
+                      Get.dialog(dialogTerminateMyAccount(context));
+                    },
+                    color: Colors.red),
+              ),
             ],
           ),
         ),
