@@ -40,7 +40,8 @@ class HomeHeader extends GetView<AppController> {
               ),
             ),
             const SizedBox(height: 4),
-            controller.userData.value.isFreePlan
+            controller.userData.value.isFreePlan ||
+                    controller.userData.value.packageRenewDate == null
                 ? const SizedBox(height: 10)
                 : Text(
                     " صلاحية الباقة حتى ${DateFormat.yMMMd().format(controller.userData.value.packageRenewDate!)} ",
@@ -69,7 +70,7 @@ class HomeHeader extends GetView<AppController> {
                   InkWell(
                     onTap: () => Get.toNamed("/packages"),
                     child: Container(
-                      padding: const EdgeInsets.all(4.0),
+                      padding: const EdgeInsets.all(6.0),
                       decoration: BoxDecoration(
                         color: controller.isMan.value == 0
                             ? Get.theme.colorScheme.secondary

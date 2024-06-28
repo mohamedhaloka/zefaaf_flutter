@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:zeffaf/pages/favorites/favorites.controller.dart';
+import 'package:zeffaf/pages/home/home.controller.dart';
+import 'package:zeffaf/pages/more/more.controller.dart';
 
 import '../appController.dart';
 import '../pages/favorites/favorites.view.dart';
@@ -9,6 +12,16 @@ import '../pages/more/more.view.dart';
 import '../pages/myAccount/myAccount.view.dart';
 import '../pages/notifications/notifications.view.dart';
 import '../utils/theme.dart';
+
+class BottomTabsBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<BottomTabsController>(() => BottomTabsController());
+    Get.lazyPut<HomeController>(() => HomeController());
+    Get.lazyPut<FavoritesController>(() => FavoritesController());
+    Get.lazyPut<MoreController>(() => MoreController());
+  }
+}
 
 class BottomTabsController extends GetxController {
   final RxInt _selectedIndex = 0.obs;

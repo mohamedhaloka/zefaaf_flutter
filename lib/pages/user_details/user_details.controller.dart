@@ -16,6 +16,8 @@ class UserDetailsController extends GetxController {
   RxBool loading = true.obs;
   RxBool loadingReplyPhoto = false.obs;
 
+  int requestMobileCount = 0;
+
   Future<User?> getUserDetails(userId, context) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile ||
@@ -154,16 +156,35 @@ class UserDetailsController extends GetxController {
       var data = json.decode(response.body);
 
       if (data['status'] == 'success') {
+        requestMobileCount--;
+        showToast(
+            'متبقي لك $requestMobileCount طلب لرقم الهاتف من $packageMaxPhoneRequests خلال هذا الشهر');
         return data['rowsCount'];
       } else if (data['errorCode'] == 'ignore list') {
         userIsBlockYou(user.value.userName);
       } else if (data['errorCode'] == 'reach out requests limit') {
-        showToast('لقد تخطيت الحد الاقصي لطلبات الارقام');
+        showToast('لقد تخطيت الحد الأقصى لطلبات الأرقام');
       } else {
         return data['rowsCount'];
       }
     } else {
       showToast("تأكد من إتصالك بالانترنت وأعد المحاولة لاحقاً");
+    }
+  }
+
+  int get packageMaxPhoneRequests {
+    switch (appController.userData.value.packageLevel) {
+      case 5:
+      case 7:
+        return 60;
+      case 4:
+      case 3:
+      case 2:
+        return 30;
+      case 1:
+        return 7;
+      default:
+        return 0;
     }
   }
 
@@ -255,5 +276,12 @@ class UserDetailsController extends GetxController {
         )
       ],
     ));
+  }
+
+  @override
+  void onInit() {
+    requestMobileCount =
+        appController.userData.value.packageMobileRequestLimit ?? 0;
+    super.onInit();
   }
 }

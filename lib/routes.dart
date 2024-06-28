@@ -108,7 +108,7 @@ routes() => [
       GetPage(
         name: "/BottomTabsHome",
         page: () => const BottomTabsHome(),
-        binding: PagesBind(),
+        binding: BottomTabsBinding(),
         transition: Transition.fade,
       ),
       GetPage(
@@ -401,7 +401,6 @@ class PagesBind extends Bindings {
     Get.lazyPut<MyAccountController>(() => MyAccountController());
     Get.lazyPut<OurMessageController>(() => OurMessageController());
     Get.lazyPut<NotificationsController>(() => NotificationsController());
-    Get.lazyPut<BottomTabsController>(() => BottomTabsController());
     Get.lazyPut<NotificationsService>(() => NotificationsService());
   }
 }

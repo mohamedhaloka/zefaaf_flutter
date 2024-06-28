@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:zeffaf/widgets/app_header.dart';
 import 'package:zeffaf/widgets/custom_raised_button.dart';
@@ -224,6 +223,7 @@ class NewMessage extends GetView<NewMessageController> {
                               .appController.userData.value.packageLevel! ==
                           11) {
                         showUpgradePackageDialog(
+                            controller.appController.isMan.value == 0,
                             shouldUpgradeToPlatinumPackage);
                         return;
                       }

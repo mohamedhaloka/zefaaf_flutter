@@ -4,6 +4,8 @@ import 'dart:io';
 
 import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -113,9 +115,26 @@ class AppController extends GetxController {
     getApiToken();
     getFontSize();
     updateGender(isMan.value);
+    getCountryCode();
     // WidgetsBinding.instance.addPostFrameCallback(
     //     (_) => DynamicTheme.of(Get.context!)?.setTheme(1));
     super.onInit();
+  }
+
+  void getCountryCode() async {
+    final permission = await Geolocator.requestPermission();
+
+    if (permission != LocationPermission.always &&
+        permission != LocationPermission.whileInUse) return;
+    final Position position = await Geolocator.getCurrentPosition();
+
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+
+    if (placemarks.isEmpty) return;
+    Placemark place = placemarks[0];
+
+    detectedCountryCode(place.isoCountryCode ?? '');
   }
 
   void checkHasANewVersion() {
@@ -179,10 +198,10 @@ class AppController extends GetxController {
     //   return;
     // } else
     if (isMan.value == 0 && userData.value.packageLevel! <= 4) {
-      showUpgradePackageDialog(shouldUpgradeToDiamondPackage);
+      showUpgradePackageDialog(isMan.value == 0, shouldUpgradeToDiamondPackage);
       return;
     } else if (isMan.value == 1 && userData.value.premium == 11) {
-      showUpgradePackageDialog(shouldUpgradeToFlowerPackage);
+      showUpgradePackageDialog(isMan.value == 0, shouldUpgradeToFlowerPackage);
       return;
     } else {
       checkingForPreviousRequest(true);

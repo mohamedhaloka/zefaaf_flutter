@@ -1,19 +1,9 @@
-import 'dart:convert';
-
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:in_app_review/in_app_review.dart';
-import 'package:zeffaf/pages/new.message/newMessage.view.dart';
 import 'package:zeffaf/widgets/cards/message_card.dart';
 import 'package:zeffaf/widgets/no-internet.dart';
 import 'package:zeffaf/widgets/no.messages.dart';
-//impoty http
-import 'package:http/http.dart' as http;
-import '../../appController.dart';
-import '../../models/newMessage.modal.dart';
-import '../../services/http.service.dart';
-import '../../utils/toast.dart';
+
 import '../../utils/upgrade_package_dialog.dart';
 import '../../widgets/app_header.dart';
 import 'AppMessage.controller.dart';
@@ -45,7 +35,8 @@ class AppMessageView extends GetView<AppMessageController> {
             return;
           } else if (controller.appController.userData.value.packageLevel! <=
               4) {
-            showUpgradePackageDialog(shouldUpgradeToDiamondPackage);
+            showUpgradePackageDialog(controller.appController.isMan.value == 0,
+                shouldUpgradeToDiamondPackage);
             return;
           } else {
             // controller.setCheckPreviousRequest(true);

@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 
 import '../widgets/custom_image.dart';
 
-Widget packagesOption({isMan, price, bgColor, tittle, image, onPress, title}) {
+Widget packagesOption(
+    {required bool isMan, price, bgColor, tittle, image, onPress, title}) {
   // paymentService
   return Column(
     children: [

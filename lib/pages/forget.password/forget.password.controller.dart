@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -64,20 +62,7 @@ class ForgetPasswordController extends GetxController {
   }
 
   void getCountryCode() async {
-    final permission = await Geolocator.requestPermission();
-
-    if (permission != LocationPermission.always &&
-        permission != LocationPermission.whileInUse) return;
-    final Position position = await Geolocator.getCurrentPosition();
-
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
-    print('placemarks $placemarks');
-
-    if (placemarks.isEmpty) return;
-    Placemark place = placemarks[0];
-
-    simCountryCode = place.isoCountryCode ?? '';
-    number.value = PhoneNumber(isoCode: simCountryCode.toUpperCase());
+    number.value = PhoneNumber(
+        isoCode: appController.detectedCountryCode.value.toUpperCase());
   }
 }

@@ -22,7 +22,7 @@ class PackagesOption extends GetView<PackagesController> {
             itemCount: controller.packages.length,
             controller: pageController,
             itemBuilder: (context, index) => packagesOption(
-                isMan: controller.appController.isMan,
+                isMan: controller.appController.isMan.value == 0,
                 image: controller.packages[index].image.toString(),
                 onPress: () async {
                   final appSettings = Get.find<AppController>().appSetting;

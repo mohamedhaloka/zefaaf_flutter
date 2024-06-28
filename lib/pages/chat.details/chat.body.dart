@@ -296,7 +296,9 @@ class _ChatBodyState extends State<ChatBody> {
               context: context,
               onTap: () {
                 if (controller.appController.userData.value.packageId! <= 0) {
-                  showUpgradePackageDialog(shouldUpgradeToSilverPackage);
+                  showUpgradePackageDialog(
+                      controller.appController.isMan.value == 0,
+                      shouldUpgradeToSilverPackage);
                   return;
                 }
                 controller.visibleSticker.value =

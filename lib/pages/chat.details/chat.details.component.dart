@@ -85,7 +85,9 @@ class ChatDetailsComponents {
               ? () {
                   if (controller.appController.userData.value.packageLevel! <=
                       1) {
-                    showUpgradePackageDialog(shouldUpgradeToSilverPackage);
+                    showUpgradePackageDialog(
+                        controller.appController.isMan.value == 0,
+                        shouldUpgradeToSilverPackage);
                     return;
                   }
                   controller.startRecord(controller.assetsAudioPlayer);
@@ -108,7 +110,9 @@ class ChatDetailsComponents {
               : () {
                   if (controller.appController.userData.value.packageLevel! <=
                       0) {
-                    showUpgradePackageDialog(shouldUpgradeToSilverPackage);
+                    showUpgradePackageDialog(
+                        controller.appController.isMan.value == 0,
+                        shouldUpgradeToSilverPackage);
                     return;
                   }
                   if (formKey.currentState.validate()) {
@@ -252,7 +256,9 @@ class ChatDetailsComponents {
               itemBuilder: (_, index) => InkWell(
                 onTap: () {
                   if (controller.appController.userData.value.packageId! <= 0) {
-                    showUpgradePackageDialog(shouldUpgradeToSilverPackage);
+                    showUpgradePackageDialog(
+                        controller.appController.isMan.value == 0,
+                        shouldUpgradeToSilverPackage);
                     return;
                   }
                   controller.sendMessage(

@@ -19,12 +19,13 @@ const shouldUpgradeToFeaturedPackage = 'هذه الخدمة لأصحاب الب�
 const shouldUpgradeToDiamondPackage = 'هذه الخدمة لأصحاب الباقة الماسية';
 const shouldUpgradeToFlowerPackage = 'هذه الخدمة للمشتركات بالباقة الوردية';
 
-void showUpgradePackageDialog([String content = shouldUpgradeYourPackage]) =>
+void showUpgradePackageDialog(bool isMan,
+        [String content = shouldUpgradeYourPackage]) =>
     Get.dialog(AlertDialog(
       // actionsOverflowAlignment: OverflowBarAlignment.center,
       actionsAlignment: MainAxisAlignment.spaceEvenly,
       title: Text(
-        "قم بترقية باقتك",
+        isMan ? "قم بترقية باقتك" : "قومي بترقية باقتك",
         style: Get.theme.textTheme.bodyText1!.copyWith(
             color: Colors.red, fontWeight: FontWeight.bold, fontSize: 20),
       ),

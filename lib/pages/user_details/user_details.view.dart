@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:zeffaf/pages/favorites/favorites.controller.dart';
 import 'package:zeffaf/utils/input_data.dart';
 import 'package:zeffaf/widgets/app_header.dart';
@@ -122,6 +123,12 @@ class UserDetails extends GetView<UserDetailsController> {
                                   ? controller.user.value.mobile ?? ''
                                   : '',
                           lightMode,
+                          onTap: controller.user.value.allowMobile != "0"
+                              ? () {
+                                  launchUrl(Uri.parse(
+                                      'tel:${controller.user.value.mobile}'));
+                                }
+                              : null,
                           button:
                               // controller.appController.userData.value
                               //                 .packageLevel! <=
@@ -206,6 +213,9 @@ class UserDetails extends GetView<UserDetailsController> {
                                               if (isMan &&
                                                   currentUserPackageId == 0) {
                                                 showUpgradePackageDialog(
+                                                    controller.appController
+                                                            .isMan.value ==
+                                                        0,
                                                     shouldUpgradeToFeaturedPackage);
                                                 return;
                                               }
@@ -213,6 +223,9 @@ class UserDetails extends GetView<UserDetailsController> {
                                               if (!isMan &&
                                                   currentUserPackageId == 11) {
                                                 showUpgradePackageDialog(
+                                                    controller.appController
+                                                            .isMan.value ==
+                                                        0,
                                                     shouldUpgradeToFlowerPackage);
                                                 return;
                                               }
@@ -486,6 +499,7 @@ class UserDetails extends GetView<UserDetailsController> {
     Widget? button,
     Widget? action,
     Color? textColor,
+    void Function()? onTap,
   }) {
     return Visibility(
       visible: visible ?? true,
@@ -532,12 +546,16 @@ class UserDetails extends GetView<UserDetailsController> {
                             child: Row(
                               children: [
                                 Expanded(
-                                  child: Text(
-                                    data,
-                                    textAlign: TextAlign.left,
-                                    style: Get.textTheme.titleMedium!.copyWith(
-                                        color: textColor ?? Colors.grey,
-                                        fontSize: 14),
+                                  child: InkWell(
+                                    onTap: onTap,
+                                    child: Text(
+                                      data,
+                                      textAlign: TextAlign.left,
+                                      style: Get.textTheme.titleMedium!
+                                          .copyWith(
+                                              color: textColor ?? Colors.grey,
+                                              fontSize: 14),
+                                    ),
                                   ),
                                 ),
                                 if (action != null) ...[

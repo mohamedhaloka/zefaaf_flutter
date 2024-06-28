@@ -381,7 +381,9 @@ class AccountHeader extends GetView<UserDetailsController> {
                                       inUserDetails: true));
                                   return;
                                 }
-                                showUpgradePackageDialog(message);
+                                showUpgradePackageDialog(
+                                    controller.appController.isMan.value == 0,
+                                    message);
                               },
                     color: controller.appController.isMan.value == 0
                         ? Get.theme.primaryColor
@@ -439,7 +441,7 @@ class AccountHeader extends GetView<UserDetailsController> {
 
   requestPhoto(context) {
     if (controller.appController.userData.value.packageLevel! <= 1) {
-      showUpgradePackageDialog();
+      showUpgradePackageDialog(controller.appController.isMan.value == 0);
       return;
     }
     controller

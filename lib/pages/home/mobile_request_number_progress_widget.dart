@@ -25,7 +25,9 @@ class MobileRequestNumberProgressWidget extends StatelessWidget {
               height: 45,
               child: CircularProgressIndicator(
                 strokeWidth: 2,
-                value: mobileRequest / packageMaxPhoneRequests,
+                value: packageMaxPhoneRequests == 0
+                    ? 0
+                    : mobileRequest / packageMaxPhoneRequests,
               ),
             ),
           ),

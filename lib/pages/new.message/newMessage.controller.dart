@@ -79,7 +79,8 @@ class NewMessageController extends GetxController {
     // }
     if (appController.userData.value.packageLevel! <= 3 &&
         appController.isMan.value != 1) {
-      showUpgradePackageDialog(shouldUpgradeToPlatinumPackage);
+      showUpgradePackageDialog(
+          appController.isMan.value == 0, shouldUpgradeToPlatinumPackage);
       return;
     }
     super.onReady();

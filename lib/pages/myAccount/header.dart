@@ -74,7 +74,7 @@ class AccountHeader extends GetView<AppController> {
             uploadImageLoading: myAccountController.uploadImgLoading,
             onChooseImage: () {
               if (controller.userData.value.packageLevel! <= 1) {
-                showUpgradePackageDialog();
+                showUpgradePackageDialog(controller.isMan.value == 0);
                 return;
               }
               myAccountController.getImage().then((image) async {
@@ -188,12 +188,14 @@ class AccountHeader extends GetView<AppController> {
 
                             if (isMan && premium == 0) {
                               showUpgradePackageDialog(
+                                  controller.isMan.value == 0,
                                   shouldUpgradeToDiamondPackage);
                               return;
                             }
 
                             if (!isMan && premium == 11) {
                               showUpgradePackageDialog(
+                                  controller.isMan.value == 0,
                                   shouldUpgradeToFlowerPackage);
                               return;
                             }

@@ -95,6 +95,7 @@ class ImageAction extends StatelessWidget {
                           onTap: () {
                             if (isPremium <= 1) {
                               showUpgradePackageDialog(
+                                  controller.isMan.value == 0,
                                   shouldUpgradeToSilverPackage);
                               return;
                             }
@@ -115,16 +116,16 @@ class ImageAction extends StatelessWidget {
                         )),
                   if (isLive == 0 || isLive == 1 || isLive == 2)
                     Positioned(
-                      top: isPremium == 0 ? 6 : 3,
-                      right: isPremium == 0 ? 10 : 3,
+                      top: isPremium == 0 || isPremium == 6 ? 6 : 3,
+                      right: isPremium == 0 || isPremium == 6 ? 10 : 3,
                       child: Container(
-                        width: isPremium == 0 ? 15 : 22,
-                        height: isPremium == 0 ? 15 : 22,
+                        width: isPremium == 0 || isPremium == 6 ? 15 : 22,
+                        height: isPremium == 0 || isPremium == 6 ? 15 : 22,
                         decoration: BoxDecoration(
                           color: isLive == 2 ? Colors.red : AppTheme.GREEN,
                           shape: BoxShape.circle,
                         ),
-                        child: controller.isMan.value == 1 && isPremium != 0
+                        child: controller.isMan.value == 1 && isPremium != 6
                             ? Padding(
                                 padding: const EdgeInsets.all(3.0),
                                 child: Image.asset(

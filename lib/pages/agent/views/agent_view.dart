@@ -69,7 +69,7 @@ class AgentView extends GetView<AgentController> {
                           itemCount:
                               controller.agents.first.agentPackages.length,
                           itemBuilder: (context, index) => packagesOption(
-                            isMan: controller.appController.isMan,
+                            isMan: controller.appController.isMan.value == 0,
                             image: controller
                                 .agents.first.agentPackages[index].image
                                 .toString(),
