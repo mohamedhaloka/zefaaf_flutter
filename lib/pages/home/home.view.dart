@@ -46,10 +46,9 @@ class HomeState extends State<Home> {
               width: 60,
             ),
             actions: [
-              if ((controller.appController.userData.value
-                          .packageMobileRequestLimit ??
-                      0) >
-                  0) ...[
+              if (controller
+                      .appController.userData.value.packageMobileRequestLimit !=
+                  null) ...[
                 MobileRequestNumberProgressWidget(
                   mobileRequest: controller
                       .appController.userData.value.packageMobileRequestLimit!,

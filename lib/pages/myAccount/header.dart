@@ -95,7 +95,7 @@ class AccountHeader extends GetView<AppController> {
               fontWeight: FontWeight.normal,
             ),
           ),
-          controller.userData.value.premium == 0
+          controller.userData.value.isFreePlan
               ? const SizedBox(height: 5)
               : Text(
                   " صلاحية الباقة حتى ${DateFormat.yMMMd().format(controller.userData.value.packageRenewDate!)}",
@@ -107,7 +107,7 @@ class AccountHeader extends GetView<AppController> {
                     fontSize: 10,
                   ),
                 ),
-          controller.userData.value.premium == 0
+          controller.userData.value.isFreePlan
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

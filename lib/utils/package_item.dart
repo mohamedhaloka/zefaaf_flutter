@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zeffaf/pages/packages/store.pay/payment.service.dart';
 
 import '../widgets/custom_image.dart';
 
-Widget packagesOption({price, bgColor, tittle, image, onPress, title}) {
-  PaymentService paymentService = PaymentService();
+Widget packagesOption({isMan, price, bgColor, tittle, image, onPress, title}) {
   // paymentService
   return Column(
     children: [
-      Text('اشترك في باقتك $title واستفد بمميزاتها',
+      Text('${isMan ? 'اشترك' : 'اشتركي'} في باقتك $title واستفد بمميزاتها',
           style:
               Get.textTheme.bodyText2!.copyWith(fontWeight: FontWeight.bold)),
       // Text(

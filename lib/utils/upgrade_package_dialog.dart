@@ -15,6 +15,7 @@ const shouldUpgradeYourPackage = 'يجب ترقية باقتك للإستفاد�
 const shouldUpgradeToSilverPackage = 'هذه الخدمة لأصحاب الباقة الفضية';
 const shouldUpgradeToGoldenPackage = 'هذه الخدمة لأصحاب الباقة الذهبية';
 const shouldUpgradeToPlatinumPackage = 'هذه الخدمة لأصحاب الباقة البلاتينية';
+const shouldUpgradeToFeaturedPackage = 'هذه الخدمة لأصحاب الباقات المتميزة';
 const shouldUpgradeToDiamondPackage = 'هذه الخدمة لأصحاب الباقة الماسية';
 const shouldUpgradeToFlowerPackage = 'هذه الخدمة للمشتركات بالباقة الوردية';
 

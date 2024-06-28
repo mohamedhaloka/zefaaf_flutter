@@ -130,8 +130,8 @@ chatDetailsAppBar(User user, ChatDetailsController controller,
                                                 Get.find<AppController>()
                                                         .userData
                                                         .value
-                                                        .premium ==
-                                                    11
+                                                        .packageLevel ==
+                                                    6
                                             ? 'ميزة تحديد الموقع للعضويات الوردية'
                                             : "${user.detectedCountry}",
                                     style: TextStyle(

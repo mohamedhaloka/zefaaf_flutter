@@ -120,7 +120,7 @@ class Owner {
     deviceToken = json['deviceToken'] ?? "";
   }
 
-  bool get isFreePlan => premium == 0 || premium == 11;
+  bool get isFreePlan => packageLevel == 0 || packageLevel == 6;
 
   Owner({
     this.id,

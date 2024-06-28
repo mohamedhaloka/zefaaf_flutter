@@ -13,14 +13,15 @@ import 'user_details.controller.dart';
 
 class UserDetails extends GetView<UserDetailsController> {
   UserDetails(
-      {this.userId,
+      {super.key,
+      this.userId,
       this.listType,
       required this.isFavourite,
       this.inChatRoom = false});
-  int? userId;
-  int? listType;
-  bool inChatRoom;
-  bool isFavourite;
+  final int? userId;
+  final int? listType;
+  final bool inChatRoom;
+  final bool isFavourite;
   UserDetailsController userDetailsController =
       Get.put(UserDetailsController());
   @override
@@ -205,7 +206,7 @@ class UserDetails extends GetView<UserDetailsController> {
                                               if (isMan &&
                                                   currentUserPackageId == 0) {
                                                 showUpgradePackageDialog(
-                                                    shouldUpgradeToPlatinumPackage);
+                                                    shouldUpgradeToFeaturedPackage);
                                                 return;
                                               }
 
