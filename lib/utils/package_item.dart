@@ -8,7 +8,8 @@ Widget packagesOption(
   // paymentService
   return Column(
     children: [
-      Text('${isMan ? 'اشترك' : 'اشتركي'} في باقتك $title واستفد بمميزاتها',
+      Text(
+          '${isMan ? 'اشترك' : 'اشتركي'} في باقتك $title ${isMan ? 'واستفد' : 'واستفيدي'} بمميزاتها',
           style:
               Get.textTheme.bodyText2!.copyWith(fontWeight: FontWeight.bold)),
       // Text(

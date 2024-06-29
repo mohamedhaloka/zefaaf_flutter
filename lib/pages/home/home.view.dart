@@ -50,6 +50,7 @@ class HomeState extends State<Home> {
                       .appController.userData.value.packageMobileRequestLimit !=
                   null) ...[
                 MobileRequestNumberProgressWidget(
+                  isMan: controller.appController.isMan.value == 0,
                   mobileRequest: controller
                       .appController.userData.value.packageMobileRequestLimit!,
                   packageLevel:
