@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -18,6 +17,7 @@ class MyAccountController extends GetxController {
   RxString fileName = "".obs;
   RxBool noInternet = RxBool(false);
   RxBool uploadImgLoading = RxBool(false);
+  RxBool checkEditProfileAvailability = RxBool(false);
   final picker = ImagePicker();
   late File filePath;
 
@@ -50,6 +50,23 @@ class MyAccountController extends GetxController {
       return true;
     } else {
       uploadImgLoading(false);
+      return false;
+    }
+  }
+
+  Future<bool> checkAvailabilityToEditProfile() async {
+    checkEditProfileAvailability(true);
+    String url = "${Request.urlBase}availabilityToEditProfile";
+    http.Response response = await http.post(Uri.parse(url),
+        headers: {'Authorization': 'Bearer ${appController.apiToken.value}'});
+    var responseData = json.decode(response.body);
+    if (responseData['status'] == "success") {
+      checkEditProfileAvailability(false);
+
+      int rowCounts = responseData['rowsCount'] ?? 1;
+      return rowCounts == 0;
+    } else {
+      checkEditProfileAvailability(false);
       return false;
     }
   }

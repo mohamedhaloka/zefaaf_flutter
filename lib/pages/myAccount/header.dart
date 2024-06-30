@@ -11,6 +11,7 @@ import 'package:zeffaf/pages/myAccount/temp_photo.dart';
 import 'package:zeffaf/pages/packages/view.dart';
 import 'package:zeffaf/pages/settings/settings.provider.dart';
 import 'package:zeffaf/utils/theme.dart';
+import 'package:zeffaf/utils/toast.dart';
 import 'package:zeffaf/widgets/custom_raised_button.dart';
 
 import '../../utils/upgrade_package_dialog.dart';
@@ -181,24 +182,35 @@ class AccountHeader extends GetView<AppController> {
                         CustomRaisedButton(
                           height: 35,
                           tittle: "تعديل الحساب",
-                          onPress: () {
+                          onPress: () async {
                             final bool isMan = controller.isMan.value == 0;
                             final int premium =
                                 controller.userData.value.packageLevel ?? 0;
 
                             if (isMan && premium == 0) {
                               showUpgradePackageDialog(
-                                  isMan, shouldUpgradeToDiamondPackage);
+                                isMan,
+                                shouldUpgradeToDiamondPackage,
+                              );
                               return;
                             }
 
                             if (!isMan && premium == 6) {
                               showUpgradePackageDialog(
-                                  isMan, shouldUpgradeToFlowerPackage);
+                                isMan,
+                                shouldUpgradeToFlowerPackage,
+                              );
                               return;
                             }
 
-                            Get.toNamed('/EditAccount');
+                            final available = await myAccountController
+                                .checkAvailabilityToEditProfile();
+
+                            if (available) {
+                              Get.toNamed('/EditAccount');
+                            } else {
+                              showToast("لن تستطيع التعديل مرة أخرى قبل شهر");
+                            }
                           },
                           color: Colors.green,
                         ),
