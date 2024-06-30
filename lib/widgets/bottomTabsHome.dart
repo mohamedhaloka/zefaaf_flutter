@@ -62,23 +62,20 @@ class BottomTabsHome extends GetView<BottomTabsController> {
   const BottomTabsHome({super.key});
 
   @override
-  Widget build(context) => MixinBuilder<BottomTabsController>(
-        init: BottomTabsController(),
-        builder: (controller) => Scaffold(
-          body: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 60),
-                child: controller.widgetOptions
-                    .elementAt(controller.selectedIndex)
-                    .child,
-              ),
-              const _BottomBar()
-            ],
-          ),
+  Widget build(context) => Obx(() => Scaffold(
+        body: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 60),
+              child: controller.widgetOptions
+                  .elementAt(controller.selectedIndex)
+                  .child,
+            ),
+            const _BottomBar()
+          ],
         ),
-      );
+      ));
   //مصر
 }
 

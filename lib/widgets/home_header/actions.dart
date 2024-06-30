@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:zeffaf/appController.dart';
 import 'package:zeffaf/pages/notifications/notifications.view.dart';
 import 'package:zeffaf/utils/theme.dart';
+import 'package:zeffaf/utils/toast.dart';
+import 'package:zeffaf/utils/upgrade_package_dialog.dart';
 
 class AccountActions extends GetView<AppController> {
   const AccountActions({super.key});
@@ -22,6 +24,52 @@ class AccountActions extends GetView<AppController> {
                 () => Get.toNamed('/AppMessageView'),
                 imagePath: 'assets/images/more-menu/contact-us.png'),
             buildDrawer,
+            action(
+              "طلبات الهواتف".tr,
+              null,
+              controller.userData.value.packageMobileRequestLimit,
+              () {
+                final packageLevel =
+                    controller.userData.value.packageLevel ?? 0;
+                final isMan = controller.isMan.value == 0;
+                final mobileRequest =
+                    controller.userData.value.packageMobileRequestLimit ?? 9;
+                if (packageLevel == 0 && isMan) {
+                  showUpgradePackageDialog(
+                    isMan,
+                    shouldUpgradeToGetPhoneNumberFeatured,
+                  );
+                  return;
+                }
+                if (packageLevel == 6 && isMan) {
+                  showUpgradePackageDialog(
+                    isMan,
+                    shouldUpgradeToFlowerToGet60NumberPackage,
+                  );
+                  return;
+                }
+
+                if (mobileRequest == 0) {
+                  showUpgradePackageDialog(
+                    isMan,
+                    isMan
+                        ? 'بلغت الحد المسموح به من الأرقام'
+                        : 'بلغتي الحد المسموح به من الأرقام',
+                  );
+                  return;
+                }
+
+                showToast(
+                  'متبقي لك $mobileRequest طلب لرقم الهاتف من $packageMaxPhoneRequests خلال هذا الشهر',
+                );
+              },
+              imagePath: controller.isMan.value == 0
+                  ? 'assets/images/man_requested_phone.jpeg'
+                  : 'assets/images/woman_requested_phone.jpeg',
+              withCircleBox: false,
+              showNumberDirect: true,
+            ),
+            buildDrawer,
             action("شاهدوا حسابي".tr, Icons.visibility_rounded,
                 int.parse(controller.newViews.value), () async {
               Get.to(() => const Notifications(
@@ -39,15 +87,31 @@ class AccountActions extends GetView<AppController> {
                     notification: "2",
                   ));
             }),
-            buildDrawer,
-            action("topicsForRead".tr, Icons.person, controller.newPosts.value,
-                () {
-              Get.toNamed('/Posts');
-            }),
+            // buildDrawer,
+            // action("topicsForRead".tr, Icons.person, controller.newPosts.value,
+            //     () {
+            //   Get.toNamed('/Posts');
+            // }),
           ],
         ),
       ),
     );
+  }
+
+  int get packageMaxPhoneRequests {
+    switch (controller.userData.value.packageLevel) {
+      case 5:
+      case 7:
+        return 60;
+      case 4:
+      case 3:
+      case 2:
+        return 30;
+      case 1:
+        return 7;
+      default:
+        return 0;
+    }
   }
 
   Widget get buildDrawer => const RotatedBox(
@@ -59,8 +123,15 @@ class AccountActions extends GetView<AppController> {
         ),
       );
 
-  Widget action(String title, IconData? icon, number, Function onTap,
-      {String? imagePath}) {
+  Widget action(
+    String title,
+    IconData? icon,
+    number,
+    Function onTap, {
+    String? imagePath,
+    bool withCircleBox = true,
+    bool showNumberDirect = false,
+  }) {
     return SizedBox(
       width: Get.width * 0.23,
       child: InkWell(
@@ -71,32 +142,43 @@ class AccountActions extends GetView<AppController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
-              height: 29,
-              width: 29,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: controller.isMan.value == 1
-                    ? Get.theme.primaryColor
-                    : Get.theme.colorScheme.secondary,
-              ),
-              child: Container(
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.black12,
+            if (icon == null && !withCircleBox) ...[
+              ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(50)),
+                child: Image.asset(
+                  imagePath ?? '',
+                  height: 29,
+                  width: 29,
                 ),
-                padding: const EdgeInsets.all(2),
-                child: icon == null
-                    ? Image.asset(
-                        imagePath ?? '',
-                      )
-                    : Icon(
-                        icon,
-                        size: 20,
-                        color: AppTheme.WHITE,
-                      ),
+              )
+            ] else ...[
+              Container(
+                height: 29,
+                width: 29,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: controller.isMan.value == 1
+                      ? Get.theme.primaryColor
+                      : Get.theme.colorScheme.secondary,
+                ),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.black12,
+                  ),
+                  padding: const EdgeInsets.all(2),
+                  child: icon == null
+                      ? Image.asset(
+                          imagePath ?? '',
+                        )
+                      : Icon(
+                          icon,
+                          size: 20,
+                          color: AppTheme.WHITE,
+                        ),
+                ),
               ),
-            ),
+            ],
             const SizedBox(
               width: 5,
             ),
@@ -105,11 +187,13 @@ class AccountActions extends GetView<AppController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  number == 0
+                  showNumberDirect
                       ? number.toString()
-                      : number >= 10
+                      : number == 0
                           ? number.toString()
-                          : "0${number.toString()}",
+                          : number >= 10
+                              ? number.toString()
+                              : "0${number.toString()}",
                   maxLines: 1,
                   style: Get.textTheme.bodyText2!.copyWith(
                       height: 0.8,
@@ -118,6 +202,7 @@ class AccountActions extends GetView<AppController> {
                           : Colors.black,
                       fontSize: 14),
                 ),
+                const SizedBox(height: 2),
                 Text(
                   title,
                   maxLines: 1,

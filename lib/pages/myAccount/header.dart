@@ -184,21 +184,21 @@ class AccountHeader extends GetView<AppController> {
                           onPress: () {
                             final bool isMan = controller.isMan.value == 0;
                             final int premium =
-                                controller.userData.value.premium ?? 0;
+                                controller.userData.value.packageLevel ?? 0;
 
                             if (isMan && premium == 0) {
                               showUpgradePackageDialog(
-                                  controller.isMan.value == 0,
-                                  shouldUpgradeToDiamondPackage);
+                                  isMan, shouldUpgradeToDiamondPackage);
                               return;
                             }
 
-                            if (!isMan && premium == 11) {
+                            if (!isMan && premium == 6) {
                               showUpgradePackageDialog(
-                                  controller.isMan.value == 0,
-                                  shouldUpgradeToFlowerPackage);
+                                  isMan, shouldUpgradeToFlowerPackage);
                               return;
                             }
+
+                            Get.toNamed('/EditAccount');
                           },
                           color: Colors.green,
                         ),

@@ -42,6 +42,7 @@ class UpdateData {
     if (data['status'] == "success") {
       var result = json.decode(response.body);
       appController.updateUserDate(result);
+
       appController.updateAPiToken(json.decode(response.body)['token']);
 
       appController

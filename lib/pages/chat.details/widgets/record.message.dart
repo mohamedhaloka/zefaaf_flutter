@@ -90,11 +90,11 @@ class _RecordMessageState extends State<RecordMessage> {
           ),
         ),
         Obx(() => PositionSeekWidget(
-              currentPosition: position.value,
+              currentPosition: position,
               duration: duration.value,
               recordTime: messageModal.voiceTime!,
               seekTo: (to) {
-                messageModal.assetsAudioPlayer!.seek(to);
+                messageModal.assetsAudioPlayer?.seek(to);
               },
             )),
         Visibility(
@@ -142,11 +142,11 @@ class _RecordMessageState extends State<RecordMessage> {
       IconData plyIcon, List<MessageModal> messages) async {
     print(message);
     if (message.contains('zefaaf')) {
-      myPlayer.stop();
+      await myPlayer.stop();
       await myPlayer.play(DeviceFileSource(message));
     } else {
       log('play audio ${'https://zefaafapi.com/$message'}');
-      myPlayer.stop();
+      await myPlayer.stop();
       await myPlayer.play(UrlSource("https://zefaafapi.com/$message"));
     }
 
@@ -162,12 +162,18 @@ class _RecordMessageState extends State<RecordMessage> {
       }
     }
 
-    durationSubscription = myPlayer.onDurationChanged.listen((event) {
-      duration(event);
-    });
-    positionSubscription = myPlayer.onPositionChanged.listen((event) {
-      position(event);
-    });
+    final durationValue = await myPlayer.getDuration();
+    duration(durationValue);
+
+    durationSubscription = myPlayer.onDurationChanged.listen(
+      (event) => duration(event),
+    );
+    positionSubscription = myPlayer.onPositionChanged.listen(
+      (event) {
+        position(event);
+        setState(() {});
+      },
+    );
   }
 
   onPlayError() {

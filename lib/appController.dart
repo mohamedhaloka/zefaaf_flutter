@@ -76,6 +76,7 @@ class AppController extends GetxController {
     storage.writeIfNull('fingerprint', false);
     storage.writeIfNull('notificationOpenDate', "");
     storage.writeIfNull('detectedCountry', "");
+    getCountryCode();
     getAppSettings().then((value) {
       appSetting.value = AppSettingsModal.fromJson(value['data'][0]);
       registerLicense.value = appSetting.value.registerLicense ?? '';
@@ -115,7 +116,6 @@ class AppController extends GetxController {
     getApiToken();
     getFontSize();
     updateGender(isMan.value);
-    getCountryCode();
     // WidgetsBinding.instance.addPostFrameCallback(
     //     (_) => DynamicTheme.of(Get.context!)?.setTheme(1));
     super.onInit();
@@ -361,7 +361,7 @@ class AppController extends GetxController {
     storage.write('notificationStatue', newMode);
   }
 
-  getUserData() {
+  Owner getUserData() {
     return userData.value;
   }
 

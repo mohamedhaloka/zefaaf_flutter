@@ -200,7 +200,7 @@ class UserDetails extends GetView<UserDetailsController> {
                                                           .appController
                                                           .userData
                                                           .value
-                                                          .premium ??
+                                                          .packageLevel ??
                                                       0;
                                               final int
                                                   currentUserPackageLevel =
@@ -212,21 +212,15 @@ class UserDetails extends GetView<UserDetailsController> {
                                                       0;
                                               if (isMan &&
                                                   currentUserPackageId == 0) {
-                                                showUpgradePackageDialog(
-                                                    controller.appController
-                                                            .isMan.value ==
-                                                        0,
-                                                    shouldUpgradeToFeaturedPackage);
+                                                showUpgradePackageDialog(isMan,
+                                                    shouldUpgradeToGetPhoneNumberFeatured);
                                                 return;
                                               }
 
                                               if (!isMan &&
-                                                  currentUserPackageId == 11) {
-                                                showUpgradePackageDialog(
-                                                    controller.appController
-                                                            .isMan.value ==
-                                                        0,
-                                                    shouldUpgradeToFlowerPackage);
+                                                  currentUserPackageId == 6) {
+                                                showUpgradePackageDialog(isMan,
+                                                    shouldUpgradeToFlowerToGet60NumberPackage);
                                                 return;
                                               }
 
@@ -236,8 +230,10 @@ class UserDetails extends GetView<UserDetailsController> {
                                                   if (controller.user.value
                                                           .mariageKind !=
                                                       5) {
-                                                    thisFeatureAvailableFor(
-                                                        'زوجة أولي فقط');
+                                                    showUpgradePackageDialog(
+                                                      isMan,
+                                                      shouldUpgradeToSilverPackage,
+                                                    );
                                                     return;
                                                   }
                                                   break;
@@ -245,7 +241,10 @@ class UserDetails extends GetView<UserDetailsController> {
                                                   if (controller.user.value
                                                           .mariageKind !=
                                                       6) {
-                                                    showToast('زوجة ثانية فقط');
+                                                    showUpgradePackageDialog(
+                                                      isMan,
+                                                      shouldUpgradeToGoldenPackage,
+                                                    );
                                                     return;
                                                   }
                                                   break;
@@ -253,7 +252,10 @@ class UserDetails extends GetView<UserDetailsController> {
                                                   if (controller.user.value
                                                           .mariageKind !=
                                                       184) {
-                                                    showToast('زواج تعدد فقط');
+                                                    showUpgradePackageDialog(
+                                                      isMan,
+                                                      shouldUpgradeToPlatinumPackage,
+                                                    );
                                                     return;
                                                   }
                                                   break;
@@ -286,6 +288,7 @@ class UserDetails extends GetView<UserDetailsController> {
                                       ),
                                     )
                                   : null,
+                          textSize: 16,
                           action: (controller.user.value.allowMobile == "0" &&
                                   controller.user.value.requestMobile == "1")
                               ? InkWell(
@@ -499,6 +502,7 @@ class UserDetails extends GetView<UserDetailsController> {
     Widget? button,
     Widget? action,
     Color? textColor,
+    double? textSize,
     void Function()? onTap,
   }) {
     return Visibility(
@@ -554,7 +558,7 @@ class UserDetails extends GetView<UserDetailsController> {
                                       style: Get.textTheme.titleMedium!
                                           .copyWith(
                                               color: textColor ?? Colors.grey,
-                                              fontSize: 14),
+                                              fontSize: textSize ?? 14),
                                     ),
                                   ),
                                 ),

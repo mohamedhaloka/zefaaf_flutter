@@ -4,8 +4,8 @@ import 'dart:developer';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:socket_io_client/socket_io_client.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart';
 import 'package:zeffaf/appController.dart';
 import 'package:zeffaf/models/message.details.dart';
 import 'package:zeffaf/pages/chat.details/chat.details.controller.dart';
@@ -26,8 +26,8 @@ class SocketService extends GetxService {
   }
 
   void disconnectSocket() {
-    socket!.io.disconnect();
-    socket!.dispose();
+    socket?.io.disconnect();
+    socket?.dispose();
     socket = null;
   }
 

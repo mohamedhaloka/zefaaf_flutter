@@ -21,6 +21,8 @@ import 'package:zeffaf/pages/confirm.new.password/cnp.controller.dart';
 import 'package:zeffaf/pages/confirm.new.password/view.dart';
 import 'package:zeffaf/pages/country.code/countrycode.controller.dart';
 import 'package:zeffaf/pages/country.code/view.dart';
+import 'package:zeffaf/pages/edit_account/binding.dart';
+import 'package:zeffaf/pages/edit_account/view.dart';
 import 'package:zeffaf/pages/favorites/favorites.controller.dart';
 import 'package:zeffaf/pages/friends/friends.controller.dart';
 import 'package:zeffaf/pages/friends/friends.view.dart';
@@ -69,6 +71,7 @@ import 'package:zeffaf/pages/search_result/search.result.binding.dart';
 import 'package:zeffaf/pages/search_result/searchResults.view.dart';
 import 'package:zeffaf/pages/settings/settings.controller.dart';
 import 'package:zeffaf/pages/settings/settings.view.dart';
+import 'package:zeffaf/pages/splash_page.dart';
 import 'package:zeffaf/pages/success.stories/success.stories.controller.dart';
 import 'package:zeffaf/pages/success.stories/view.dart';
 import 'package:zeffaf/pages/sunna_marrage/suna_posts.controller.dart';
@@ -80,7 +83,6 @@ import 'package:zeffaf/pages/user_details/user_details.view.dart';
 import 'package:zeffaf/services/fAuth.dart';
 import 'package:zeffaf/services/notification.service.dart';
 
-import './appController.dart';
 import 'pages/forget.password/forget.password.controller.dart';
 import 'pages/home/home.controller.dart';
 import 'pages/home/home.view.dart';
@@ -93,9 +95,7 @@ import 'widgets/bottomTabsHome.dart';
 routes() => [
       GetPage(
         name: "/",
-        page: () => Get.find<AppController>().getUserData().id == 0
-            ? OnBoardingView()
-            : const BottomTabsHome(),
+        page: () => const SplashPage(),
         binding: PagesBind(),
         transition: Transition.fade,
       ),
@@ -109,6 +109,12 @@ routes() => [
         name: "/BottomTabsHome",
         page: () => const BottomTabsHome(),
         binding: BottomTabsBinding(),
+        transition: Transition.fade,
+      ),
+      GetPage(
+        name: "/EditAccount",
+        page: () => const EditAccountView(),
+        binding: EditAccountBinding(),
         transition: Transition.fade,
       ),
       GetPage(

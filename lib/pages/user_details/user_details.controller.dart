@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:zeffaf/models/user.dart';
 import 'package:zeffaf/services/http.service.dart';
+import 'package:zeffaf/utils/upgrade_package_dialog.dart';
 
 import '../../appController.dart';
 import '../../utils/toast.dart';
@@ -15,8 +16,6 @@ class UserDetailsController extends GetxController {
   Rx<User> user = User().obs;
   RxBool loading = true.obs;
   RxBool loadingReplyPhoto = false.obs;
-
-  int requestMobileCount = 0;
 
   Future<User?> getUserDetails(userId, context) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
@@ -51,11 +50,13 @@ class UserDetailsController extends GetxController {
 
     if (responseData['status'] == "error") {
       if (responseData['errorCode'] == "free package") {
-        return "هذه الخدمة لأصحاب الباقة الفضية";
+        return shouldUpgradeToSilverPackage;
       } else if (responseData['errorCode'] == "package4") {
-        return "هذه الخدمة لأصحاب الباقة الذهبية";
+        return shouldUpgradeToGoldenPackage;
+      } else if (responseData['errorCode'] == "package4") {
+        return shouldUpgradeToPlatinumPackage;
       } else if (responseData['errorCode'] == "package5") {
-        return "هذه الخدمة لأصحاب الباقة البلاتينية";
+        return shouldUpgradeToDiamondPackage;
       }
     }
     return null;
@@ -155,15 +156,24 @@ class UserDetailsController extends GetxController {
 
       var data = json.decode(response.body);
 
+      print('mobile data ${response.body}');
       if (data['status'] == 'success') {
-        requestMobileCount--;
-        showToast(
-            'متبقي لك $requestMobileCount طلب لرقم الهاتف من $packageMaxPhoneRequests خلال هذا الشهر');
+        if (user.value.packageLevel == 0 || user.value.packageLevel == 6) {
+          showToast(
+              'متبقي لك ${data['data']['count_limit'] ?? 0} طلب لرقم الهاتف من $packageMaxPhoneRequests خلال هذا الشهر');
+        }
         return data['rowsCount'];
       } else if (data['errorCode'] == 'ignore list') {
         userIsBlockYou(user.value.userName);
       } else if (data['errorCode'] == 'reach out requests limit') {
-        showToast('لقد تخطيت الحد الأقصى لطلبات الأرقام');
+        final String msg = appController.isMan.value == 0
+            ? 'بلغت الحد الأقصى المسموح لك. للمزيد اشترك ثانيةً'
+            : 'بلغتي الحد الأقصى المسموح لك. للمزيد اشتركي ثانيةً';
+
+        showUpgradePackageDialog(
+          appController.isMan.value == 0,
+          msg,
+        );
       } else {
         return data['rowsCount'];
       }
@@ -276,12 +286,5 @@ class UserDetailsController extends GetxController {
         )
       ],
     ));
-  }
-
-  @override
-  void onInit() {
-    requestMobileCount =
-        appController.userData.value.packageMobileRequestLimit ?? 0;
-    super.onInit();
   }
 }

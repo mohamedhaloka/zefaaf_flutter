@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PositionSeekWidget extends StatefulWidget {
-  final Duration currentPosition;
+  final Rx<Duration> currentPosition;
   final Duration duration;
   final Function(Duration) seekTo;
   final Color? sliderColor, buttonColor;
@@ -33,14 +33,14 @@ class _PositionSeekWidgetState extends State<PositionSeekWidget> {
   @override
   void initState() {
     super.initState();
-    _visibleValue = widget.currentPosition;
+    _visibleValue = widget.currentPosition.value;
   }
 
   @override
   void didUpdateWidget(PositionSeekWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!listenOnlyUserInterraction) {
-      _visibleValue = widget.currentPosition;
+      _visibleValue = widget.currentPosition.value;
     }
   }
 
@@ -82,7 +82,7 @@ class _PositionSeekWidgetState extends State<PositionSeekWidget> {
               SizedBox(
                 width: 40,
                 child: Text(
-                  durationToString(widget.currentPosition),
+                  durationToString(widget.currentPosition.value),
                   style: Get.theme.textTheme.bodyText1!.copyWith(
                       fontSize: 8, color: Get.theme.scaffoldBackgroundColor),
                 ),

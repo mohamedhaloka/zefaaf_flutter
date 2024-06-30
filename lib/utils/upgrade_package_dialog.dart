@@ -15,13 +15,12 @@ const shouldUpgradeYourPackage = 'يجب ترقية باقتك للإستفاد�
 const shouldUpgradeToSilverPackage = 'هذه الخدمة لأصحاب الباقة الفضية';
 const shouldUpgradeToGoldenPackage = 'هذه الخدمة لأصحاب الباقة الذهبية';
 const shouldUpgradeToPlatinumPackage = 'هذه الخدمة لأصحاب الباقة البلاتينية';
-const shouldUpgradeToFeaturedPackage = 'هذه الخدمة لأصحاب الباقات المتميزة';
+const shouldUpgradeToFeaturedPackage = 'هذه الخدمة لأصحاب الباقات المميزة';
 const shouldUpgradeToDiamondPackage = 'هذه الخدمة لأصحاب الباقة الماسية';
 const shouldUpgradeToFlowerPackage = 'هذه الخدمة للمشتركات بالباقة الوردية';
 const shouldUpgradeToFlowerToGet60NumberPackage =
-    'اشتركي بالعضوية الوردية لمنحك 60 رقم هاتف';
-const shouldUpgradeToGetPhoneNumberFeatured =
-    'اشترك بالعضوية المميزة لاظهار لك أرقام الهواتف';
+    'لهواتف عرسان زفاف اشتركي الآن';
+const shouldUpgradeToGetPhoneNumberFeatured = 'لهواتف عرائس زفاف اشترك الآن';
 
 void showUpgradePackageDialog(bool isMan,
         [String content = shouldUpgradeYourPackage]) =>
