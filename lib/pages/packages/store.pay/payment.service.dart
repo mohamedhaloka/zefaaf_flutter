@@ -114,7 +114,20 @@ class PaymentService extends GetxService {
 
   /// Called when new updates arrives at ``purchaseUpdated`` stream
   void _handlePurchaseUpdate(PurchasedItem? productItem) async {
-    Get.toNamed('/PurchaseProcessing');
+    Get.dialog(Container(
+      width: Get.width,
+      height: Get.height,
+      color: Colors.white,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Image.asset(
+          'assets/images/payment_processing.png',
+          height: Get.height,
+          width: Get.width,
+          fit: BoxFit.fill,
+        ),
+      ),
+    ));
     if (Platform.isAndroid) {
       await _handlePurchaseUpdateAndroid(productItem!);
     } else {

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -167,7 +165,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               : false) {
             return "يجب كتابة ايميل حقيقي";
           }
-          log("Check Email ${checkEmail(val)}");
           return null;
         },
         onSaved: (String? value) {

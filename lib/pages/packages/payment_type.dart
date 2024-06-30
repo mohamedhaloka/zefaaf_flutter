@@ -77,8 +77,6 @@ class BottomSheet {
                                 )
                                     .then((value) async {
                                   packagesController.purchaseLoading(false);
-                                  print("buy by google ${packages.title}");
-                                  print("buy by google ${packages.iapId}");
 
                                   packagesController
                                       .packageName(packages.title!);
@@ -120,7 +118,7 @@ class BottomSheet {
                           onTap: () {
                             Get.back();
                             Get.toNamed('/Agent', arguments: true);
-                          },   
+                          },
                           tittle: 'وكيل بلدك',
                           imgName: 'more-menu/agents.png',
                           color: Theme.of(context).brightness == Brightness.dark

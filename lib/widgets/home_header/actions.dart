@@ -59,8 +59,17 @@ class AccountActions extends GetView<AppController> {
                   return;
                 }
 
+                final packageMaxPhoneRequestsOrders =
+                    packageMaxPhoneRequests == 1
+                        ? 'طلب'
+                        : packageMaxPhoneRequests == 2
+                            ? 'طلبان'
+                            : packageMaxPhoneRequests <= 10
+                                ? 'طلبات'
+                                : 'طلب';
+
                 showToast(
-                  'متبقي لك $mobileRequest طلب لرقم الهاتف من $packageMaxPhoneRequests خلال هذا الشهر',
+                  'متبقي لك $mobileRequest $packageMaxPhoneRequestsOrders لرقم الهاتف من $packageMaxPhoneRequests خلال هذا الشهر',
                 );
               },
               imagePath: controller.isMan.value == 0
@@ -202,7 +211,7 @@ class AccountActions extends GetView<AppController> {
                           : Colors.black,
                       fontSize: 14),
                 ),
-                const SizedBox(height: 2),
+                const SizedBox(height: 4),
                 Text(
                   title,
                   maxLines: 1,

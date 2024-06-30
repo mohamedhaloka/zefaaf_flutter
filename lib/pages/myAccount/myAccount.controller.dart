@@ -67,7 +67,7 @@ class MyAccountController extends GetxController {
       return rowCounts == 0;
     } else {
       checkEditProfileAvailability(false);
-      return false;
+      return true;
     }
   }
 

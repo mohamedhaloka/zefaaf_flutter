@@ -25,6 +25,23 @@ class UserDetails extends GetView<UserDetailsController> {
   final bool isFavourite;
   UserDetailsController userDetailsController =
       Get.put(UserDetailsController());
+
+  String upgradeDependOnType(int type) {
+    switch (type) {
+      case 5:
+        return shouldUpgradeToSilverPackage;
+      case 6:
+        return shouldUpgradeToGoldenPackage;
+      case 184:
+        return shouldUpgradeToPlatinumPackage;
+      case 183:
+      case 185:
+        return shouldUpgradeToDiamondPackage;
+      default:
+        return '';
+    }
+  }
+
   @override
   Widget build(context) {
     var lightMode = Theme.of(context).brightness == Brightness.light;
@@ -223,6 +240,9 @@ class UserDetails extends GetView<UserDetailsController> {
                                                     shouldUpgradeToFlowerToGet60NumberPackage);
                                                 return;
                                               }
+                                              final mariageKind = controller
+                                                      .user.value.mariageKind ??
+                                                  0;
 
                                               switch (currentUserPackageLevel) {
                                                 case 1:
@@ -232,7 +252,8 @@ class UserDetails extends GetView<UserDetailsController> {
                                                       5) {
                                                     showUpgradePackageDialog(
                                                       isMan,
-                                                      shouldUpgradeToSilverPackage,
+                                                      upgradeDependOnType(
+                                                          mariageKind),
                                                     );
                                                     return;
                                                   }
@@ -243,7 +264,8 @@ class UserDetails extends GetView<UserDetailsController> {
                                                       6) {
                                                     showUpgradePackageDialog(
                                                       isMan,
-                                                      shouldUpgradeToGoldenPackage,
+                                                      upgradeDependOnType(
+                                                          mariageKind),
                                                     );
                                                     return;
                                                   }
@@ -254,7 +276,8 @@ class UserDetails extends GetView<UserDetailsController> {
                                                       184) {
                                                     showUpgradePackageDialog(
                                                       isMan,
-                                                      shouldUpgradeToPlatinumPackage,
+                                                      upgradeDependOnType(
+                                                          mariageKind),
                                                     );
                                                     return;
                                                   }

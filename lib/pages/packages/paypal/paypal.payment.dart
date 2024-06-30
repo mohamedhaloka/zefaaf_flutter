@@ -29,7 +29,20 @@ class PaypalPayment extends GetView<PaypalController> {
                   final uri = Uri.parse(url);
                   final payerID = uri.queryParameters['PayerID'];
                   if (payerID != null) {
-                    Get.toNamed('/PurchaseProcessing');
+                    Get.dialog(Container(
+                      width: Get.width,
+                      height: Get.height,
+                      color: Colors.white,
+                      child: Scaffold(
+                        backgroundColor: Colors.transparent,
+                        body: Image.asset(
+                          'assets/images/payment_processing.png',
+                          height: Get.height,
+                          width: Get.width,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ));
                     await controller.services
                         .executePayment(
                       controller.executeUrl.value,

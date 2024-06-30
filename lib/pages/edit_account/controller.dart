@@ -7,11 +7,11 @@ import 'package:zeffaf/appController.dart';
 import 'package:zeffaf/models/owner.dart';
 import 'package:zeffaf/pages/city.list/city.list.controller.dart';
 import 'package:zeffaf/utils/input_data.dart';
+import 'package:zeffaf/utils/toast.dart';
 
 import '../../services/http.service.dart';
 
 class EditAccountController extends GetxController {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   RxBool loading = false.obs;
 
   final appController = Get.find<AppController>();
@@ -96,8 +96,12 @@ class EditAccountController extends GetxController {
 
   Future updateProfile() async {
     try {
-      formKey.currentState!.save();
-      if (!formKey.currentState!.validate()) return;
+      if (aboutMeController.text.isEmpty ||
+          aboutOtherController.text.isEmpty ||
+          jobController.text.isEmpty) {
+        showToast('يجب ملئ جميع البيانات');
+        return;
+      }
 
       loading(true);
       Map registerBody = {

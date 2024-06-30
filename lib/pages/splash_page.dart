@@ -15,8 +15,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      print('Get.arguments ${Get.arguments}');
-      fromUpdate = Get.arguments;
+      fromUpdate = Get.arguments ?? false;
       setState(() {});
       if (fromUpdate) {
         await Future.delayed(const Duration(milliseconds: 900));
