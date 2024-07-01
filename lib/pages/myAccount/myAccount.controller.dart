@@ -55,19 +55,24 @@ class MyAccountController extends GetxController {
   }
 
   Future<bool> checkAvailabilityToEditProfile() async {
-    checkEditProfileAvailability(true);
-    String url = "${Request.urlBase}availabilityToEditProfile";
-    http.Response response = await http.post(Uri.parse(url),
-        headers: {'Authorization': 'Bearer ${appController.apiToken.value}'});
-    var responseData = json.decode(response.body);
-    if (responseData['status'] == "success") {
-      checkEditProfileAvailability(false);
+    try {
+      checkEditProfileAvailability(true);
+      String url = "${Request.urlBase}availabilityToEditProfile";
+      http.Response response = await http.post(Uri.parse(url),
+          headers: {'Authorization': 'Bearer ${appController.apiToken.value}'});
+      var responseData = json.decode(response.body);
+      if (responseData['status'] == "success") {
+        checkEditProfileAvailability(false);
 
-      int rowCounts = responseData['rowsCount'] ?? 1;
-      return rowCounts == 0;
-    } else {
+        int rowCounts = responseData['rowsCount'] ?? 1;
+        return rowCounts == 0;
+      } else {
+        checkEditProfileAvailability(false);
+        return false;
+      }
+    } catch (e) {
       checkEditProfileAvailability(false);
-      return true;
+      return false;
     }
   }
 
