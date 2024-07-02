@@ -51,7 +51,7 @@ class UserDetailsController extends GetxController {
     if (responseData['status'] == "error") {
       if (responseData['errorCode'] == "free package") {
         return shouldUpgradeToSilverPackage;
-      } else if (responseData['errorCode'] == "package4") {
+      } else if (responseData['errorCode'] == "package3") {
         return shouldUpgradeToGoldenPackage;
       } else if (responseData['errorCode'] == "package4") {
         return shouldUpgradeToPlatinumPackage;

@@ -58,9 +58,10 @@ class MyAccountController extends GetxController {
     try {
       checkEditProfileAvailability(true);
       String url = "${Request.urlBase}availabilityToEditProfile";
-      http.Response response = await http.post(Uri.parse(url),
+      http.Response response = await http.get(Uri.parse(url),
           headers: {'Authorization': 'Bearer ${appController.apiToken.value}'});
       var responseData = json.decode(response.body);
+      print('responseData $responseData');
       if (responseData['status'] == "success") {
         checkEditProfileAvailability(false);
 

@@ -21,7 +21,8 @@ class _SplashPageState extends State<SplashPage> {
         await Future.delayed(const Duration(milliseconds: 900));
       }
 
-      final doesNotHaveUserId = Get.find<AppController>().getUserData().id == 0;
+      final doesNotHaveUserId =
+          (Get.find<AppController>().getUserData().id ?? 0) == 0;
       if (doesNotHaveUserId) {
         Get.offAllNamed('/on_boarding');
         return;

@@ -137,7 +137,7 @@ class UserDetails extends GetView<UserDetailsController> {
                                   controller.user.value.requestMobile == "1")
                               ? 'بإنتظار الموافقة على عرض الرقم'
                               : controller.user.value.allowMobile != "0"
-                                  ? controller.user.value.mobile ?? ''
+                                  ? '${(controller.user.value.mobile ?? '').replaceAll('+', "")}+'
                                   : '',
                           lightMode,
                           onTap: controller.user.value.allowMobile != "0"
@@ -219,14 +219,14 @@ class UserDetails extends GetView<UserDetailsController> {
                                                           .value
                                                           .packageLevel ??
                                                       0;
-                                              final int
-                                                  currentUserPackageLevel =
-                                                  controller
-                                                          .appController
-                                                          .userData
-                                                          .value
-                                                          .packageLevel ??
-                                                      0;
+                                              // final int
+                                              //     currentUserPackageLevel =
+                                              //     controller
+                                              //             .appController
+                                              //             .userData
+                                              //             .value
+                                              //             .packageLevel ??
+                                              //         0;
                                               if (isMan &&
                                                   currentUserPackageId == 0) {
                                                 showUpgradePackageDialog(isMan,
@@ -240,58 +240,75 @@ class UserDetails extends GetView<UserDetailsController> {
                                                     shouldUpgradeToFlowerToGet60NumberPackage);
                                                 return;
                                               }
-                                              final mariageKind = controller
-                                                      .user.value.mariageKind ??
-                                                  0;
 
-                                              switch (currentUserPackageLevel) {
-                                                case 1:
-                                                case 2:
-                                                  if (controller.user.value
-                                                          .mariageKind !=
-                                                      5) {
-                                                    showUpgradePackageDialog(
-                                                      isMan,
-                                                      upgradeDependOnType(
-                                                          mariageKind),
-                                                    );
-                                                    return;
-                                                  }
-                                                  break;
-                                                case 3:
-                                                  if (controller.user.value
-                                                          .mariageKind !=
-                                                      6) {
-                                                    showUpgradePackageDialog(
-                                                      isMan,
-                                                      upgradeDependOnType(
-                                                          mariageKind),
-                                                    );
-                                                    return;
-                                                  }
-                                                  break;
-                                                case 4:
-                                                  if (controller.user.value
-                                                          .mariageKind !=
-                                                      184) {
-                                                    showUpgradePackageDialog(
-                                                      isMan,
-                                                      upgradeDependOnType(
-                                                          mariageKind),
-                                                    );
-                                                    return;
-                                                  }
-                                                  break;
-                                                default:
-                                                  break;
+                                              final String? message =
+                                                  await controller
+                                                      .checkAvailabilityOfChatting(
+                                                controller.user.value.id
+                                                    .toString(),
+                                              );
+                                              if (message == null) {
+                                                if (!context.mounted) return;
+                                                await controller.requestMobile(
+                                                    userId, context);
+                                                if (!context.mounted) return;
+                                                await controller.getUserDetails(
+                                                    userId, context);
+                                                controller.loading(false);
+                                                return;
                                               }
+                                              showUpgradePackageDialog(
+                                                controller.appController.isMan
+                                                        .value ==
+                                                    0,
+                                                message,
+                                              );
 
-                                              await controller.requestMobile(
-                                                  userId, context);
-                                              if (!context.mounted) return;
-                                              await controller.getUserDetails(
-                                                  userId, context);
-                                              controller.loading(false);
+                                              // final mariageKind = controller
+                                              //         .user.value.mariageKind ??
+                                              //     0;
+                                              //
+                                              // switch (currentUserPackageLevel) {
+                                              //   case 1:
+                                              //   case 2:
+                                              //     if (controller.user.value
+                                              //             .mariageKind !=
+                                              //         5) {
+                                              //       showUpgradePackageDialog(
+                                              //         isMan,
+                                              //         upgradeDependOnType(
+                                              //             mariageKind),
+                                              //       );
+                                              //       return;
+                                              //     }
+                                              //     break;
+                                              //   case 3:
+                                              //     if (controller.user.value
+                                              //             .mariageKind !=
+                                              //         6) {
+                                              //       showUpgradePackageDialog(
+                                              //         isMan,
+                                              //         upgradeDependOnType(
+                                              //             mariageKind),
+                                              //       );
+                                              //       return;
+                                              //     }
+                                              //     break;
+                                              //   case 4:
+                                              //     if (controller.user.value
+                                              //             .mariageKind !=
+                                              //         184) {
+                                              //       showUpgradePackageDialog(
+                                              //         isMan,
+                                              //         upgradeDependOnType(
+                                              //             mariageKind),
+                                              //       );
+                                              //       return;
+                                              //     }
+                                              //     break;
+                                              //   default:
+                                              //     break;
+                                              // }
                                             },
                                       child: Row(
                                         children: [

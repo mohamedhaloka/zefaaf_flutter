@@ -18,10 +18,12 @@ Widget packagesOption(
       const SizedBox(height: 20),
       InkWell(
         onTap: onPress,
-        child: cachedNetworkImage(image,
-            boxFit: BoxFit.fitHeight,
-            height: 450.0,
-            width: Get.mediaQuery.size.width),
+        child: InteractiveViewer(
+          child: cachedNetworkImage(image,
+              boxFit: BoxFit.fitHeight,
+              height: 450.0,
+              width: Get.mediaQuery.size.width),
+        ),
       ),
     ],
   );

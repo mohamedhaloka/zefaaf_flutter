@@ -187,7 +187,7 @@ class AccountHeader extends GetView<AppController> {
                             final int premium =
                                 controller.userData.value.packageLevel ?? 0;
 
-                            if (isMan && premium == 0) {
+                            if (isMan && premium != 5 && premium != 4) {
                               showUpgradePackageDialog(
                                 isMan,
                                 shouldUpgradeToDiamondPackage,
