@@ -41,7 +41,7 @@ class AccountActions extends GetView<AppController> {
                   );
                   return;
                 }
-                if (packageLevel == 6 && isMan) {
+                if (packageLevel == 6 && !isMan) {
                   showUpgradePackageDialog(
                     isMan,
                     shouldUpgradeToFlowerToGet60NumberPackage,

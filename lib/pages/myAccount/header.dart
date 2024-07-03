@@ -209,7 +209,10 @@ class AccountHeader extends GetView<AppController> {
                             if (available) {
                               Get.toNamed('/EditAccount');
                             } else {
-                              showToast("لن تستطيع التعديل مرة أخرى قبل شهر");
+                              final msg = isMan
+                                  ? 'لمصداقية أكثر لن تستطيع التعديل مرة أخرى قبل شهر'
+                                  : 'لمصداقية أكثر لن تستطيعين التعديل مرة أخرى قبل شهر';
+                              showToast(msg);
                             }
                           },
                           color: Colors.green,

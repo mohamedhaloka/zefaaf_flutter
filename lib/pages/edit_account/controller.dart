@@ -43,7 +43,7 @@ class EditAccountController extends GetxController {
 
   void _fillData() {
     cityListController.countryCodeController
-        .countryId((userData.nationalityCountryId ?? 0).toString());
+        .countryId((userData.residentCountryId ?? 0).toString());
     jobController.text = userData.job ?? '';
     cityListController.cityId(userData.cityId ?? 0);
     cityListController.cityName(userData.cityName ?? '');

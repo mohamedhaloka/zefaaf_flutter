@@ -44,8 +44,8 @@ class UserImage extends StatelessWidget {
           ),
           if (isLive == 0 || isLive == 1 || isLive == 2)
             Container(
-              width: isPremium == 0 ? 15 : 22,
-              height: isPremium == 0 ? 15 : 22,
+              width: isPremium == 0 || isPremium == 6 ? 15 : 22,
+              height: isPremium == 0 || isPremium == 6 ? 15 : 22,
               decoration: BoxDecoration(
                   color: isAdmin
                       ? AppTheme.GREEN
@@ -57,7 +57,7 @@ class UserImage extends StatelessWidget {
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.white, width: 1)),
               child: Get.find<AppController>().isMan.value == 0 &&
-                      isPremium != 0
+                      (isPremium == 7)
                   ? Padding(
                       padding: const EdgeInsets.all(3.0),
                       child: Image.asset(

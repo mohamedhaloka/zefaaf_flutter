@@ -43,6 +43,7 @@ class PaypalPayment extends GetView<PaypalController> {
                         ),
                       ),
                     ));
+                    await Future.delayed(const Duration(seconds: 1));
                     await controller.services
                         .executePayment(
                       controller.executeUrl.value,

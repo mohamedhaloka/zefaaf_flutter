@@ -109,7 +109,7 @@ class PaymentService extends GetxService {
   }
 
   void _handlePurchaseError(PurchaseResult? purchaseError) {
-    _callErrorListeners(purchaseError!.message ?? '');
+    _callErrorListeners(purchaseError?.message ?? '');
   }
 
   /// Called when new updates arrives at ``purchaseUpdated`` stream
@@ -128,6 +128,7 @@ class PaymentService extends GetxService {
         ),
       ),
     ));
+    await Future.delayed(const Duration(seconds: 1));
     if (Platform.isAndroid) {
       await _handlePurchaseUpdateAndroid(productItem!);
     } else {

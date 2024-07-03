@@ -219,6 +219,12 @@ class UserDetails extends GetView<UserDetailsController> {
                                                           .value
                                                           .packageLevel ??
                                                       0;
+
+                                              final int otherUserMariageKind =
+                                                  controller.user.value
+                                                          .mariageKind ??
+                                                      0;
+
                                               // final int
                                               //     currentUserPackageLevel =
                                               //     controller
@@ -247,7 +253,8 @@ class UserDetails extends GetView<UserDetailsController> {
                                                 controller.user.value.id
                                                     .toString(),
                                               );
-                                              if (message == null) {
+                                              if (message == null &&
+                                                  currentUserPackageId != 4) {
                                                 if (!context.mounted) return;
                                                 await controller.requestMobile(
                                                     userId, context);
@@ -256,13 +263,31 @@ class UserDetails extends GetView<UserDetailsController> {
                                                     userId, context);
                                                 controller.loading(false);
                                                 return;
+                                              } else if (currentUserPackageId !=
+                                                  4) {
+                                                showUpgradePackageDialog(
+                                                    isMan, message ?? '');
                                               }
-                                              showUpgradePackageDialog(
-                                                controller.appController.isMan
-                                                        .value ==
-                                                    0,
-                                                message,
-                                              );
+
+                                              if (currentUserPackageId == 4 &&
+                                                  (otherUserMariageKind != 5 &&
+                                                      otherUserMariageKind !=
+                                                          6 &&
+                                                      otherUserMariageKind !=
+                                                          184)) {
+                                                showUpgradePackageDialog(
+                                                  isMan,
+                                                  shouldUpgradeToDiamondPackage,
+                                                );
+                                              } else {
+                                                if (!context.mounted) return;
+                                                await controller.requestMobile(
+                                                    userId, context);
+                                                if (!context.mounted) return;
+                                                await controller.getUserDetails(
+                                                    userId, context);
+                                                controller.loading(false);
+                                              }
 
                                               // final mariageKind = controller
                                               //         .user.value.mariageKind ??

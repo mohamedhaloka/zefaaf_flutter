@@ -82,8 +82,8 @@ class ImageAction extends StatelessWidget {
                     : Padding(
                         padding: const EdgeInsets.only(top: 4.0, right: 4.0),
                         child: Container(
-                          width: isPremium == 0 ? 15 : 22,
-                          height: isPremium == 0 ? 15 : 22,
+                          width: isPremium == 0 || isPremium == 6 ? 15 : 22,
+                          height: isPremium == 0 || isPremium == 6 ? 15 : 22,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: isLive == 2
@@ -93,7 +93,7 @@ class ImageAction extends StatelessWidget {
                                     : Colors.grey,
                           ),
                           child: Get.find<AppController>().isMan.value == 0 &&
-                                  isPremium != 0
+                                  isPremium != 6
                               ? Padding(
                                   padding: const EdgeInsets.all(3.0),
                                   child: Image.asset(
