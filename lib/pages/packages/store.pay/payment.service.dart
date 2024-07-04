@@ -9,6 +9,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:zeffaf/pages/packages/packages.controller.dart';
 
 class PaymentService extends GetxService {
+  static String packageName = '';
   final packagesController = Get.find<PackagesController>();
 
   Future<PaymentService> init() async {
@@ -128,7 +129,7 @@ class PaymentService extends GetxService {
         ),
       ),
     ));
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 2));
     if (Platform.isAndroid) {
       await _handlePurchaseUpdateAndroid(productItem!);
     } else {
@@ -226,7 +227,7 @@ class PaymentService extends GetxService {
       dispose();
       Get.offAllNamed(
         '/PurchaseSuccess',
-        arguments: packagesController.packageName.value,
+        arguments: PaymentService.packageName,
       );
       // save in sharedPreference here
       _callProStatusChangedListeners();
@@ -263,7 +264,8 @@ class PaymentService extends GetxService {
     }
   }
 
-  Future<void> buyProduct(packageId) async {
+  Future<void> buyProduct(String? packageId, String packageName) async {
+    PaymentService.packageName = packageName;
     ProductDetails? productDetails;
     final ProductDetailsResponse response =
         await InAppPurchase.instance.queryProductDetails(_productIds.toSet());
@@ -278,15 +280,4 @@ class PaymentService extends GetxService {
         PurchaseParam(productDetails: productDetails);
     InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
   }
-
-  Widget getDialog(title, content) => AlertDialog(
-        title: title,
-        content: content,
-        actions: [
-          ElevatedButton(
-            onPressed: Get.back,
-            child: const Text('حسناً'),
-          )
-        ],
-      );
 }

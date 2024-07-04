@@ -166,47 +166,7 @@ class UserDetails extends GetView<UserDetailsController> {
                                                   .theme.colorScheme.secondary),
                                       onPressed: controller.loading.value
                                           ? null
-                                          :
-                                          // controller.user.value.allowMobile == "1"
-                                          //         ? () async {
-                                          //             if (controller.appController.isMan
-                                          //                         .value ==
-                                          //                     0 &&
-                                          //                 controller
-                                          //                         .appController
-                                          //                         .userData
-                                          //                         .value
-                                          //                         .premium ==
-                                          //                     0) {
-                                          //               showUpgradePackageDialog(
-                                          //                   shouldUpgradeToPlatinumPackage);
-                                          //               return;
-                                          //             }
-                                          //
-                                          //             if (controller.appController.isMan
-                                          //                         .value ==
-                                          //                     1 &&
-                                          //                 controller
-                                          //                         .appController
-                                          //                         .userData
-                                          //                         .value
-                                          //                         .premium ==
-                                          //                     11) {
-                                          //               showUpgradePackageDialog(
-                                          //                   shouldUpgradeToFlowerPackage);
-                                          //               return;
-                                          //             }
-                                          //
-                                          //             await controller
-                                          //                 .cancelRequestMobile(
-                                          //                     userId, context);
-                                          //             if (!context.mounted) return;
-                                          //             await controller.getUserDetails(
-                                          //                 userId, context);
-                                          //             controller.loading(false);
-                                          //           }
-                                          //         :
-                                          () async {
+                                          : () async {
                                               final bool isMan = controller
                                                       .appController
                                                       .isMan
@@ -220,19 +180,6 @@ class UserDetails extends GetView<UserDetailsController> {
                                                           .packageLevel ??
                                                       0;
 
-                                              final int otherUserMariageKind =
-                                                  controller.user.value
-                                                          .mariageKind ??
-                                                      0;
-
-                                              // final int
-                                              //     currentUserPackageLevel =
-                                              //     controller
-                                              //             .appController
-                                              //             .userData
-                                              //             .value
-                                              //             .packageLevel ??
-                                              //         0;
                                               if (isMan &&
                                                   currentUserPackageId == 0) {
                                                 showUpgradePackageDialog(isMan,
@@ -253,8 +200,7 @@ class UserDetails extends GetView<UserDetailsController> {
                                                 controller.user.value.id
                                                     .toString(),
                                               );
-                                              if (message == null &&
-                                                  currentUserPackageId != 4) {
+                                              if (message == null) {
                                                 if (!context.mounted) return;
                                                 await controller.requestMobile(
                                                     userId, context);
@@ -263,77 +209,11 @@ class UserDetails extends GetView<UserDetailsController> {
                                                     userId, context);
                                                 controller.loading(false);
                                                 return;
-                                              } else if (currentUserPackageId !=
-                                                  4) {
-                                                showUpgradePackageDialog(
-                                                    isMan, message ?? '');
                                               }
-
-                                              if (currentUserPackageId == 4 &&
-                                                  (otherUserMariageKind != 5 &&
-                                                      otherUserMariageKind !=
-                                                          6 &&
-                                                      otherUserMariageKind !=
-                                                          184)) {
-                                                showUpgradePackageDialog(
-                                                  isMan,
-                                                  shouldUpgradeToDiamondPackage,
-                                                );
-                                              } else {
-                                                if (!context.mounted) return;
-                                                await controller.requestMobile(
-                                                    userId, context);
-                                                if (!context.mounted) return;
-                                                await controller.getUserDetails(
-                                                    userId, context);
-                                                controller.loading(false);
-                                              }
-
-                                              // final mariageKind = controller
-                                              //         .user.value.mariageKind ??
-                                              //     0;
-                                              //
-                                              // switch (currentUserPackageLevel) {
-                                              //   case 1:
-                                              //   case 2:
-                                              //     if (controller.user.value
-                                              //             .mariageKind !=
-                                              //         5) {
-                                              //       showUpgradePackageDialog(
-                                              //         isMan,
-                                              //         upgradeDependOnType(
-                                              //             mariageKind),
-                                              //       );
-                                              //       return;
-                                              //     }
-                                              //     break;
-                                              //   case 3:
-                                              //     if (controller.user.value
-                                              //             .mariageKind !=
-                                              //         6) {
-                                              //       showUpgradePackageDialog(
-                                              //         isMan,
-                                              //         upgradeDependOnType(
-                                              //             mariageKind),
-                                              //       );
-                                              //       return;
-                                              //     }
-                                              //     break;
-                                              //   case 4:
-                                              //     if (controller.user.value
-                                              //             .mariageKind !=
-                                              //         184) {
-                                              //       showUpgradePackageDialog(
-                                              //         isMan,
-                                              //         upgradeDependOnType(
-                                              //             mariageKind),
-                                              //       );
-                                              //       return;
-                                              //     }
-                                              //     break;
-                                              //   default:
-                                              //     break;
-                                              // }
+                                              showUpgradePackageDialog(
+                                                isMan,
+                                                message,
+                                              );
                                             },
                                       child: Row(
                                         children: [

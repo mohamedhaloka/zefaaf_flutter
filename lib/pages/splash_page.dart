@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:zeffaf/appController.dart';
 
 class SplashPage extends StatefulWidget {
@@ -11,6 +12,9 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   bool fromUpdate = false;
+  final storage = GetStorage();
+
+  String? apiToken;
 
   @override
   void initState() {
@@ -21,8 +25,9 @@ class _SplashPageState extends State<SplashPage> {
         await Future.delayed(const Duration(milliseconds: 900));
       }
 
-      final doesNotHaveUserId =
-          (Get.find<AppController>().getUserData().id ?? 0) == 0;
+      apiToken = storage.read('apiToken') ?? '';
+
+      final doesNotHaveUserId = (apiToken ?? '').isEmpty;
       if (doesNotHaveUserId) {
         Get.offAllNamed('/on_boarding');
         return;

@@ -42,6 +42,19 @@ class UserDetailsController extends GetxController {
   }
 
   Future<String?> checkAvailabilityOfChatting(String otherId) async {
+    final packageId = appController.userData.value.packageLevel ?? 0;
+    final otherUserMarrageId = user.value.mariageKind ?? 0;
+    if (packageId < 1 && otherUserMarrageId == 5) {
+      return shouldUpgradeToSilverPackage;
+    } else if (packageId < 3 && otherUserMarrageId == 6) {
+      return shouldUpgradeToGoldenPackage;
+    } else if (packageId < 4 && otherUserMarrageId == 184) {
+      return shouldUpgradeToPlatinumPackage;
+    } else if (packageId < 5 &&
+        (otherUserMarrageId == 185 || otherUserMarrageId == 183)) {
+      return shouldUpgradeToDiamondPackage;
+    }
+
     String url = "${Request.urlBase}openChat";
     http.Response response = await http.post(Uri.parse(url),
         body: {'otherId': otherId, 'reverse': 1.toString()},

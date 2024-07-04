@@ -179,44 +179,46 @@ class AccountHeader extends GetView<AppController> {
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
-                        CustomRaisedButton(
-                          height: 35,
-                          tittle: "تعديل الحساب",
-                          onPress: () async {
-                            final bool isMan = controller.isMan.value == 0;
-                            final int premium =
-                                controller.userData.value.packageLevel ?? 0;
+                        Obx(() => CustomRaisedButton(
+                              height: 35,
+                              loading: myAccountController
+                                  .checkEditProfileAvailability.value,
+                              tittle: "تعديل الحساب",
+                              onPress: () async {
+                                final bool isMan = controller.isMan.value == 0;
+                                final int premium =
+                                    controller.userData.value.packageLevel ?? 0;
 
-                            if (isMan && premium != 5 && premium != 4) {
-                              showUpgradePackageDialog(
-                                isMan,
-                                shouldUpgradeToDiamondPackage,
-                              );
-                              return;
-                            }
+                                if (isMan && premium != 5 && premium != 4) {
+                                  showUpgradePackageDialog(
+                                    isMan,
+                                    shouldUpgradeToDiamondPackage,
+                                  );
+                                  return;
+                                }
 
-                            if (!isMan && premium == 6) {
-                              showUpgradePackageDialog(
-                                isMan,
-                                shouldUpgradeToFlowerPackage,
-                              );
-                              return;
-                            }
+                                if (!isMan && premium == 6) {
+                                  showUpgradePackageDialog(
+                                    isMan,
+                                    shouldUpgradeToFlowerPackage,
+                                  );
+                                  return;
+                                }
 
-                            final available = await myAccountController
-                                .checkAvailabilityToEditProfile();
+                                final available = await myAccountController
+                                    .checkAvailabilityToEditProfile();
 
-                            if (available) {
-                              Get.toNamed('/EditAccount');
-                            } else {
-                              final msg = isMan
-                                  ? 'لمصداقية أكثر لن تستطيع التعديل مرة أخرى قبل شهر'
-                                  : 'لمصداقية أكثر لن تستطيعين التعديل مرة أخرى قبل شهر';
-                              showToast(msg);
-                            }
-                          },
-                          color: Colors.green,
-                        ),
+                                if (available) {
+                                  Get.toNamed('/EditAccount');
+                                } else {
+                                  final msg = isMan
+                                      ? 'لمصداقية أكثر لن تستطيع التعديل مرة أخرى قبل شهر'
+                                      : 'لمصداقية أكثر لن تستطيعين التعديل مرة أخرى قبل شهر';
+                                  showToast(msg);
+                                }
+                              },
+                              color: Colors.green,
+                            )),
                         Positioned(
                           top: 0,
                           left: 0,

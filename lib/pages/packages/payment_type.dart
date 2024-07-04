@@ -79,9 +79,11 @@ class BottomSheet {
                                   packagesController.purchaseLoading(false);
 
                                   packagesController
-                                      .packageName(packages.title!);
-                                  await paymentService
-                                      .buyProduct(packages.iapId);
+                                      .packageName(packages.title ?? '');
+                                  await paymentService.buyProduct(
+                                    packages.iapId,
+                                    packages.title ?? '',
+                                  );
                                 });
                               },
                               tittle: 'Google Pay',
@@ -100,9 +102,11 @@ class BottomSheet {
                                       //     .isReady();
                                       packagesController.purchaseLoading(false);
                                       packagesController
-                                          .packageName(packages.title!);
-                                      await paymentService
-                                          .buyProduct(packages.iapId);
+                                          .packageName(packages.title ?? '');
+                                      await paymentService.buyProduct(
+                                        packages.iapId,
+                                        packages.title ?? '',
+                                      );
                                     });
                                   },
                                   tittle: 'In-App purchases',

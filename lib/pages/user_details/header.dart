@@ -373,43 +373,21 @@ class AccountHeader extends GetView<UserDetailsController> {
                             : () async {
                                 final bool isMan =
                                     controller.appController.isMan.value == 0;
-                                final int userPackageLevel = controller
-                                        .appController
-                                        .userData
-                                        .value
-                                        .packageLevel ??
-                                    0;
-                                final int otherUserMariageKind =
-                                    controller.user.value.mariageKind ?? 0;
 
                                 final String? message = await controller
                                     .checkAvailabilityOfChatting(
                                         controller.user.value.id.toString());
-                                if (message == null && userPackageLevel != 4) {
+                                if (message == null) {
                                   Get.to(() => ChatDetails(
                                       otherId: userId,
                                       isBackToChatList: false,
                                       inUserDetails: true));
                                   return;
-                                } else if (userPackageLevel != 4) {
-                                  showUpgradePackageDialog(
-                                      isMan, message ?? '');
                                 }
-
-                                if (userPackageLevel == 4 &&
-                                    (otherUserMariageKind != 5 &&
-                                        otherUserMariageKind != 6 &&
-                                        otherUserMariageKind != 184)) {
-                                  showUpgradePackageDialog(
-                                    isMan,
-                                    shouldUpgradeToDiamondPackage,
-                                  );
-                                } else {
-                                  Get.to(() => ChatDetails(
-                                      otherId: userId,
-                                      isBackToChatList: false,
-                                      inUserDetails: true));
-                                }
+                                showUpgradePackageDialog(
+                                  isMan,
+                                  message,
+                                );
                               },
                     color: controller.appController.isMan.value == 0
                         ? Get.theme.primaryColor

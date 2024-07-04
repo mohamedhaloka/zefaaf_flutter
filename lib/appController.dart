@@ -387,6 +387,7 @@ class AppController extends GetxController {
   }
 
   logOut([bool? value]) {
+    storage.write('apiToken', '');
     storage.write('userData', json.encode({'id': null}));
     userData.value = Owner.fromJson({'id': null});
     Get.offAllNamed('/Login', arguments: [value ?? false]);
@@ -446,7 +447,7 @@ class AppController extends GetxController {
     return apiToken.value;
   }
 
-  updateAPiToken(newToken) {
+  updateAPiToken(String newToken) {
     storage.write('apiToken', newToken);
     apiToken.value = newToken;
   }

@@ -99,13 +99,27 @@ class _ChatDetailsState extends State<ChatDetails> with WidgetsBindingObserver {
             controller.sendConfirmReadied();
           } else {
             controller.loading(false);
-            print(responseData['errorCode']);
-            if (responseData['errorCode'] == "free package") {
+
+            final packageId =
+                controller.appController.userData.value.packageLevel ?? 0;
+            final otherUserMarrageId = controller.userDetails.mariageKind ?? 0;
+            if (packageId <= 2 && otherUserMarrageId == 5) {
               controller.ignoreMessage = "هذه الخدمة لأصحاب الباقة الفضية";
+            } else if (packageId < 3 && otherUserMarrageId == 6) {
+              controller.ignoreMessage = 'هذه الخدمة لأصحاب الباقة الذهبية';
+            } else if (packageId < 4 && otherUserMarrageId == 184) {
+              controller.ignoreMessage = "هذه الخدمة لأصحاب الباقة البلاتينية";
+            } else if (packageId < 5 &&
+                (otherUserMarrageId == 185 || otherUserMarrageId == 183)) {
+              controller.ignoreMessage = 'هذه الخدمة لأصحاب الباقة الماسية';
+            } else if (responseData['errorCode'] == "free package") {
+              controller.ignoreMessage = "هذه الخدمة لأصحاب الباقة الفضية";
+            } else if (responseData['errorCode'] == 'package3') {
+              controller.ignoreMessage = 'هذه الخدمة لأصحاب الباقة الذهبية';
             } else if (responseData['errorCode'] == 'package4') {
               controller.ignoreMessage = 'هذه الخدمة لأصحاب الباقة الذهبية';
             } else if (responseData['errorCode'] == 'package5') {
-              controller.ignoreMessage = 'هذه الخدمة لأصحاب الباقة البلاتينية';
+              controller.ignoreMessage = 'هذه الخدمة لأصحاب الباقة الماسية';
             }
 
             controller.ignoreToChat(true);

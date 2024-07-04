@@ -51,16 +51,16 @@ class PaypalPayment extends GetView<PaypalController> {
                       controller.accessToken,
                     )
                         .then((_) async {
-                      final paypalConfirmed = await controller.confirmPaypal();
-
-                      if (paypalConfirmed) {
-                        Get.back();
-                        Get.back();
-                        Get.offAllNamed(
-                          '/PurchaseSuccess',
-                          arguments: controller.zefaafPackageTittle,
-                        );
-                      }
+                      // final paypalConfirmed = await controller.confirmPaypal();
+                      //
+                      // if (paypalConfirmed) {
+                      Get.back();
+                      Get.back();
+                      Get.offAllNamed(
+                        '/PurchaseSuccess',
+                        arguments: controller.zefaafPackageTittle,
+                      );
+                      // }
                     });
                   } else {
                     Get.back();

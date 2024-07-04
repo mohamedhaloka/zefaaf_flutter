@@ -14,10 +14,10 @@ class PaginationLoadMessages extends StatelessWidget {
             padding: const EdgeInsets.all(6),
             width: Get.width,
             color: Get.theme.scaffoldBackgroundColor,
-            child: Row(
+            child: const Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Text("جارى تحميل المزيد من الرسائل"),
                 SizedBox(
                   width: 6,
