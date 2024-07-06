@@ -299,7 +299,6 @@ class AutoSearchSettingController extends GetxController {
 
           weightFrom(value(data['weightFrom'].toString()));
           weightTo(value(data['weightTo'].toString()));
-          print(data['heightTo']);
 
           heightFrom(value(data['heightFrom'].toString()));
           heightTo(value(data['heightTo'].toString()));

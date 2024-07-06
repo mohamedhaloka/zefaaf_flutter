@@ -9,15 +9,15 @@ import 'payment_type.dart' as payment;
 import 'store.pay/payment.service.dart';
 
 class PackagesOption extends GetView<PackagesController> {
-  PackagesOption(this.pageController);
-  PageController pageController;
+  const PackagesOption(this.pageController, {super.key});
+  final PageController pageController;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(
-          height: 540,
+          height: 510,
           child: PageView.builder(
             itemCount: controller.packages.length,
             controller: pageController,
@@ -49,7 +49,6 @@ class PackagesOption extends GetView<PackagesController> {
                 title: controller.packages[index].title ?? ''),
           ),
         ),
-        const SizedBox(height: 60),
         SmoothPageIndicator(
           controller: pageController,
           count: controller.packages.length,

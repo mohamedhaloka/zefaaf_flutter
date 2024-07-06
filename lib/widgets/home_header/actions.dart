@@ -216,12 +216,13 @@ class AccountActions extends GetView<AppController> {
                   title,
                   maxLines: 1,
                   style: Get.textTheme.caption!.copyWith(
-                      height: 0.8,
-                      color: controller.isMan.value == 0
-                          ? AppTheme.WHITE
-                          : Colors.black,
-                      fontSize: 7,
-                      fontWeight: FontWeight.bold),
+                    height: 0.8,
+                    color: controller.isMan.value == 0
+                        ? AppTheme.WHITE
+                        : Colors.black,
+                    fontSize: 8,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ],
             ),

@@ -245,7 +245,7 @@ routes() => [
       ),
       GetPage(
         name: "/AppMessageView",
-        page: () => AppMessageView(),
+        page: () => const AppMessageView(),
         binding: PagesBind(),
         transition: Transition.fade,
       ),

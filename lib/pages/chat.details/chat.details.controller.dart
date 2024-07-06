@@ -22,7 +22,6 @@ import 'package:zeffaf/services/http.service.dart';
 import 'package:zeffaf/utils/toast.dart';
 
 import '../../services/socketService.dart';
-import '../new.message/newMessage.view.dart';
 
 class ChatDetailsController extends GetxController {
   //Call AppController to can access all Vars in it
@@ -455,12 +454,10 @@ class ChatDetailsController extends GetxController {
 
 //To use record use should check permission first
   Future<bool> checkPermission() async {
-    if (!await Permission.microphone.isGranted) {
-      PermissionStatus status = await Permission.microphone.request();
-      if (status != PermissionStatus.granted) {
-        print('slslsl');
-        return false;
-      }
+    PermissionStatus status = await Permission.microphone.request();
+    print('microo status $status');
+    if (status != PermissionStatus.granted) {
+      return false;
     }
     return true;
   }

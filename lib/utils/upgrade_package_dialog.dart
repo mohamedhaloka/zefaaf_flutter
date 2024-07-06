@@ -88,7 +88,8 @@ void thisFeatureAvailableFor(String content) => Get.dialog(AlertDialog(
       ],
     ));
 
-void showRatingDialog([String content = shouldUpgradeYourPackage]) =>
+void showRatingDialog(bool isMan,
+        [String content = shouldUpgradeYourPackage]) =>
     Get.dialog(
       AlertDialog(
         title: Row(
@@ -111,8 +112,8 @@ void showRatingDialog([String content = shouldUpgradeYourPackage]) =>
                 ))
           ],
         ),
-        content: const Text("وجهي كلمة شكر لمنصة زفاف",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        content: Text("${isMan ? 'وجّه' : 'وجهي'} كلمة شكر لمنصة زفاف",
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         actions: [
           ElevatedButton(
             onPressed: () {

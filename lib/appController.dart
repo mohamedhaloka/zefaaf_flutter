@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:facebook_app_events/facebook_app_events.dart';
-import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -149,16 +148,16 @@ class AppController extends GetxController {
 
     if (convertAppVersionToNumber < convertStoreVersionToNumber) {
       Get.dialog(
-        AlertDialog(
-          content: SystemDialog(
-            title: "يتوافر تحديث جديد للتطبيق يشمل العديد من المزايا",
-            iconPath: 'assets/images/new_upgrade.svg',
-            description: appSettings.value.mobileVersionDescription,
-            buttonText: 'تحديث',
-            onPress: _launchUrl,
-            isMan: isMan.value == 0,
-          ),
+        SystemDialog(
+          title:
+              "يتوافر الان تحديث مميز للتطبيق يشمل العديد من المزايا و منها:",
+          iconPath: 'assets/images/new_upgrade.svg',
+          description: appSettings.value.mobileVersionDescription,
+          buttonText: 'تحديث',
+          onPress: _launchUrl,
+          isMan: isMan.value == 0,
         ),
+        barrierDismissible: false,
       );
     }
   }
@@ -200,7 +199,7 @@ class AppController extends GetxController {
     if (isMan.value == 0 && userData.value.packageLevel! <= 4) {
       showUpgradePackageDialog(isMan.value == 0, shouldUpgradeToDiamondPackage);
       return;
-    } else if (isMan.value == 1 && userData.value.premium == 11) {
+    } else if (isMan.value == 1 && userData.value.packageLevel == 6) {
       showUpgradePackageDialog(isMan.value == 0, shouldUpgradeToFlowerPackage);
       return;
     } else {

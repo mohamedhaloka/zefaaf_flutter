@@ -42,15 +42,21 @@ class UserDetailsController extends GetxController {
   }
 
   Future<String?> checkAvailabilityOfChatting(String otherId) async {
-    final packageId = appController.userData.value.packageLevel ?? 0;
+    final packageLevel = appController.userData.value.packageLevel ?? 0;
+    final packageId = appController.userData.value.packageId ?? 0;
     final otherUserMarrageId = user.value.mariageKind ?? 0;
-    if (packageId < 1 && otherUserMarrageId == 5) {
+    if (packageLevel == 4 &&
+        packageId == 10 &&
+        otherUserMarrageId != 185 &&
+        otherUserMarrageId != 183) {
+      return null;
+    } else if (packageLevel < 1 && otherUserMarrageId == 5) {
       return shouldUpgradeToSilverPackage;
-    } else if (packageId < 3 && otherUserMarrageId == 6) {
+    } else if (packageLevel < 3 && otherUserMarrageId == 6) {
       return shouldUpgradeToGoldenPackage;
-    } else if (packageId < 4 && otherUserMarrageId == 184) {
+    } else if (packageLevel < 4 && otherUserMarrageId == 184) {
       return shouldUpgradeToPlatinumPackage;
-    } else if (packageId < 5 &&
+    } else if (packageLevel < 5 &&
         (otherUserMarrageId == 185 || otherUserMarrageId == 183)) {
       return shouldUpgradeToDiamondPackage;
     }

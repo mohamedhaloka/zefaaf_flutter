@@ -23,53 +23,48 @@ class SystemDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).cardColor,
-      padding: const EdgeInsets.all(2),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SvgPicture.asset(iconPath),
-          const SizedBox(height: 24),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 12),
-          if ((description ?? '').isNotEmpty) ...[
-            Text(
-              description ?? '',
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
+    return PopScope(
+      canPop: false,
+      child: AlertDialog(
+        scrollable: true,
+        content: Container(
+          color: Theme.of(context).cardColor,
+          padding: const EdgeInsets.all(2),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SvgPicture.asset(iconPath),
+              const SizedBox(height: 24),
+              Text(
+                title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 24),
-          ],
-          CustomRaisedButton(
-            tittle: buttonText,
-            onPress: onPress,
-            color: isMan
-                ? Get.theme.primaryColor
-                : Get.theme.colorScheme.secondary,
-          ),
-          TextButton(
-            onPressed: () {
-              Get.back();
-            },
-            child: const Text(
-              'إلغاء',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.black,
+              const SizedBox(height: 12),
+              if ((description ?? '').isNotEmpty) ...[
+                Text(
+                  description ?? '',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const SizedBox(height: 24),
+              ],
+              CustomRaisedButton(
+                tittle: buttonText,
+                onPress: onPress,
+                color: isMan
+                    ? Get.theme.primaryColor
+                    : Get.theme.colorScheme.secondary,
               ),
-            ),
-          )
-        ],
+            ],
+          ),
+        ),
       ),
     );
   }

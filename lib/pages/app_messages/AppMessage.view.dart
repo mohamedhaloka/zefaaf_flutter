@@ -30,17 +30,25 @@ class AppMessageView extends GetView<AppMessageController> {
               : Get.theme.colorScheme.secondary,
         ),
         onPressed: () async {
-          if (controller.appController.isMan.value == 1) {
-            showRatingDialog();
+          final isMan = controller.appController.isMan.value == 0;
+          final packageLevel =
+              controller.appController.userData.value.packageLevel ?? 0;
+
+          if (!isMan) {
+            if (packageLevel == 6) {
+              showUpgradePackageDialog(isMan, shouldUpgradeToFlowerPackage);
+              return;
+            }
+
+            showRatingDialog(isMan);
             return;
-          } else if (controller.appController.userData.value.packageLevel! <=
-              4) {
-            showUpgradePackageDialog(controller.appController.isMan.value == 0,
-                shouldUpgradeToDiamondPackage);
+          } else if (packageLevel <= 4) {
+            showUpgradePackageDialog(isMan, shouldUpgradeToDiamondPackage);
             return;
           } else {
+            showRatingDialog(isMan);
             // controller.setCheckPreviousRequest(true);
-            await controller.appController.checkIfHasPreviousRequest();
+            // await controller.appController.checkIfHasPreviousRequest();
             // controller.setCheckPreviousRequest(false);
             // controller.messages.clear();
             // controller.loading(true);

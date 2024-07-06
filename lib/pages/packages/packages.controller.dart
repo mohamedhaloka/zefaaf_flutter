@@ -30,17 +30,21 @@ class PackagesController extends GetxController {
       final data = await request.get("getPackages2");
       packages.clear();
       if (data is Map) {
+        agent = AgentModel.fromJson(data['agent']);
+
         if (data["data"] != null) {
-          data["data"].forEach((element) {
-            packages.add(PackageModel.fromJson(element));
-          });
+          if ((agent?.name ?? '').isNotEmpty) {
+            packages.addAll(agent?.agentPackages ?? []);
+          } else {
+            data["data"].forEach((element) {
+              packages.add(PackageModel.fromJson(element));
+            });
+          }
 
           for (var element in packages) {
             iapPackages.add(element.iapId ?? '');
           }
         }
-
-        agent = AgentModel.fromJson(data['agent']);
 
         fetched.value = true;
         await Get.putAsync(() => PaymentService().init());
