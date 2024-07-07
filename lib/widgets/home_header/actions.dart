@@ -220,7 +220,7 @@ class AccountActions extends GetView<AppController> {
                     color: controller.isMan.value == 0
                         ? AppTheme.WHITE
                         : Colors.black,
-                    fontSize: 8,
+                    fontSize: 7,
                     fontWeight: FontWeight.w900,
                   ),
                 ),

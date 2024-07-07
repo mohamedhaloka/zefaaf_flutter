@@ -118,14 +118,14 @@ void showRatingDialog(bool isMan,
           ElevatedButton(
             onPressed: () {
               Get.back();
-              InAppReview.instance.openStoreListing();
+              InAppReview.instance.openStoreListing(appStoreId: '1550582488');
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Get.theme.primaryColor,
             ),
-            child: const Text(
-              "قيمي التطبيق",
-              style: TextStyle(color: Colors.white),
+            child: Text(
+              "${isMan ? 'قيم' : 'قيمي'} التطبيق",
+              style: const TextStyle(color: Colors.white),
             ),
           ),
           ElevatedButton(
