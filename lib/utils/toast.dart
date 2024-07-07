@@ -6,5 +6,5 @@ Future<bool?> showToast(String msg) => Fluttertoast.showToast(
       msg: msg,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.CENTER,
-      fontSize: Platform.isAndroid ? 16 : 12,
+      fontSize: Platform.isAndroid ? 16 : 13,
     );

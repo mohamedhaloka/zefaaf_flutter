@@ -15,19 +15,20 @@ class HomeHeader extends GetView<AppController> {
   Widget build(BuildContext context) {
     return Obx(
       () => SizedBox(
-        width: Get.width,
+        width: MediaQuery.sizeOf(context).width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             UserStatus(),
             ImageAction(
-                controller.userData.value.profileImage ?? ''.obs,
-                Container(),
-                Get.find<AppController>().statueVal.value,
-                controller.userData.value.packageLevel ?? 0,
-                controller,
-                true,
-                false),
+              controller.userData.value.profileImage ?? ''.obs,
+              Container(),
+              Get.find<AppController>().statueVal.value,
+              controller.userData.value.packageLevel ?? 0,
+              controller,
+              true,
+              false,
+            ),
             const SizedBox(
               height: 4,
             ),
@@ -58,35 +59,39 @@ class HomeHeader extends GetView<AppController> {
                 children: [
                   Text(
                     "أنت حالياً على الباقة المجانية ",
-                    style: Get.textTheme.caption!.copyWith(
+                    style: Get.textTheme.bodySmall?.copyWith(
                       color: AppTheme.WHITE,
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
+                  const SizedBox(width: 5),
                   InkWell(
                     onTap: () => Get.toNamed("/packages"),
-                    child: Container(
-                      padding: const EdgeInsets.all(6.0),
+                    child: DecoratedBox(
                       decoration: BoxDecoration(
                         color: controller.isMan.value == 0
                             ? Get.theme.colorScheme.secondary
                             : Get.theme.primaryColor,
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      child: Text(
-                        "upgrade".tr,
-                        style: Get.textTheme.caption!.copyWith(
-                          color: AppTheme.WHITE,
-                          fontWeight: FontWeight.normal,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 6,
+                          horizontal: 10,
+                        ),
+                        child: Text(
+                          "الترقية  الآن",
+                          textAlign: TextAlign.center,
+                          style: Get.textTheme.bodySmall?.copyWith(
+                            fontSize: 10,
+                            color: AppTheme.WHITE,
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 5),
                 ],
               )
             ] else
