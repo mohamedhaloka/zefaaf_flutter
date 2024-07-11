@@ -8,6 +8,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:zeffaf/pages/list.select.multi.item/view.dart';
 import 'package:zeffaf/pages/settings/settings.controller.dart';
 import 'package:zeffaf/utils/input_data.dart';
+import 'package:zeffaf/utils/upgrade_package_dialog.dart';
 import 'package:zeffaf/widgets/app_header.dart';
 import 'package:zeffaf/widgets/country_picker.dart';
 import 'package:zeffaf/widgets/custom_raised_button.dart';
@@ -326,11 +327,26 @@ class Settings extends GetView<SettingsController> {
                   CustomRaisedButton(
                     loading: controller.loading.value,
                     onPress: () async {
+                      final packageLevel = controller
+                              .appController.userData.value.packageLevel ??
+                          0;
+                      final isMan = controller.appController.isMan.value == 0;
+
+                      if (!isMan && packageLevel == 6) {
+                        showUpgradePackageDialog(
+                          isMan,
+                          shouldUpgradeToFlowerPackage,
+                        );
+                        return;
+                      }
+
                       var connectivityResult =
                           await (Connectivity().checkConnectivity());
 
                       if (connectivityResult == ConnectivityResult.mobile ||
                           connectivityResult == ConnectivityResult.wifi) {
+                        if (!context.mounted) return;
+
                         doneSetting(context);
                       } else {
                         showToast(

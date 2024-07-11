@@ -9,16 +9,20 @@ class SystemDialog extends StatelessWidget {
     required this.iconPath,
     required this.title,
     this.description,
+    this.iconColor,
     required this.buttonText,
     required this.onPress,
     required this.isMan,
+    this.showBackBtn = false,
   });
 
   final String iconPath;
   final String title;
   final String? description;
+  final Color? iconColor;
   final String buttonText;
   final bool isMan;
+  final bool showBackBtn;
   final void Function() onPress;
 
   @override
@@ -33,7 +37,10 @@ class SystemDialog extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SvgPicture.asset(iconPath),
+              SvgPicture.asset(
+                iconPath,
+                color: iconColor,
+              ),
               const SizedBox(height: 24),
               Text(
                 title,
@@ -62,6 +69,17 @@ class SystemDialog extends StatelessWidget {
                     ? Get.theme.primaryColor
                     : Get.theme.colorScheme.secondary,
               ),
+              if (showBackBtn) ...[
+                const SizedBox(height: 14),
+                CustomRaisedButton(
+                  tittle: 'رجوع',
+                  onPress: Get.back,
+                  fontColor: Theme.of(context).brightness == Brightness.light
+                      ? Colors.black
+                      : Colors.white,
+                  color: Colors.transparent,
+                ),
+              ],
             ],
           ),
         ),

@@ -12,7 +12,7 @@ class AppMessageCard extends StatefulWidget {
   @override
   _AppMessageCardState createState() => _AppMessageCardState();
 
-  const AppMessageCard(this.message, this.controller);
+  const AppMessageCard(this.message, this.controller, {super.key});
 }
 
 class _AppMessageCardState extends State<AppMessageCard> {

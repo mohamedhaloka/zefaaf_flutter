@@ -13,6 +13,7 @@ class CustomRaisedButton extends StatefulWidget {
       this.child,
       this.isChild = false,
       this.padding,
+      this.fontColor,
       this.width,
       this.fontSize,
       this.height = 54});
@@ -21,6 +22,7 @@ class CustomRaisedButton extends StatefulWidget {
   final Function()? onPress;
   final Widget? child;
   final double? fontSize;
+  final Color? fontColor;
   final String? tittle;
   final Color? color;
   final double? height, width;
@@ -60,7 +62,8 @@ class _CustomRaisedButtonState extends State<CustomRaisedButton> {
                           ? Get.textTheme.bodyText2!
                               .copyWith(color: AppTheme.WHITE)
                           : Get.textTheme.bodyText2!.copyWith(
-                              color: AppTheme.WHITE, fontSize: widget.fontSize),
+                              color: widget.fontColor ?? AppTheme.WHITE,
+                              fontSize: widget.fontSize),
                     ),
         ),
       ),

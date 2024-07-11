@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:zeffaf/pages/favorites/favorites.controller.dart';
 import 'package:zeffaf/pages/home/home.controller.dart';
 import 'package:zeffaf/pages/more/more.controller.dart';
+import 'package:zeffaf/widgets/system_dialog.dart';
 
 import '../appController.dart';
 import '../pages/favorites/favorites.view.dart';
@@ -26,12 +27,39 @@ class BottomTabsBinding extends Bindings {
 class BottomTabsController extends GetxController {
   final RxInt _selectedIndex = 0.obs;
   get selectedIndex => _selectedIndex.value;
+  final appController = Get.find<AppController>();
   void setSelectedIndex(index) => _selectedIndex.value = index;
+
+  dynamic arg = Get.arguments;
 
   @override
   void onInit() {
     setSelectedIndex(0);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (arg == null) return;
+
+      showWelcomeDialog();
+    });
+
     super.onInit();
+  }
+
+  void showWelcomeDialog() {
+    final isMan = appController.isMan.value == 0;
+    Get.dialog(SystemDialog(
+      title: "رسالة ترحيبية من الإدارة لك",
+      iconPath: 'assets/images/message_from_zefaaf.svg',
+      iconColor:
+          !isMan ? Get.theme.primaryColor : Get.theme.colorScheme.secondary,
+      description: appSettings.value.mobileVersionDescription,
+      buttonText: 'مشاهدة',
+      onPress: () {
+        Get.back();
+        Get.toNamed('/MessageFromZefaafView');
+      },
+      showBackBtn: true,
+      isMan: isMan,
+    ));
   }
 
   final List<PageItem> widgetOptions = const <PageItem>[

@@ -10,14 +10,16 @@ import '../../appController.dart';
 import '../../services/http.service.dart';
 
 class LoginAPI {
-  static login(
-      {required RxBool loading,
-      required String username,
-      required BuildContext context,
-      required String password,
-      required String pushToken,
-      required Request request,
-      required AppController appController}) {
+  static login({
+    required RxBool loading,
+    required String username,
+    required BuildContext context,
+    required String password,
+    required String pushToken,
+    required Request request,
+    required AppController appController,
+    dynamic arguments,
+  }) {
     loading(true);
     request.post('login', {
       'mobile': username,
@@ -45,7 +47,7 @@ class LoginAPI {
           appController
               .changeNotificationOpenDate(DateTime.now().toUtc().toString());
           loading(false);
-          Get.offAllNamed('/BottomTabsHome');
+          Get.offAllNamed('/BottomTabsHome', arguments: arguments);
         } else {
           Get.snackbar("خطأ", "خطأ بإسم المستخدم أو كلمة المرور",
               backgroundColor: Colors.black54);

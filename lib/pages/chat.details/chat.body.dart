@@ -178,11 +178,7 @@ class _ChatBodyState extends State<ChatBody> {
 
   buildAlertForWoman() {
     return Visibility(
-      visible: controller.appController.isMan.value == 0
-          ? false
-          : controller.alertOpacity.value
-              ? true
-              : false,
+      visible: controller.alertOpacity.value ? true : false,
       child: Positioned(
           top: 0,
           left: Get.width / 200,
@@ -190,7 +186,7 @@ class _ChatBodyState extends State<ChatBody> {
             alignment: Alignment.center,
             children: [
               Image.asset(
-                'assets/images/chat-warning.png',
+                'assets/images/${controller.appController.isMan.value == 0 ? 'man_alert' : 'woman_alert'}.png',
                 height: Get.width * 0.30,
               ),
               Positioned(

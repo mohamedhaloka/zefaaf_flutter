@@ -24,7 +24,6 @@ class NewMessage extends GetView<NewMessageController> {
 
   @override
   Widget build(context) {
-    var lightMode = Theme.of(context).brightness == Brightness.light;
     // get user
     return Scaffold(
       body: GetX<NewMessageController>(

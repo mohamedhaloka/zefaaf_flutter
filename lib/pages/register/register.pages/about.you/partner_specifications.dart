@@ -14,9 +14,9 @@ class PartnerSpecifications extends GetView<AboutYouController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(vertical: 8.0),
-            child: const Text(
+            child: Text(
               "مواصفات شريك حياتك",
               style: TextStyle(
                   fontWeight: FontWeight.bold,

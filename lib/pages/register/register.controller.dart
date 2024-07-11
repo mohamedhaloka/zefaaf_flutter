@@ -167,7 +167,6 @@ class RegisterController extends GetxController {
       }
     } catch (e) {
       loading(false);
-      print(e);
     }
   }
 
@@ -190,13 +189,15 @@ class RegisterController extends GetxController {
 
   Future login({username, password, context}) async {
     LoginAPI.login(
-        appController: appController,
-        context: context,
-        loading: loading,
-        password: password,
-        pushToken: fcmToken.value,
-        request: request,
-        username: username);
+      appController: appController,
+      context: context,
+      loading: loading,
+      password: password,
+      pushToken: fcmToken.value,
+      request: request,
+      username: username,
+      arguments: 1,
+    );
   }
 
   @override

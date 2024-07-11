@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:zeffaf/pages/register/register.pages/about.you/about.you.controller.dart';
 import 'package:zeffaf/pages/register/register.pages/about.you/partner_specifications.dart';
 import 'package:zeffaf/pages/register/register.pages/about.you/talk_about_you.dart';
-import 'package:zeffaf/pages/register/register.pages/about.you/telesales_code.dart';
+import 'package:zeffaf/utils/detect_urls_or_phone_number.dart';
+import 'package:zeffaf/utils/toast.dart';
 import 'package:zeffaf/widgets/custom_raised_button.dart';
 import 'package:zeffaf/widgets/custom_sized_box.dart';
 
@@ -39,7 +40,29 @@ class AboutYouForm extends GetView<AboutYouController> {
                 Expanded(
                   flex: 3,
                   child: CustomRaisedButton(
-                      loading: loader, tittle: "تسجيل", onPress: onPress),
+                    loading: loader,
+                    tittle: "تسجيل",
+                    onPress: () {
+                      final partnerSpecificationsContainInValidData =
+                          containsNoUrlOrPhoneNumber(
+                        controller.partnerSpecifications.text,
+                      );
+
+                      final aboutMeContainInValidData =
+                          containsNoUrlOrPhoneNumber(
+                        controller.talkAboutYou.text,
+                      );
+
+                      if (!partnerSpecificationsContainInValidData ||
+                          !aboutMeContainInValidData) {
+                        showToast(
+                            'غير مسموح بإدخال أرقام الهواتف أو الايميلات');
+                        return;
+                      }
+
+                      onPress();
+                    },
+                  ),
                 ),
                 const CustomSizedBox(
                   widthNum: 0.014,

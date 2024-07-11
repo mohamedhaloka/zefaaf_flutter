@@ -19,6 +19,10 @@ import 'package:zeffaf/pages/city.list/city.list.controller.dart';
 import 'package:zeffaf/pages/city.list/view.dart';
 import 'package:zeffaf/pages/confirm.new.password/cnp.controller.dart';
 import 'package:zeffaf/pages/confirm.new.password/view.dart';
+import 'package:zeffaf/pages/contact_us/contact_us_listing/contact_us_bindings.dart';
+import 'package:zeffaf/pages/contact_us/contact_us_listing/contact_us_view.dart';
+import 'package:zeffaf/pages/contact_us/send_contact_us_message/send_contact_us_message_bindings.dart';
+import 'package:zeffaf/pages/contact_us/send_contact_us_message/send_contact_us_message_view.dart';
 import 'package:zeffaf/pages/country.code/countrycode.controller.dart';
 import 'package:zeffaf/pages/country.code/view.dart';
 import 'package:zeffaf/pages/edit_account/binding.dart';
@@ -34,6 +38,7 @@ import 'package:zeffaf/pages/login/bindings.dart';
 import 'package:zeffaf/pages/login/view.dart';
 import 'package:zeffaf/pages/message.details/message.details.controller.dart';
 import 'package:zeffaf/pages/message.details/message.details.view.dart';
+import 'package:zeffaf/pages/more/message_from_zefaaf_view.dart';
 import 'package:zeffaf/pages/more/more.controller.dart';
 import 'package:zeffaf/pages/myAccount/myAccount.controller.dart';
 import 'package:zeffaf/pages/new.message/newMessage.controller.dart';
@@ -121,6 +126,11 @@ routes() => [
         name: "/SearchFilter",
         page: () => SearchFilter(),
         binding: SearchFilterBinding(),
+        transition: Transition.fade,
+      ),
+      GetPage(
+        name: "/MessageFromZefaafView",
+        page: () => const MessageFromZefaafView(),
         transition: Transition.fade,
       ),
       GetPage(
@@ -309,6 +319,18 @@ routes() => [
         name: "/SearchResult",
         page: () => SearchResult(),
         binding: SearchResultBinding(),
+        transition: Transition.fade,
+      ),
+      GetPage(
+        name: "/ContactUS",
+        page: () => const ContactUSView(),
+        binding: ContactUsBinding(),
+        transition: Transition.fade,
+      ),
+      GetPage(
+        name: "/SendContactUSMessage",
+        page: () => const SendContactUSMessageView(),
+        binding: SendContactUSMessageBinding(),
         transition: Transition.fade,
       ),
       GetPage(
