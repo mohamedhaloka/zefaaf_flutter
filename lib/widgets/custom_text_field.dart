@@ -13,6 +13,7 @@ class CustomTextFormField extends StatefulWidget {
       required this.tittle,
       this.controller,
       this.suffixWidget,
+      this.readOnly = false,
       this.maxLines,
       this.textInput,
       this.fontSize,
@@ -29,6 +30,7 @@ class CustomTextFormField extends StatefulWidget {
   String? errorText;
   int? maxLines;
   int? maxLength;
+  bool readOnly;
   List<TextInputFormatter>? usernameInputFormatters;
   Widget? suffixWidget, prefixWidget;
   TextInputType? textInput;
@@ -201,6 +203,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 ? TextInputType.multiline
                 : widget.textInput ?? TextInputType.text,
         cursorColor: Colors.black,
+        readOnly: widget.readOnly,
         maxLines: widget.maxLines ?? 1,
         focusNode: widget.focusNode,
         decoration: InputDecoration(

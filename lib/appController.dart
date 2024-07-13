@@ -22,7 +22,6 @@ import 'models/owner.dart';
 import 'models/user.dart';
 import 'pages/new.message/newMessage.view.dart';
 import 'utils/input_data.dart';
-import 'utils/toast.dart';
 import 'utils/upgrade_package_dialog.dart';
 
 class AppController extends GetxController {
@@ -191,7 +190,7 @@ class AppController extends GetxController {
     checkingForPreviousRequest(value);
   }
 
-  checkIfHasPreviousRequest({bool? girRatedTheApp}) async {
+  Future<void> checkIfHasPreviousRequest({bool? girRatedTheApp}) async {
     // if (isMan.value == 1 && girRatedTheApp == null) {
     //   showRatingDialog();
     //   return;
@@ -213,9 +212,10 @@ class AppController extends GetxController {
       if (messages.any((element) =>
           element.userId == userData.value.id &&
           hasAnotherRequestForThisMonth == true)) {
-        showToast(
-          "لمنح فرصة للآخرين نشر طلب واحد شهرياً",
-        );
+        hasAlreadyMarriageRequest();
+        // showToast(
+        //   "لمنح فرصة للآخرين نشر طلب واحد شهرياً",
+        // );
         return;
       } else {
         Get.to(() => NewMessage(complaint: false));

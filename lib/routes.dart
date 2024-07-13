@@ -36,6 +36,7 @@ import 'package:zeffaf/pages/list.select.multi.item/list.select.multi.item.contr
 import 'package:zeffaf/pages/list.select.multi.item/view.dart';
 import 'package:zeffaf/pages/login/bindings.dart';
 import 'package:zeffaf/pages/login/view.dart';
+import 'package:zeffaf/pages/marriage_details/marriage_details_binding.dart';
 import 'package:zeffaf/pages/message.details/message.details.controller.dart';
 import 'package:zeffaf/pages/message.details/message.details.view.dart';
 import 'package:zeffaf/pages/more/message_from_zefaaf_view.dart';
@@ -91,6 +92,7 @@ import 'package:zeffaf/services/notification.service.dart';
 import 'pages/forget.password/forget.password.controller.dart';
 import 'pages/home/home.controller.dart';
 import 'pages/home/home.view.dart';
+import 'pages/marriage_details/marriage_details_view.dart';
 import 'pages/register/register.controller.dart';
 import 'pages/register_landing/register.landing.controller.dart';
 import 'pages/sms.verification/sms.verification.controller.dart';
@@ -325,6 +327,12 @@ routes() => [
         name: "/ContactUS",
         page: () => const ContactUSView(),
         binding: ContactUsBinding(),
+        transition: Transition.fade,
+      ),
+      GetPage(
+        name: "/MarriageDetails",
+        page: () => const MarriageDetailsView(),
+        binding: MarriageDetailsBinding(),
         transition: Transition.fade,
       ),
       GetPage(

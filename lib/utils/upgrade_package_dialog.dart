@@ -150,6 +150,62 @@ void showRatingDialog(bool isMan,
       ),
     );
 
+void hasAlreadyMarriageRequest() => Get.dialog(
+      AlertDialog(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "انتبه!",
+              style: Get.theme.textTheme.bodyText1!.copyWith(
+                  color: Colors.red, fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            const SizedBox(width: 10),
+            IconButton(
+              onPressed: Get.back,
+              icon: const Icon(
+                Icons.close,
+                color: Colors.black,
+                size: 30,
+              ),
+            )
+          ],
+        ),
+        content: const Text(
+          " لمنح فرصة للآخرين نشر طلب واحد شهرياً",
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              Get.back();
+              Get.toNamed('/MarriageDetails');
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Get.theme.primaryColor,
+            ),
+            child: const Text(
+              "مشاهدة تفاصيل الطلب",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: Get.back,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Get.theme.errorColor,
+            ),
+            child: const Text(
+              "حسناً",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+    );
+
 Future getMessages() async {
   var connectivityResult = await (Connectivity().checkConnectivity());
   RxBool isConnectedToInternet = true.obs;

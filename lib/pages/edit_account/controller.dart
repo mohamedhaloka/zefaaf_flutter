@@ -88,7 +88,7 @@ class EditAccountController extends GetxController {
     ));
   }
 
-  getName(List<String> list, List<int> listId, String value) {
+  String getName(List<String> list, List<int> listId, String value) {
     var index = listId.indexOf(int.tryParse(value) ?? 0);
     if (index == -1) return '';
     var name = list.elementAt(index);
