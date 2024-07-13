@@ -55,7 +55,8 @@ class MyAccount extends GetView<MyAccountController> {
               body: AccountHeader(controller),
               children: [
                 SliverPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  padding:
+                      const EdgeInsets.only(left: 15, right: 15, bottom: 60),
                   sliver: SliverList(
                     delegate: SliverChildListDelegate([
                       section([

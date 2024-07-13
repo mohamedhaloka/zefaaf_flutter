@@ -99,39 +99,43 @@ class _NotificationsState extends State<Notifications>
               )
             ],
             children: [
-              controller.isNotConnectedToInternet.value
-                  ? const NoInternetChecker()
-                  : controller.loading.value
-                      ? SliverList(
-                          delegate:
-                              SliverChildBuilderDelegate((context, index) {
-                            return UserLoader();
-                          }, childCount: 6),
-                        )
-                      : controller.notifications.isEmpty
-                          ? NoNotification()
-                          : SliverList(
-                              delegate:
-                                  SliverChildBuilderDelegate((context, index) {
-                                return NotificationCard(
-                                  controller.notifications[index],
-                                  animationController: animationController,
-                                  animation: Tween<double>(begin: 0.0, end: 1.0)
-                                      .animate(
-                                    CurvedAnimation(
-                                      parent: animationController,
-                                      curve: Interval(
-                                          (1 /
-                                                  controller
-                                                      .notifications.length) *
-                                              index,
-                                          1.0,
-                                          curve: Curves.fastOutSlowIn),
+              SliverPadding(
+                padding: const EdgeInsets.only(bottom: 60),
+                sliver: controller.isNotConnectedToInternet.value
+                    ? const NoInternetChecker()
+                    : controller.loading.value
+                        ? SliverList(
+                            delegate:
+                                SliverChildBuilderDelegate((context, index) {
+                              return UserLoader();
+                            }, childCount: 6),
+                          )
+                        : controller.notifications.isEmpty
+                            ? NoNotification()
+                            : SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                                    (context, index) {
+                                  return NotificationCard(
+                                    controller.notifications[index],
+                                    animationController: animationController,
+                                    animation:
+                                        Tween<double>(begin: 0.0, end: 1.0)
+                                            .animate(
+                                      CurvedAnimation(
+                                        parent: animationController,
+                                        curve: Interval(
+                                            (1 /
+                                                    controller
+                                                        .notifications.length) *
+                                                index,
+                                            1.0,
+                                            curve: Curves.fastOutSlowIn),
+                                      ),
                                     ),
-                                  ),
-                                );
-                              }, childCount: controller.notifications.length),
-                            )
+                                  );
+                                }, childCount: controller.notifications.length),
+                              ),
+              ),
             ],
           ),
         ),

@@ -16,6 +16,8 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>GADApplicationIdentifier</key>
+    <string>ca-app-pub-4507353466512419~8968441295</string>
 	<key>CFBundleName</key>
 	<string>zeffaf</string>
 	<key>CFBundlePackageType</key>

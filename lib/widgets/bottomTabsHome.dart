@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:zeffaf/pages/favorites/favorites.controller.dart';
 import 'package:zeffaf/pages/home/home.controller.dart';
 import 'package:zeffaf/pages/more/more.controller.dart';
@@ -86,25 +89,93 @@ class PageItem {
       required this.child});
 }
 
-class BottomTabsHome extends GetView<BottomTabsController> {
+class BottomTabsHome extends StatefulWidget {
   const BottomTabsHome({super.key});
 
   @override
-  Widget build(context) => Obx(() => Scaffold(
-        body: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 60),
-              child: controller.widgetOptions
-                  .elementAt(controller.selectedIndex)
-                  .child,
-            ),
-            const _BottomBar()
-          ],
+  State<BottomTabsHome> createState() => _BottomTabsHomeState();
+}
+
+class _BottomTabsHomeState extends State<BottomTabsHome> {
+  final controller = Get.find<BottomTabsController>();
+  BannerAd? _bannerAd;
+  @override
+  void initState() {
+    _loadAd();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
+
+  /// Loads a banner ad.
+  void _loadAd() {
+    final String adUnitId = Platform.isAndroid
+        // Use this ad unit on Android...
+        ? 'ca-app-pub-4507353466512419/7558017972'
+        // ... or this one on iOS.
+        : 'ca-app-pub-4507353466512419/9094587893';
+
+    final bannerAd = BannerAd(
+      size: AdSize.banner,
+      adUnitId: adUnitId,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        // Called when an ad is successfully received.
+        onAdLoaded: (ad) {
+          if (!mounted) {
+            ad.dispose();
+            return;
+          }
+          debugPrint(
+              'BannerAd success to load: ${ad.responseInfo?.toString()}');
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        // Called when an ad request failed.
+        onAdFailedToLoad: (ad, error) {
+          debugPrint('BannerAd failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    );
+
+    // Start loading.
+    bannerAd.load();
+  }
+
+  @override
+  Widget build(context) => Obx(
+        () => Scaffold(
+          body: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 60),
+                child: controller.widgetOptions
+                    .elementAt(controller.selectedIndex)
+                    .child,
+              ),
+              if (_bannerAd != null)
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 60),
+                    width: double.infinity,
+                    color: Theme.of(context).backgroundColor,
+                    height: AdSize.banner.height.toDouble(),
+                    child: AdWidget(ad: _bannerAd!),
+                  ),
+                ),
+              const _BottomBar(),
+            ],
+          ),
         ),
-      ));
-  //مصر
+      );
 }
 
 class _BottomBar extends GetView<BottomTabsController> {

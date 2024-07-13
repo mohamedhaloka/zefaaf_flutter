@@ -64,6 +64,7 @@ class _MoreState extends State<More> {
                   right: 10,
                   left: 10,
                   top: 35,
+                  bottom: 60,
                 ),
                 children: [
                   // if (Get.find<AppController>().isMan.value == 0)

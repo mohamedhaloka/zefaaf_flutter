@@ -101,39 +101,44 @@ class FavoritesState extends State<Favorites>
               ),
             ),
             children: [
-              controller.connectWithInternet.value
-                  ? const NoInternetChecker()
-                  : controller.loading.value
-                      ? SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) {
-                              return UserLoader();
-                            },
-                            childCount: 5,
-                          ),
-                        )
-                      : controller.list.isEmpty
-                          ? NoItemsInFavList()
-                          : SliverList(
-                              delegate: SliverChildBuilderDelegate(
-                                (context, index) => FriendCard(
-                                  controller.list[index],
-                                  animationController: animationController,
-                                  listId: controller.activeTab.value,
-                                  animation: Tween<double>(begin: 0.0, end: 1.0)
-                                      .animate(
-                                    CurvedAnimation(
-                                      parent: animationController,
-                                      curve: Interval(
-                                          (1 / controller.list.length) * index,
-                                          1.0,
-                                          curve: Curves.fastOutSlowIn),
+              SliverPadding(
+                padding: const EdgeInsets.only(bottom: 60),
+                sliver: controller.connectWithInternet.value
+                    ? const NoInternetChecker()
+                    : controller.loading.value
+                        ? SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                                return UserLoader();
+                              },
+                              childCount: 5,
+                            ),
+                          )
+                        : controller.list.isEmpty
+                            ? NoItemsInFavList()
+                            : SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                                  (context, index) => FriendCard(
+                                    controller.list[index],
+                                    animationController: animationController,
+                                    listId: controller.activeTab.value,
+                                    animation:
+                                        Tween<double>(begin: 0.0, end: 1.0)
+                                            .animate(
+                                      CurvedAnimation(
+                                        parent: animationController,
+                                        curve: Interval(
+                                            (1 / controller.list.length) *
+                                                index,
+                                            1.0,
+                                            curve: Curves.fastOutSlowIn),
+                                      ),
                                     ),
                                   ),
+                                  childCount: controller.list.length,
                                 ),
-                                childCount: controller.list.length,
                               ),
-                            )
+              ),
             ],
           );
         },

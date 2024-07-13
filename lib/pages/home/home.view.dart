@@ -121,10 +121,13 @@ class HomeState extends State<Home> {
                   ),
                 ]),
               ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (_, int index) => MutualCard(controller.users[index]),
-                  childCount: controller.users.length,
+              SliverPadding(
+                padding: const EdgeInsets.only(bottom: 60),
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (_, int index) => MutualCard(controller.users[index]),
+                    childCount: controller.users.length,
+                  ),
                 ),
               )
             ],
