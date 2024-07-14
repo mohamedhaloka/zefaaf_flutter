@@ -105,7 +105,7 @@ class MessageDetails extends GetView<MessageDetailsController> {
                                   children: [
                                     fromAdmin ? adminImage() : userImage(),
                                     const SizedBox(height: 10),
-                                    HtmlWidget(newMessagesModal.message!),
+                                    HtmlWidget(newMessagesModal.message ?? ''),
                                     const SizedBox(height: 20),
                                     if (newMessagesModal.reasonId != 4) ...[
                                       const Divider(),

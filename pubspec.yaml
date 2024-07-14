@@ -66,6 +66,8 @@ dependencies:
   video_player: ^2.4.10
   whatsapp_unilink: ^2.1.0
   google_mobile_ads: ^5.1.0
+  auto_scroll_text: ^0.0.7
+  weather: ^2.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

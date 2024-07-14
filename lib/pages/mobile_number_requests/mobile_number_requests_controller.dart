@@ -21,7 +21,7 @@ class MobileNumberRequestsController extends GetxController {
   ScrollController scrollController = ScrollController();
   @override
   void onInit() {
-    getMobileRequests();
+    _getMobileRequests();
     scrollController.addListener(_listenToScroll);
     super.onInit();
   }
@@ -37,28 +37,30 @@ class MobileNumberRequestsController extends GetxController {
         scrollController.position.maxScrollExtent) {
       currentPage.value++;
 
-      getMobileRequests();
+      _getMobileRequests();
     }
   }
 
-  Future<void> getMobileRequests() async {
+  Future<void> _getMobileRequests() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     connectToInternet(false);
     if (connectivityResult == ConnectivityResult.mobile ||
         connectivityResult == ConnectivityResult.wifi) {
       try {
         currentPage.value++;
-        loading(true);
         if (currentPage.value > 1) {
           fetch(true);
+        } else {
+          loading(true);
         }
 
-        String url = "${Request.urlBase}getMobileRequests";
-        http.Response response = await http.post(
+        String url = "${Request.urlBase}getMobileRequests/${currentPage.value}";
+        http.Response response = await http.get(
           Uri.parse(url),
           headers: {'Authorization': 'Bearer ${_appController.apiToken}'},
         );
         var data = jsonDecode(response.body);
+        print('ressss $data');
         if (data["status"] == "success") {
           List jsonUser = data['data'];
           if (jsonUser.isEmpty) {

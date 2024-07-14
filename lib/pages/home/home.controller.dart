@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:zeffaf/models/new_model.dart';
 import 'package:zeffaf/models/user.dart';
 import 'package:zeffaf/services/http.service.dart';
 import 'package:zeffaf/services/notification.service.dart';
@@ -34,6 +35,9 @@ class HomeController extends GetxController {
   final Request request =
       Request(apiToken: Get.find<AppController>().apiToken.value);
   RxBool available = RxBool(true);
+  RxString weather = ''.obs;
+  RxList<NewModel> news = <NewModel>[].obs;
+
   @override
   void onInit() {
     users = appController.latest;
@@ -43,6 +47,7 @@ class HomeController extends GetxController {
       updateByToken(false);
     });
 
+    _getNews();
     super.onInit();
   }
 
@@ -73,12 +78,28 @@ class HomeController extends GetxController {
     await updateByToken(true);
   }
 
+  Future<void> _getNews() async {
+    try {
+      String url = "${Request.urlBase}getNewsTapeData";
+      http.Response response = await http.get(Uri.parse(url),
+          headers: {'Authorization': 'Bearer ${appController.apiToken.value}'});
+      var responseData = json.decode(response.body);
+      if (responseData['status'] == "success") {
+        news(List.from(responseData['data'])
+            .map((e) => NewModel.fromJson(e))
+            .toList());
+      } else {}
+    } catch (_) {}
+  }
+
   Future<String?> getCountryCode() async {
     final permission = await Geolocator.requestPermission();
 
     if (permission != LocationPermission.always &&
         permission != LocationPermission.whileInUse) return null;
     final Position position = await Geolocator.getCurrentPosition();
+
+    getWeatherData(position.latitude, position.longitude);
 
     List<Placemark> placemarks =
         await placemarkFromCoordinates(position.latitude, position.longitude);
@@ -87,6 +108,20 @@ class HomeController extends GetxController {
     Placemark place = placemarks[0];
 
     return place.isoCountryCode;
+  }
+
+  Future<void> getWeatherData(double lat, double long) async {
+    // WeatherFactory wf = WeatherFactory(
+    //   "1307a55d178aa1aab65dc8cdeba9235e",
+    //   language: Language.ARABIC,
+    // );
+    // final weatherData = await wf.currentWeatherByLocation(lat, long);
+    //
+
+    // await Future.delayed(const Duration(seconds: 2));
+    //
+    // weather.value = '20';
+    // (weatherData.temperature?.fahrenheit ?? 0.0).toString();
   }
 
   Future updateByToken(restart) async {

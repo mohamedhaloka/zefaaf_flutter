@@ -13,42 +13,49 @@ class MobileNumberRequestsView extends GetView<MobileNumberRequestsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Get.theme.scaffoldBackgroundColor,
-      body: BaseAppHeader(
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.arrow_forward),
-            onPressed: () => Get.back(),
-          )
-        ],
-        title: Text(
-          "طلبات أرقام الهواتف",
-          style: Get.textTheme.bodyText2!
-              .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        children: [
-          controller.connectToInternet.value
-              ? const NoInternetChecker()
-              : controller.loading.value
-                  ? SliverList(
-                      delegate: SliverChildBuilderDelegate((context, index) {
-                        return UserLoader();
-                      }, childCount: 5),
-                    )
-                  : controller.result.isEmpty
-                      ? NoResultSearchFound()
-                      : SliverList(
-                          delegate:
-                              SliverChildBuilderDelegate((context, index) {
-                            return MutualCard(
-                              controller.result[index],
-                            );
-                          }, childCount: controller.result.length),
-                        ),
-          PaginationLoader(controller.fetch.value)
-        ],
-      ),
-    );
+    return Obx(() => Scaffold(
+          backgroundColor: Get.theme.scaffoldBackgroundColor,
+          body: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              BaseAppHeader(
+                controller: controller.scrollController,
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_forward),
+                    onPressed: () => Get.back(),
+                  )
+                ],
+                title: Text(
+                  "طلبات أرقام الهواتف",
+                  style: Get.textTheme.bodyText2!.copyWith(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                children: [
+                  controller.connectToInternet.value
+                      ? const NoInternetChecker()
+                      : controller.loading.value
+                          ? SliverList(
+                              delegate:
+                                  SliverChildBuilderDelegate((context, index) {
+                                return UserLoader();
+                              }, childCount: 5),
+                            )
+                          : controller.result.isEmpty
+                              ? NoResultSearchFound()
+                              : SliverList(
+                                  delegate: SliverChildBuilderDelegate(
+                                      (context, index) {
+                                    return MutualCard(
+                                      controller.result[index],
+                                    );
+                                  }, childCount: controller.result.length),
+                                ),
+                ],
+              ),
+              PaginationLoader(controller.fetch.value)
+            ],
+          ),
+        ));
   }
 }

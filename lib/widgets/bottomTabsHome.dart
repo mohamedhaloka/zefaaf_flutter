@@ -111,12 +111,9 @@ class _BottomTabsHomeState extends State<BottomTabsHome> {
     super.dispose();
   }
 
-  /// Loads a banner ad.
   void _loadAd() {
     final String adUnitId = Platform.isAndroid
-        // Use this ad unit on Android...
         ? 'ca-app-pub-4507353466512419/7558017972'
-        // ... or this one on iOS.
         : 'ca-app-pub-4507353466512419/9094587893';
 
     final bannerAd = BannerAd(
@@ -124,7 +121,6 @@ class _BottomTabsHomeState extends State<BottomTabsHome> {
       adUnitId: adUnitId,
       request: const AdRequest(),
       listener: BannerAdListener(
-        // Called when an ad is successfully received.
         onAdLoaded: (ad) {
           if (!mounted) {
             ad.dispose();
@@ -136,7 +132,6 @@ class _BottomTabsHomeState extends State<BottomTabsHome> {
             _bannerAd = ad as BannerAd;
           });
         },
-        // Called when an ad request failed.
         onAdFailedToLoad: (ad, error) {
           debugPrint('BannerAd failed to load: $error');
           ad.dispose();
@@ -144,7 +139,6 @@ class _BottomTabsHomeState extends State<BottomTabsHome> {
       ),
     );
 
-    // Start loading.
     bannerAd.load();
   }
 
@@ -160,7 +154,7 @@ class _BottomTabsHomeState extends State<BottomTabsHome> {
                     .elementAt(controller.selectedIndex)
                     .child,
               ),
-              if (_bannerAd != null)
+              if (_bannerAd != null) ...[
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
@@ -168,9 +162,13 @@ class _BottomTabsHomeState extends State<BottomTabsHome> {
                     width: double.infinity,
                     color: Theme.of(context).backgroundColor,
                     height: AdSize.banner.height.toDouble(),
-                    child: AdWidget(ad: _bannerAd!),
+                    child: AdWidget(
+                      ad: _bannerAd!,
+                      key: ValueKey(_bannerAd!.hashCode),
+                    ),
                   ),
                 ),
+              ],
               const _BottomBar(),
             ],
           ),

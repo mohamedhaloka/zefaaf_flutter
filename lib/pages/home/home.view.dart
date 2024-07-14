@@ -1,3 +1,4 @@
+import 'package:auto_scroll_text/auto_scroll_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zeffaf/pages/chat.list/view.dart';
@@ -31,107 +32,145 @@ class HomeState extends State<Home> {
       backgroundColor: Theme.of(context).brightness == Brightness.light
           ? Colors.grey[400]
           : Colors.grey[700],
-      body: Obx(() => BaseAppHeader(
-            backgroundColor: Theme.of(context).brightness == Brightness.light
-                ? Colors.grey[400]
-                : Colors.grey[700],
-            headerLength: 350,
-            position:
-                statusBarHeight > 50.0 ? Get.height * 0.15 : Get.height * 0.118,
-            centerTitle: true,
-            title: Image.asset(
-              "assets/images/log_in/logo-white.png",
-              height: 60,
-              width: 60,
-            ),
-            actions: [
-              // if (controller
-              //         .appController.userData.value.packageMobileRequestLimit !=
-              //     null) ...[
-              //   MobileRequestNumberProgressWidget(
-              //     isMan: controller.appController.isMan.value == 0,
-              //     mobileRequest: controller
-              //         .appController.userData.value.packageMobileRequestLimit!,
-              //     packageLevel:
-              //         controller.appController.userData.value.packageLevel!,
-              //   ),
-              // ],
-              IconButton(
-                icon: const Icon(Icons.search),
-                onPressed: () => Get.to(() => SearchFilter()),
+      body: Obx(
+        () => Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            BaseAppHeader(
+              backgroundColor: Theme.of(context).brightness == Brightness.light
+                  ? Colors.grey[400]
+                  : Colors.grey[700],
+              headerLength: 350,
+              position: statusBarHeight > 50.0
+                  ? Get.height * 0.15
+                  : Get.height * 0.118,
+              centerTitle: true,
+              title: Image.asset(
+                "assets/images/log_in/logo-white.png",
+                height: 60,
+                width: 60,
               ),
-            ],
-            leading: message(controller),
-            refresh: () => controller.updateByToken(false),
-            body: const HomeHeader(),
-            children: [
-              SliverList(
-                delegate: SliverChildListDelegate([
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "المتواجدون في بلدك",
-                          style: Get.textTheme.bodyText2!.copyWith(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).brightness ==
-                                      Brightness.light
-                                  ? Colors.black
-                                  : Colors.white),
-                        ),
-                        InkWell(
-                          onTap: () async {
-                            await Get.toNamed("/SearchResult", arguments: [
-                              context,
-                              0,
-                              '',
-                              '',
-                              '',
-                              '',
-                              '',
-                              '',
-                              '',
-                              '',
-                              '',
-                              '',
-                              90,
-                              18,
-                              '',
-                              '',
-                              '',
-                              ''
-                            ]);
-                          },
-                          child: Text(
-                            "more".tr,
+              actions: [
+                if (controller.weather.value.isNotEmpty) ...[
+                  Row(
+                    children: [
+                      Text(controller.weather.value),
+                      const SizedBox(width: 8),
+                      Image.asset('assets/images/weather_icon.png')
+                    ],
+                  )
+                ],
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () => Get.to(() => SearchFilter()),
+                ),
+              ],
+              leading: message(controller),
+              refresh: () => controller.updateByToken(false),
+              body: const HomeHeader(),
+              children: [
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "المتواجدون في بلدك",
                             style: Get.textTheme.bodyText2!.copyWith(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                                 color: Theme.of(context).brightness ==
                                         Brightness.light
                                     ? Colors.black
-                                    : Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold),
+                                    : Colors.white),
                           ),
-                        ),
-                      ],
+                          InkWell(
+                            onTap: () async {
+                              await Get.toNamed("/SearchResult", arguments: [
+                                context,
+                                0,
+                                '',
+                                '',
+                                '',
+                                '',
+                                '',
+                                '',
+                                '',
+                                '',
+                                '',
+                                '',
+                                90,
+                                18,
+                                '',
+                                '',
+                                '',
+                                ''
+                              ]);
+                            },
+                            child: Text(
+                              "more".tr,
+                              style: Get.textTheme.bodyText2!.copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? Colors.black
+                                      : Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ]),
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.only(bottom: 110),
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (_, int index) => MutualCard(controller.users[index]),
+                      childCount: controller.users.length,
                     ),
                   ),
-                ]),
-              ),
-              SliverPadding(
-                padding: const EdgeInsets.only(bottom: 60),
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (_, int index) => MutualCard(controller.users[index]),
-                    childCount: controller.users.length,
+                )
+              ],
+            ),
+            if (controller.news.isNotEmpty)
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: double.infinity,
+                  height: 40,
+                  margin:
+                      const EdgeInsets.only(left: 12, right: 12, bottom: 70),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(50)),
+                    border: Border.all(
+                      color: controller.appController.isMan.value == 0
+                          ? Get.theme.primaryColor
+                          : Get.theme.colorScheme.secondary,
+                    ),
+                    color: Theme.of(context).backgroundColor,
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  child: AutoScrollText(
+                    controller.news
+                        .map((element) => element.data ?? '   ')
+                        .toList()
+                        .join(','),
+                    style: TextStyle(
+                      color: controller.appController.isMan.value == 0
+                          ? Get.theme.primaryColor
+                          : Get.theme.colorScheme.secondary,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
-              )
-            ],
-          )),
+              ),
+          ],
+        ),
+      ),
     );
   }
 
