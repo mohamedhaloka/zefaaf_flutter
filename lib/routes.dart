@@ -39,6 +39,7 @@ import 'package:zeffaf/pages/login/view.dart';
 import 'package:zeffaf/pages/marriage_details/marriage_details_binding.dart';
 import 'package:zeffaf/pages/message.details/message.details.controller.dart';
 import 'package:zeffaf/pages/message.details/message.details.view.dart';
+import 'package:zeffaf/pages/mobile_number_requests/mobile_number_requests_binding.dart';
 import 'package:zeffaf/pages/more/message_from_zefaaf_view.dart';
 import 'package:zeffaf/pages/more/more.controller.dart';
 import 'package:zeffaf/pages/myAccount/myAccount.controller.dart';
@@ -93,6 +94,7 @@ import 'pages/forget.password/forget.password.controller.dart';
 import 'pages/home/home.controller.dart';
 import 'pages/home/home.view.dart';
 import 'pages/marriage_details/marriage_details_view.dart';
+import 'pages/mobile_number_requests/mobile_number_requests_view.dart';
 import 'pages/register/register.controller.dart';
 import 'pages/register_landing/register.landing.controller.dart';
 import 'pages/sms.verification/sms.verification.controller.dart';
@@ -321,6 +323,12 @@ routes() => [
         name: "/SearchResult",
         page: () => SearchResult(),
         binding: SearchResultBinding(),
+        transition: Transition.fade,
+      ),
+      GetPage(
+        name: "/MobileNumberRequests",
+        page: () => const MobileNumberRequestsView(),
+        binding: MobileNumberRequestsBinding(),
         transition: Transition.fade,
       ),
       GetPage(

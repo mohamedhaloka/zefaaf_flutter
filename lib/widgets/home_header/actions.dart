@@ -71,6 +71,8 @@ class AccountActions extends GetView<AppController> {
                 showToast(
                   'متبقي لك $mobileRequest $packageMaxPhoneRequestsOrders لرقم الهاتف من $packageMaxPhoneRequests خلال هذا الشهر',
                 );
+
+                Get.toNamed('/MobileNumberRequests');
               },
               imagePath: controller.isMan.value == 0
                   ? 'assets/images/man_requested_phone.jpeg'
