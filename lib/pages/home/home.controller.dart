@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:weather/weather.dart';
 import 'package:zeffaf/models/new_model.dart';
 import 'package:zeffaf/models/user.dart';
 import 'package:zeffaf/services/http.service.dart';
@@ -111,17 +112,14 @@ class HomeController extends GetxController {
   }
 
   Future<void> getWeatherData(double lat, double long) async {
-    // WeatherFactory wf = WeatherFactory(
-    //   "1307a55d178aa1aab65dc8cdeba9235e",
-    //   language: Language.ARABIC,
-    // );
-    // final weatherData = await wf.currentWeatherByLocation(lat, long);
-    //
+    WeatherFactory wf = WeatherFactory(
+      "1307a55d178aa1aab65dc8cdeba9235e",
+      language: Language.ARABIC,
+    );
+    final weatherData = await wf.currentWeatherByLocation(lat, long);
 
-    // await Future.delayed(const Duration(seconds: 2));
-    //
-    // weather.value = '20';
-    // (weatherData.temperature?.fahrenheit ?? 0.0).toString();
+    weather.value =
+        '${(weatherData.temperature?.celsius ?? 0.0).toStringAsFixed(1)}°';
   }
 
   Future updateByToken(restart) async {

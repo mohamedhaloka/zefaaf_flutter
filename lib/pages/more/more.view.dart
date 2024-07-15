@@ -148,13 +148,14 @@ class _MoreState extends State<More> {
                       // backgroundColor: Colors.white,
                     ),
                   ),
-                  getTile(
-                    "contactUS".tr,
-                    AppTheme.WHITE,
-                    () => Get.toNamed('/SendContactUSMessage'),
-                    imageName: "our-contact-us",
-                    isTrailed: true,
-                  ),
+                  //test test test testtesttest test v test test test test test
+                  // getTile(
+                  //   "contactUS".tr,
+                  //   AppTheme.WHITE,
+                  //   () => Get.toNamed('/SendContactUSMessage'),
+                  //   imageName: "our-contact-us",
+                  //   isTrailed: true,
+                  // ),
                   getTile("ourMessage".tr, AppTheme.WHITE, () {
                     Get.toNamed("/OurMessage");
                   }, imageName: "our-message", isTrailed: true),

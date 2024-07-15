@@ -95,6 +95,7 @@ class ChatDetailsComponents {
               : () {
                   controller.stopRecord();
                   Timer(const Duration(seconds: 1), () {
+                    controller.alertOpacity(false);
                     controller
                         .sendAudio(
                             controller.chatId.value,
@@ -117,6 +118,7 @@ class ChatDetailsComponents {
                   }
                   if (formKey.currentState.validate()) {
                     formKey.currentState.save();
+                    controller.alertOpacity(false);
 
                     controller.sendMessage(
                         controller.messageContent.text.trim(),

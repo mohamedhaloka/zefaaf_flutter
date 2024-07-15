@@ -54,9 +54,19 @@ class HomeState extends State<Home> {
                 if (controller.weather.value.isNotEmpty) ...[
                   Row(
                     children: [
-                      Text(controller.weather.value),
+                      Text(
+                        controller.weather.value,
+                        style: Get.textTheme.bodyMedium?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       const SizedBox(width: 8),
-                      Image.asset('assets/images/weather_icon.png')
+                      Image.asset(
+                        'assets/images/weather_icon.png',
+                        width: 35,
+                        height: 35,
+                      )
                     ],
                   )
                 ],
@@ -143,7 +153,7 @@ class HomeState extends State<Home> {
                   width: double.infinity,
                   height: 40,
                   margin:
-                      const EdgeInsets.only(left: 12, right: 12, bottom: 70),
+                      const EdgeInsets.only(left: 12, right: 12, bottom: 65),
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(50)),
                     border: Border.all(

@@ -176,18 +176,21 @@ class _ChatBodyState extends State<ChatBody> {
         ));
   }
 
-  buildAlertForWoman() {
+  Widget buildAlertForWoman() {
     return Visibility(
       visible: controller.alertOpacity.value ? true : false,
       child: Positioned(
           top: 0,
-          left: Get.width / 200,
+          left: 0,
+          right: 0,
           child: Stack(
             alignment: Alignment.center,
             children: [
               Image.asset(
                 'assets/images/${controller.appController.isMan.value == 0 ? 'man_alert' : 'woman_alert'}.png',
-                height: Get.width * 0.30,
+                height: 380,
+                width: Get.width,
+                fit: BoxFit.fill,
               ),
               Positioned(
                 top: 5,

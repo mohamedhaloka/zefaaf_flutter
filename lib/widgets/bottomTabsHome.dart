@@ -54,7 +54,6 @@ class BottomTabsController extends GetxController {
       iconPath: 'assets/images/message_from_zefaaf.svg',
       iconColor:
           !isMan ? Get.theme.primaryColor : Get.theme.colorScheme.secondary,
-      description: appSettings.value.mobileVersionDescription,
       buttonText: 'مشاهدة',
       onPress: () {
         Get.back();
