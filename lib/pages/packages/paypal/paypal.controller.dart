@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:zeffaf/models/owner.dart';
+import 'package:zeffaf/pages/packages/packages.controller.dart';
 import 'package:zeffaf/services/http.service.dart';
 
 import 'paypal.services.dart';
@@ -15,10 +16,13 @@ class PaypalController extends GetxController {
   late String accessToken;
   PaypalServices services = PaypalServices();
 
+  final packagesController = Get.find<PackagesController>();
+
   Owner owner = Get.arguments[0];
   String zefaafPackageTittle = Get.arguments[1];
   int zefaafPackageCost = Get.arguments[2];
   int zefaafPackageId = Get.arguments[3];
+  String zefaafProductId = Get.arguments[4];
 
   bool isEnableShipping = false;
   bool isEnableAddress = false;

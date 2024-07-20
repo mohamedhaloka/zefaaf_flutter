@@ -67,6 +67,8 @@ class NotificationsController extends GetxController {
       http.Response response = await http.get(Uri.parse(url),
           headers: {'Authorization': 'Bearer ${appController.apiToken.value}'});
 
+      print('ddd ${appController.apiToken.value}');
+
       var data = json.decode(response.body);
       if (data['status'] == "success") {
         List<NotificationModel> notificationList = [];

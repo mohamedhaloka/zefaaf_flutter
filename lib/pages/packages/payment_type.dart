@@ -59,6 +59,7 @@ class BottomSheet {
                                               packages.title,
                                               packages.usdValue,
                                               packages.id,
+                                              packages.iapId,
                                             ]);
                                       }
                                     });

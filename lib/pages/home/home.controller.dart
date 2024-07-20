@@ -41,6 +41,7 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
+    _getNews();
     users = appController.latest;
     appController.changeNotificationOpenDate(DateTime.now().toUtc().toString());
     loginByToken();
@@ -48,7 +49,6 @@ class HomeController extends GetxController {
       updateByToken(false);
     });
 
-    _getNews();
     super.onInit();
   }
 
@@ -86,6 +86,7 @@ class HomeController extends GetxController {
           headers: {'Authorization': 'Bearer ${appController.apiToken.value}'});
       var responseData = json.decode(response.body);
       if (responseData['status'] == "success") {
+        news.clear();
         news(List.from(responseData['data'])
             .map((e) => NewModel.fromJson(e))
             .toList());
