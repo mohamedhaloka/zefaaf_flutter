@@ -4,7 +4,6 @@ import 'package:zeffaf/pages/mobile_number_requests/mobile_number_requests_contr
 import 'package:zeffaf/widgets/app_header.dart';
 import 'package:zeffaf/widgets/cards/mutual_card.dart';
 import 'package:zeffaf/widgets/no-internet.dart';
-import 'package:zeffaf/widgets/no-result-search-found.dart';
 import 'package:zeffaf/widgets/pagination.loader.dart';
 import 'package:zeffaf/widgets/user_loader.dart';
 
@@ -13,6 +12,7 @@ class MobileNumberRequestsView extends GetView<MobileNumberRequestsController> {
 
   @override
   Widget build(BuildContext context) {
+    var lightMode = Theme.of(context).brightness == Brightness.light;
     return Obx(() => Scaffold(
           backgroundColor: Get.theme.scaffoldBackgroundColor,
           body: Stack(
@@ -42,7 +42,16 @@ class MobileNumberRequestsView extends GetView<MobileNumberRequestsController> {
                               }, childCount: 5),
                             )
                           : controller.result.isEmpty
-                              ? NoResultSearchFound()
+                              ? SliverFillRemaining(
+                                  child: Center(
+                                    child: Image.asset(
+                                      lightMode
+                                          ? "assets/images/no-result.png"
+                                          : "assets/images/no-result-white.png",
+                                      height: 120,
+                                    ),
+                                  ),
+                                )
                               : SliverList(
                                   delegate: SliverChildBuilderDelegate(
                                       (context, index) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:zeffaf/appController.dart';
 
@@ -45,6 +44,7 @@ class AppTheme {
   static final MaterialColor facebookIconColor = _factoryColor(0xff0900b0);
   static final MaterialColor instagramIconColor = _factoryColor(0xff9e26ab);
   static final MaterialColor twitterIconColor = _factoryColor(0xff20c7f5);
+  static final MaterialColor patreonIconColor = _factoryColor(0xFF000000);
   static final MaterialColor whatsappIconColor = _factoryColor(0xff00de1e);
   static final MaterialColor telegramIconColor = _factoryColor(0xff1cb0e6);
 

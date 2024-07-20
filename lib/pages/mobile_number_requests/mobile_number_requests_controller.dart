@@ -60,7 +60,6 @@ class MobileNumberRequestsController extends GetxController {
           headers: {'Authorization': 'Bearer ${_appController.apiToken}'},
         );
         var data = jsonDecode(response.body);
-        print('ressss $data');
         if (data["status"] == "success") {
           List jsonUser = data['data'];
           if (jsonUser.isEmpty) {

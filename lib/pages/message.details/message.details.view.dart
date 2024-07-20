@@ -105,7 +105,8 @@ class MessageDetails extends GetView<MessageDetailsController> {
                                   children: [
                                     fromAdmin ? adminImage() : userImage(),
                                     const SizedBox(height: 10),
-                                    HtmlWidget(newMessagesModal.message ?? ''),
+                                    HtmlWidget(addTagToPhoneNumbers(
+                                        newMessagesModal.message ?? '')),
                                     const SizedBox(height: 20),
                                     if (newMessagesModal.reasonId != 4) ...[
                                       const Divider(),
@@ -129,12 +130,26 @@ class MessageDetails extends GetView<MessageDetailsController> {
             ));
   }
 
+  String addTagToPhoneNumbers(String text) {
+    // Define a regular expression to match phone numbers
+    RegExp phoneRegex = RegExp(
+        r'\+?\d{1,4}?[-.\s]?(\(?\d{1,3}?\)?[-.\s]?)?(\d{1,4}[-.\s]?){1,3}\d{1,4}');
+
+    // Replace each phone number with the tagged version
+    String result = text.replaceAllMapped(phoneRegex, (match) {
+      String phoneNumber = match.group(0)!;
+      String cleanNumber = phoneNumber.replaceAll(RegExp(r'[-.\s()]'), '');
+      return "<p><a style='  color: blue;'href=\"tel:$cleanNumber\">$phoneNumber</a></p>";
+    });
+
+    return result;
+  }
+
   Widget userImage() => Visibility(
       visible: newMessagesModal.image == "" ? false : true,
       child: InkWell(
-        onTap: () {
-          Get.to(() => ImageViewer(imageSrc: newMessagesModal.image));
-        },
+        onTap: () =>
+            Get.to(() => ImageViewer(imageSrc: newMessagesModal.image)),
         child: Container(
             height: 200,
             width: Get.width,

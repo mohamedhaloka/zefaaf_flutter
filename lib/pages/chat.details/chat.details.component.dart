@@ -94,7 +94,7 @@ class ChatDetailsComponents {
                 }
               : () {
                   controller.stopRecord();
-                  Timer(const Duration(seconds: 1), () {
+                  Future.delayed(const Duration(seconds: 1), () {
                     controller.alertOpacity(false);
                     controller
                         .sendAudio(

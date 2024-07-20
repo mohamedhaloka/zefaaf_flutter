@@ -255,6 +255,10 @@ class _MoreState extends State<More> {
                                     AppTheme.twitterIconColor, () {
                                   _launchURL('https://twitter.com/zefaaf');
                                 }),
+                                socialButton(FontAwesome.patreon,
+                                    AppTheme.patreonIconColor, () {
+                                  _launchURL('https://patreon.com/zefaaf');
+                                }),
                               ],
                             ),
                             const Text(
