@@ -47,8 +47,7 @@ class MobileNumberRequestsController extends GetxController {
     if (connectivityResult == ConnectivityResult.mobile ||
         connectivityResult == ConnectivityResult.wifi) {
       try {
-        currentPage.value++;
-        if (currentPage.value > 1) {
+        if (currentPage.value > 0) {
           fetch(true);
         } else {
           loading(true);
@@ -65,6 +64,8 @@ class MobileNumberRequestsController extends GetxController {
           if (jsonUser.isEmpty) {
             fetch(false);
             currentPage(currentPage.value - 1);
+          } else {
+            currentPage.value++;
           }
 
           for (var item in jsonUser) {

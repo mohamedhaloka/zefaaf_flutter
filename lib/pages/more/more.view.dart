@@ -243,22 +243,34 @@ class _MoreState extends State<More> {
                           children: [
                             Row(
                               children: [
-                                socialButton(FontAwesome.facebook,
-                                    AppTheme.facebookIconColor, () {
-                                  _launchURL(controller.facebookLink);
-                                }),
-                                socialButton(FontAwesome.instagram,
-                                    AppTheme.instagramIconColor, () {
-                                  _launchURL(controller.instagramLink);
-                                }),
-                                socialButton(FontAwesome.twitter,
-                                    AppTheme.twitterIconColor, () {
-                                  _launchURL('https://twitter.com/zefaaf');
-                                }),
-                                socialButton(FontAwesome.patreon,
-                                    AppTheme.patreonIconColor, () {
-                                  _launchURL('https://patreon.com/zefaaf');
-                                }),
+                                socialButton(
+                                  AppTheme.facebookIconColor,
+                                  () {
+                                    _launchURL(controller.facebookLink);
+                                  },
+                                  icon: FontAwesome.facebook,
+                                ),
+                                socialButton(
+                                  AppTheme.instagramIconColor,
+                                  () {
+                                    _launchURL(controller.instagramLink);
+                                  },
+                                  icon: FontAwesome.instagram,
+                                ),
+                                socialButton(
+                                  AppTheme.twitterIconColor,
+                                  () {
+                                    _launchURL('https://twitter.com/zefaaf');
+                                  },
+                                  icon: FontAwesome.twitter,
+                                ),
+                                socialButton(
+                                  AppTheme.patreonIconColor,
+                                  () {
+                                    _launchURL('https://patreon.com/zefaaf');
+                                  },
+                                  assetName: 'assets/images/patreon_icon.png',
+                                ),
                               ],
                             ),
                             const Text(
@@ -362,7 +374,12 @@ class _MoreState extends State<More> {
     );
   }
 
-  Widget socialButton(IconData icon, Color color, Function() onTap) {
+  Widget socialButton(
+    Color color,
+    Function() onTap, {
+    String? assetName,
+    IconData? icon,
+  }) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
@@ -370,10 +387,15 @@ class _MoreState extends State<More> {
         child: CircleAvatar(
           radius: 20,
           backgroundColor: Colors.white,
-          child: Icon(
-            icon,
-            color: color,
-          ),
+          child: icon == null
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(assetName ?? ''),
+                )
+              : Icon(
+                  icon,
+                  color: color,
+                ),
         ),
       ),
     );

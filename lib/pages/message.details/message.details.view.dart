@@ -139,7 +139,7 @@ class MessageDetails extends GetView<MessageDetailsController> {
     String result = text.replaceAllMapped(phoneRegex, (match) {
       String phoneNumber = match.group(0)!;
       String cleanNumber = phoneNumber.replaceAll(RegExp(r'[-.\s()]'), '');
-      return "<p><a style='  color: blue;'href=\"tel:$cleanNumber\">$phoneNumber</a></p>";
+      return "<p><a style='  color: blue; font-weight: bold; 'href=\"tel:$cleanNumber\">$phoneNumber</a></p>";
     });
 
     return result;
