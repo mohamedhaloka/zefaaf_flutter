@@ -177,7 +177,7 @@ class MarriageDetailsController extends GetxController {
       );
 
       if (json.decode(response.body)['status'] == "success") {
-        showToast('تم التحديث طلبك بنجاح');
+        showToast('تم تحديث طلبك بنجاح');
         Get.back();
         updateRequestLoading(false);
       } else {

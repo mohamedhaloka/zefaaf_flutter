@@ -49,6 +49,7 @@ class PackagesOption extends GetView<PackagesController> {
                 title: controller.packages[index].title ?? ''),
           ),
         ),
+        if(controller.packages.isNotEmpty)
         SmoothPageIndicator(
           controller: pageController,
           count: controller.packages.length,

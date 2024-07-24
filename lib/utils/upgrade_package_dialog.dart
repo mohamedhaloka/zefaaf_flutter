@@ -156,7 +156,7 @@ void hasAlreadyMarriageRequest() => Get.dialog(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "انتبه!",
+              "عفواً!",
               style: Get.theme.textTheme.bodyText1!.copyWith(
                   color: Colors.red, fontWeight: FontWeight.bold, fontSize: 18),
             ),
@@ -172,7 +172,7 @@ void hasAlreadyMarriageRequest() => Get.dialog(
           ],
         ),
         content: const Text(
-          " لمنح فرصة للآخرين نشر طلب واحد شهرياً",
+          " لمنح فرصة للآخرين طلب واحد شهرياً",
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,

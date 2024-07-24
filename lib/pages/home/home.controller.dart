@@ -79,8 +79,20 @@ class HomeController extends GetxController {
     await updateByToken(true);
   }
 
+  void _saveNewsTextInStorage(String? text) {
+    appController.storage.write('news', text ?? '');
+  }
+
+  String _getNewsTextInStorage() {
+    return appController.storage.read('news') ?? '';
+  }
+
   Future<void> _getNews() async {
     try {
+      final newsLocal = _getNewsTextInStorage();
+      if (newsLocal.isNotEmpty) {
+        news.add(NewModel(data: newsLocal));
+      }
       String url = "${Request.urlBase}getNewsTapeData";
       http.Response response = await http.get(Uri.parse(url),
           headers: {'Authorization': 'Bearer ${appController.apiToken.value}'});
@@ -90,7 +102,11 @@ class HomeController extends GetxController {
         news(List.from(responseData['data'])
             .map((e) => NewModel.fromJson(e))
             .toList());
-      } else {}
+
+        if (news.isNotEmpty) {
+          _saveNewsTextInStorage(news.value.first.data);
+        }
+      }
     } catch (_) {}
   }
 

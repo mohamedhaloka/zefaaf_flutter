@@ -33,7 +33,7 @@ class PackagesController extends GetxController {
         agent = AgentModel.fromJson(data['agent']);
 
         if (data["data"] != null) {
-          if ((agent?.name ?? '').isNotEmpty) {
+          if ((agent?.agentPackages ?? []).isNotEmpty) {
             packages.addAll(agent?.agentPackages ?? []);
           } else {
             data["data"].forEach((element) {

@@ -353,10 +353,8 @@ class _NewsTickerState extends State<NewsTicker> {
   }
 
   String htmlToPlainText(String htmlText) {
-    // Parse the HTML text
     dom.Document document = html_parser.parse(htmlText);
 
-    // Extract the plain text from the parsed document
     return document.body?.text ?? '';
   }
 }

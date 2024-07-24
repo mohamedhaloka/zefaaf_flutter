@@ -131,15 +131,27 @@ class MessageDetails extends GetView<MessageDetailsController> {
   }
 
   String addTagToPhoneNumbers(String text) {
-    // Define a regular expression to match phone numbers
     RegExp phoneRegex = RegExp(
-        r'\+?\d{1,4}?[-.\s]?(\(?\d{1,3}?\)?[-.\s]?)?(\d{1,4}[-.\s]?){1,3}\d{1,4}');
+        r'(?<!href="http:\/\/wa\.me\/)\+?\d{1,4}?[-.\s]?(\(?\d{1,3}?\)?[-.\s]?)?(\d{1,4}[-.\s]?){1,3}\d{5,}(?![^<]*<\/a>)');
 
-    // Replace each phone number with the tagged version
-    String result = text.replaceAllMapped(phoneRegex, (match) {
+    RegExp waMeRegex = RegExp(r'href="http:\/\/wa\.me\/\d+"');
+    String tempPlaceholder = 'WA_ME_PLACEHOLDER';
+    List<String> waMeLinks = [];
+
+    String tempText = text.replaceAllMapped(waMeRegex, (match) {
+      waMeLinks.add(match.group(0)!);
+      return tempPlaceholder;
+    });
+
+    String result = tempText.replaceAllMapped(phoneRegex, (match) {
       String phoneNumber = match.group(0)!;
       String cleanNumber = phoneNumber.replaceAll(RegExp(r'[-.\s()]'), '');
-      return "<p><a style='  color: blue; font-weight: bold; 'href=\"tel:$cleanNumber\">$phoneNumber</a></p>";
+      return '<p><a style=\'color: blue; font-weight: bold; \'href=\"tel:$cleanNumber\">$phoneNumber</a></p>';
+    });
+
+    int i = 0;
+    result = result.replaceAllMapped(RegExp(tempPlaceholder), (match) {
+      return waMeLinks[i++];
     });
 
     return result;
