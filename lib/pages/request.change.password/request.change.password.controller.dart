@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:zeffaf/services/http.service.dart';
 
 class RequestChangePasswordController extends GetxController {
@@ -28,17 +29,45 @@ class RequestChangePasswordController extends GetxController {
 
     if (responseDecoded['rowsCount'] == 1) {
       loading(false);
-      Get.toNamed('/sms_verification', arguments: [
-        mobile.value,
-        'change-password',
-        mobilePhone.text,
-      ]);
+      // Get.toNamed('/sms_verification', arguments: [
+      //   mobile.value,
+      //   'change-password',
+      //   mobilePhone.text,
+      // ]);
+      _contactUS();
     } else {
       loading(false);
       Get.snackbar("خطأ", "هذا الرقم غير مُسجل من قبل، يرجى تسجيل حساب",
           backgroundColor: Colors.black54);
     }
   }
+
+  void _contactUS() => Get.dialog(AlertDialog(
+        actionsAlignment: MainAxisAlignment.spaceEvenly,
+        title: Text(
+          "نأسف لمشكلتك",
+          style: Get.theme.textTheme.bodyText1!.copyWith(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        content: const Text('اتصل بالدعم التقني'),
+        actions: [
+          ElevatedButton(
+            onPressed: () => launchUrl(
+              Uri.parse('https://t.me/zefaaf'),
+              mode: LaunchMode.externalApplication,
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Get.theme.primaryColor,
+            ),
+            child: const Text(
+              "اتصل بالدعم التقني",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
+      ));
 
   @override
   void onInit() async {
