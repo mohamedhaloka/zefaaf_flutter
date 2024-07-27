@@ -26,6 +26,7 @@ class HomeState extends State<Home> {
   final controller = Get.find<HomeController>();
   @override
   void initState() {
+    controller.getNews();
     _loadAd();
     controller.updateByToken(false);
     super.initState();
@@ -306,14 +307,16 @@ class _NewsTickerState extends State<NewsTicker> {
         if (_scrollForward) {
           pixels += _scrollSpeed;
           if (pixels >= maxScroll) {
-            pixels = maxScroll;
-            _scrollForward = false;
+            // Reset to start
+            _scrollController.jumpTo(0);
+            pixels = 0;
           }
         } else {
           pixels -= _scrollSpeed;
           if (pixels <= 0) {
-            pixels = 0;
-            _scrollForward = true;
+            // Reset to end
+            _scrollController.jumpTo(maxScroll);
+            pixels = maxScroll;
           }
         }
 
@@ -344,7 +347,7 @@ class _NewsTickerState extends State<NewsTicker> {
         padding: const EdgeInsets.symmetric(horizontal: 6),
         child: Center(
           child: Text(
-            htmlToPlainText(widget.htmlTexts.join(widget.isMan ? '🔸' : '🔹')),
+            '    ${htmlToPlainText(widget.htmlTexts.join(widget.isMan ? '🔸' : '🔹'))}    ',
             style: const TextStyle(fontWeight: FontWeight.w400),
           ),
         ),

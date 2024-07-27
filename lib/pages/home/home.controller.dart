@@ -41,7 +41,6 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    _getNews();
     users = appController.latest;
     appController.changeNotificationOpenDate(DateTime.now().toUtc().toString());
     loginByToken();
@@ -87,10 +86,10 @@ class HomeController extends GetxController {
     return appController.storage.read('news') ?? '';
   }
 
-  Future<void> _getNews() async {
+  Future<void> getNews() async {
     try {
       final newsLocal = _getNewsTextInStorage();
-      if (newsLocal.isNotEmpty) {
+      if (newsLocal.isNotEmpty && news.isEmpty) {
         news.add(NewModel(data: newsLocal));
       }
       String url = "${Request.urlBase}getNewsTapeData";
@@ -107,7 +106,9 @@ class HomeController extends GetxController {
           _saveNewsTextInStorage(news.value.first.data);
         }
       }
-    } catch (_) {}
+    } catch (e) {
+      print('responseData: ' + e.toString());
+    }
   }
 
   Future<String?> getCountryCode() async {
